@@ -1,6 +1,5 @@
 FROM node:lts as build
 
-
 COPY package-lock.json ./
 COPY package.json ./
 

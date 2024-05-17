@@ -1,109 +1,135 @@
 {
-    "AWSTemplateFormatVersion" : "2010-09-09",
-  
-    "Description" : "AI webapp starter by 1280 Labs",
-  
-    "Parameters" : {
-      "AppName" : {
-        "Description" : "Instance Name of the BoosterPack Web Server",
-        "Type" : "String",
-        "MinLength": "1",
-        "MaxLength": "32",
-        "ConstraintDescription" : "Please provide a unique name within 1 to 32 characters long"
-      },
-      "ServerImage" : {
-        "Description" : "Recommended AMI for the BoosterPack Application Server",
-        "Type" : "String",
-        "Default" : "Amazon-Linux-2",
-        "AllowedValues" : [ "Amazon-Linux-2"],
-        "ConstraintDescription" : "Preset configuration cannot be changed"
-      },
-      "AppInstanceType" : {
-        "Description" : "Recommended EC2 Instance Type for the BoosterPack Web Server",
-        "Type" : "String",
-        "Default" : "t4g.nano",
-        "AllowedValues" : [ "t4g.nano"],
-        "ConstraintDescription" : "Preset configuration cannot be changed"
-      },
-      "SecurityGroup": {
-          "Description" : "Select a Security Group in the default VPC",
-          "Type" : "AWS::EC2::SecurityGroup::GroupName",
-          "ConstraintDescription" : " Must use an existing Security Group in the default VPC"
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "AI webapp starter by 1280 Labs",
+  "Parameters": {
+    "AppName": {
+      "Description": "Instance Name of the BoosterPack Web Server",
+      "Type": "String",
+      "MinLength": "1",
+      "MaxLength": "32",
+      "ConstraintDescription": "Please provide a unique name within 1 to 32 characters long"
+    },
+    "ServerImage": {
+      "Description": "Recommended AMI for the BoosterPack Application Server",
+      "Type": "String",
+      "Default": "Amazon-Linux-2023-ARM",
+      "AllowedValues": [
+        "Amazon-Linux-2023-ARM"
+      ],
+      "ConstraintDescription": "Preset configuration cannot be changed"
+    },
+    "AppInstanceType": {
+      "Description": "Recommended EC2 Instance Type for the BoosterPack Web Server",
+      "Type": "String",
+      "Default": "t4g.nano",
+      "AllowedValues": [
+        "t4g.nano"
+      ],
+      "ConstraintDescription": "Preset configuration cannot be changed"
+    },
+    "VpcId": {
+      "Description": "The VPC ID where the security group will be created",
+      "Type": "AWS::EC2::VPC::Id",
+      "MinLength": "1"
+    }
+  },
+  "Mappings": {
+    "OSType2AMI": {
+      "Amazon-Linux-2023-ARM": {
+        "AMIId": "ami-0b0d2abef64746350"
+      }
+    }
+  },
+  "Resources": {
+    "AIStarterSecurityGroup": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "Enable HTTP and SSH access",
+        "VpcId": {
+          "Ref": "VpcId"
+        },
+        "SecurityGroupIngress": [
+          {
+            "IpProtocol": "tcp",
+            "FromPort": 22,
+            "ToPort": 22,
+            "CidrIp": "0.0.0.0/0"
+          },
+          {
+            "IpProtocol": "tcp",
+            "FromPort": 80,
+            "ToPort": 80,
+            "CidrIp": "0.0.0.0/0"
+          }
+        ]
       }
     },
-  
-    "Mappings": {
-      "OSType2AMI": {
-          "Amazon-Linux-2": {
-              "AMIId": "ami-0cbfa6bba4589dcbb"
-          }
-      }
-    },       
-    "Resources" : {
-      "AppServer": {
-        "Type": "AWS::EC2::Instance",
-        "Properties": {
-          "Tags" : [
-              {"Key" : "Name", "Value" : { "Ref" : "AppName" }},
-              {"Key" : "BoosterPack", "Value" : "1280Labs-AI-starter"}
-          ],    
-          "ImageId" : { 
-            "Fn::FindInMap" : [ 
-              "OSType2AMI", 
-              { 
-                "Ref" : "ServerImage" 
-              }, 
-              "AMIId"
-            ]
+    "AppServer": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": {
+              "Ref": "AppName"
+            }
           },
-          "InstanceType"   : { "Ref" : "AppInstanceType" },
-          "SecurityGroups" : [{"Ref" : "SecurityGroup"}],
-          "BlockDeviceMappings": [
+          {
+            "Key": "BoosterPack",
+            "Value": "1280Labs-AI-starter"
+          }
+        ],
+        "ImageId": {
+          "Fn::FindInMap": [
+            "OSType2AMI",
             {
-              "DeviceName": "/dev/xvda",
-              "Ebs": {
-                "VolumeType": "gp3",
-                "VolumeSize": "160"
-              }
+              "Ref": "ServerImage"
+            },
+            "AMIId"
+          ]
+        },
+        "InstanceType": {
+          "Ref": "AppInstanceType"
+        },
+        "SecurityGroupIds": [
+          {
+            "Ref": "AIStarterSecurityGroup"
+          }
+        ],
+        "BlockDeviceMappings": [
+          {
+            "DeviceName": "/dev/xvda",
+            "Ebs": {
+              "VolumeType": "gp3",
+              "VolumeSize": "160"
             }
-          ],
-          "UserData":{
-            "Fn::Base64":{
-              "Fn::Join":[
-                "\n",
-                [ 
-  
-                    "#!/bin/bash",
-
-                    "{",
-
-                    "echo \" echo '********** DAIR BoosterPack is currently being installed... Please wait!!! **********' \" >> \"/etc/profile.d/boosterpack.sh\"",
-
-                    "echo \"=======> 1280Labs AI-starter INSTALLATION IS STARTING <=======\"",
-                    "echo $(date)",
-                
-                    "curl -L -s \"https://raw.githubusercontent.com/anthonyfierrosoftware/ai-starter/main/install.sh\" | bash",
-
-                    "echo \"=======> 1280Labs AI-starter INSTALLATION IS COMPLETE <=======\"",
-                    "echo $(date)",
-                    
-                    "sed -i '1d' \"/etc/profile.d/boosterpack.sh\"",
-                    "echo \" echo '********** DAIR BoosterPack is installed !!! **********' \" >> \"/etc/profile.d/boosterpack.sh\"",
-                    
-                    "} >> /var/log/boosterpack.log 2>&1" 
-
-                  
-                ]
+          }
+        ],
+        "UserData": {
+          "Fn::Base64": {
+            "Fn::Join": [
+              "\n",
+              [
+                "#!/bin/bash",
+                "echo '********** DAIR BoosterPack is currently being installed... Please wait!!! **********'",
+                "curl -L -s 'https://raw.githubusercontent.com/anthonyfierrosoftware/ai-starter/main/install.sh' | bash -x >&1",
+                "echo '********** DAIR BoosterPack is installed !!! **********'"
               ]
-            }
+            ]
           }
         }
       }
-    }, 
-    "Outputs" : {
-      "AppAddress" : {
-        "Value" : { "Fn::GetAtt" : [ "AppServer", "PublicIp" ]},
-        "Description" : "Web Application Server IP "
-      }
+    }
+  },
+  "Outputs": {
+    "AppAddress": {
+      "Value": {
+        "Fn::GetAtt": [
+          "AppServer",
+          "PublicIp"
+        ]
+      },
+      "Description": "Web Application Server IP "
     }
   }
+}
