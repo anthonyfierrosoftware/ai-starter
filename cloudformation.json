@@ -31,6 +31,42 @@
       "Description": "The VPC ID where the security group will be created",
       "Type": "AWS::EC2::VPC::Id",
       "MinLength": "1"
+    },
+    "OpenAI": {
+      "Description": "API Key for OpenAI (optional)",
+      "Type": "String"
+    },
+    "Claude": {
+      "Description": "API Key for Claude (optional)",
+      "Type": "String"
+    },
+    "Mistral": {
+      "Description": "API Key for Mistral (optional)",
+      "Type": "String"
+    },
+    "Huggingface": {
+      "Description": "API Key for HuggingFace (optional)",
+      "Type": "String"
+    },
+    "Revcat": {
+      "Description": "Webhook secret for RevenueCat (optional)",
+      "Type": "String"
+    },
+    "EmailHost": {
+      "Description": "Host for email service (optional)",
+      "Type": "String"
+    },
+    "EmailHostPassword": {
+      "Description": "Password for email service (optional)",
+      "Type": "String"
+    },
+    "GoogleClientId": {
+      "Description": "Client ID for Google (optional)",
+      "Type": "String"
+    },
+    "GoogleClientSecret": {
+      "Description": "Client secret for Google (optional)",
+      "Type": "String"
     }
   },
   "Mappings": {
@@ -59,6 +95,12 @@
             "IpProtocol": "tcp",
             "FromPort": 80,
             "ToPort": 80,
+            "CidrIp": "0.0.0.0/0"
+          },
+          {
+            "IpProtocol": "tcp",
+            "FromPort": 8000,
+            "ToPort": 8000,
             "CidrIp": "0.0.0.0/0"
           }
         ]
@@ -112,6 +154,15 @@
               [
                 "#!/bin/bash",
                 "echo '********** DAIR BoosterPack is currently being installed... Please wait!!! **********'",
+                {"Fn::Sub" : "export OPENAI_API_KEY=${OpenAI}"},
+                {"Fn::Sub" : "export CLAUDE_API_KEY=${Claude}"},
+                {"Fn::Sub" : "export MISTRAL_API_KEY=${Mistral}"},
+                {"Fn::Sub" : "export HUGGINGFACE_API_KEY=${Huggingface}"},
+                {"Fn::Sub" : "export REVCAT_WEBHOOK_SECRET=${Revcat}"},
+                {"Fn::Sub" : "export EMAIL_HOST=${EmailHost}"},
+                {"Fn::Sub" : "export EMAIL_HOST_PASSWORD=${EmailHostPassword}"},
+                {"Fn::Sub" : "export GOOGLE_CLIENT_ID=${GoogleClientId}"},
+                {"Fn::Sub" : "export GOOGLE_CLIENT_SECRET=${GoogleClientSecret}"},
                 "curl -L -s 'https://raw.githubusercontent.com/anthonyfierrosoftware/ai-starter/main/install.sh' | bash -x >&1",
                 "echo '********** DAIR BoosterPack is installed !!! **********'"
               ]
