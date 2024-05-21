@@ -21,7 +21,12 @@ As such this project is deployable by visiting the following link: https://conso
 
 ### Troubleshooting
 
-To debug the deployment first navigate to the EC2 instance in the AWS dashboard and connect with "EC2 Instance Connect". To view logs from the deployment use:
+To debug the installation, first navigate to the EC2 instance in the AWS dashboard and connect with "EC2 Instance Connect". Then run:
 ```
 tail -f /var/log/cloud-init-output.log
+```
+
+To view logs from the backend Django application:
+```
+sudo docker logs -f $(sudo docker ps -qf ancestor=ai-starter-ai-backend-starter)
 ```
