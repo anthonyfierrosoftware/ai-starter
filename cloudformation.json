@@ -48,24 +48,12 @@
       "Description": "API Key for HuggingFace (optional)",
       "Type": "String"
     },
-    "Revcat": {
-      "Description": "Webhook secret for RevenueCat (optional)",
-      "Type": "String"
-    },
     "EmailHost": {
       "Description": "Host for email service (optional)",
       "Type": "String"
     },
     "EmailHostPassword": {
       "Description": "Password for email service (optional)",
-      "Type": "String"
-    },
-    "GoogleClientId": {
-      "Description": "Client ID for Google (optional)",
-      "Type": "String"
-    },
-    "GoogleClientSecret": {
-      "Description": "Client secret for Google (optional)",
       "Type": "String"
     }
   },
@@ -158,11 +146,8 @@
                 {"Fn::Sub" : "export CLAUDE_API_KEY=${Claude}"},
                 {"Fn::Sub" : "export MISTRAL_API_KEY=${Mistral}"},
                 {"Fn::Sub" : "export HUGGINGFACE_API_KEY=${Huggingface}"},
-                {"Fn::Sub" : "export REVCAT_WEBHOOK_SECRET=${Revcat}"},
                 {"Fn::Sub" : "export EMAIL_HOST=${EmailHost}"},
                 {"Fn::Sub" : "export EMAIL_HOST_PASSWORD=${EmailHostPassword}"},
-                {"Fn::Sub" : "export GOOGLE_CLIENT_ID=${GoogleClientId}"},
-                {"Fn::Sub" : "export GOOGLE_CLIENT_SECRET=${GoogleClientSecret}"},
                 "curl -L -s 'https://raw.githubusercontent.com/anthonyfierrosoftware/ai-starter/main/install.sh' | bash -x >&1",
                 "echo '********** DAIR BoosterPack is installed !!! **********'"
               ]
