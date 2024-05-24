@@ -34,27 +34,33 @@
     },
     "OpenAI": {
       "Description": "API Key for OpenAI (optional)",
-      "Type": "String"
+      "Type": "String",
+      "Default": ""
     },
     "Claude": {
       "Description": "API Key for Claude (optional)",
-      "Type": "String"
+      "Type": "String",
+      "Default": ""
     },
     "Mistral": {
       "Description": "API Key for Mistral (optional)",
-      "Type": "String"
+      "Type": "String",
+      "Default": ""
     },
     "Huggingface": {
       "Description": "API Key for HuggingFace (optional)",
-      "Type": "String"
+      "Type": "String",
+      "Default": ""
     },
     "EmailHost": {
       "Description": "Host for email service (optional)",
-      "Type": "String"
+      "Type": "String",
+      "Default": ""
     },
     "EmailHostPassword": {
       "Description": "Password for email service (optional)",
-      "Type": "String"
+      "Type": "String",
+      "Default": ""
     }
   },
   "Mappings": {
