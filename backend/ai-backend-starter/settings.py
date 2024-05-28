@@ -188,16 +188,18 @@ REST_FRAMEWORK = {
 }
 
 # email stuff
+DEFAULT_EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_BACKEND = os.getenv("EMAIL_BACKEND", DEFAULT_EMAIL_BACKEND)
+if EMAIL_BACKEND == DEFAULT_EMAIL_BACKEND:
+    EMAIL_HOST = "smtp.gmail.com"
+    EMAIL_HOST_USER = os.getenv("EMAIL_HOST", "False")
+    EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "False")
+    EMAIL_PORT = 587
+    EMAIL_USE_TLS = True
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", "no-reply@backend.com")
 
-EMAIL_HOST = "smtp.gmail.com"
-EMAIL_HOST_USER = os.getenv("EMAIL_HOST", "False")
-EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "False")
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = "no-reply@backend.com"
-
-
+AWS_SES_REGION_NAME = 'ca-central-1'
+AWS_SES_REGION_ENDPOINT = 'email.ca-central-1.amazonaws.com'
 
 GOOGLE_CLIENT_ID=os.getenv("GOOGLE_CLIENT_ID", False)

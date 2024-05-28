@@ -52,13 +52,8 @@
       "Type": "String",
       "Default": ""
     },
-    "EmailHost": {
-      "Description": "Host for email service (optional)",
-      "Type": "String",
-      "Default": ""
-    },
-    "EmailHostPassword": {
-      "Description": "Password for email service (optional)",
+    "NoReplySenderAddress": {
+      "Description": "Email sender for noreply emails such as login and password reset e.g. noreply@<your-domain>.ca (address must verified with Amazon SES to send emails successfully)",
       "Type": "String",
       "Default": ""
     }
@@ -132,6 +127,9 @@
             "Ref": "AIStarterSecurityGroup"
           }
         ],
+        "IamInstanceProfile": {
+          "Ref": "MyIAMInstanceProfile"
+        },
         "BlockDeviceMappings": [
           {
             "DeviceName": "/dev/xvda",
@@ -152,13 +150,68 @@
                 {"Fn::Sub" : "export CLAUDE_API_KEY=${Claude}"},
                 {"Fn::Sub" : "export MISTRAL_API_KEY=${Mistral}"},
                 {"Fn::Sub" : "export HUGGINGFACE_API_KEY=${Huggingface}"},
-                {"Fn::Sub" : "export EMAIL_HOST=${EmailHost}"},
-                {"Fn::Sub" : "export EMAIL_HOST_PASSWORD=${EmailHostPassword}"},
+                {"Fn::Sub" : "export EMAIL_BACKEND=django_ses.SESBackend"},
+                {"Fn::Sub" : "export DEFAULT_FROM_EMAIL=${NoReplySenderAddress}"},
+                {"Fn::Sub" : "aws ses verify-email-identity --email-address ${NoReplySenderAddress}"},
                 "curl -L -s 'https://raw.githubusercontent.com/anthonyfierrosoftware/ai-starter/main/install.sh' | bash -x >&1",
                 "echo '********** DAIR BoosterPack is installed !!! **********'"
               ]
             ]
           }
+        }
+      }
+    },
+    "MyIAMRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "ec2.amazonaws.com"
+              },
+              "Action": "sts:AssumeRole"
+            }
+          ]
+        },
+        "Policies": [
+          {
+            "PolicyName": "AllowSESSendEmail",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "ses:SendEmail",
+                    "ses:GetSendQuota",
+                    "ses:SendRawEmail"
+                  ],
+                  "Resource": "*"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "MyIAMInstanceProfile": {
+      "Type": "AWS::IAM::InstanceProfile",
+      "Properties": {
+        "Roles": [
+          {
+            "Ref": "MyIAMRole"
+          }
+        ]
+      }
+    },
+    "MySESIdentity": {
+      "Type": "AWS::SES::EmailIdentity",
+      "Properties": {
+        "EmailIdentity": {
+          "Ref": "NoReplySenderAddress"
         }
       }
     }
@@ -171,7 +224,13 @@
           "PublicIp"
         ]
       },
-      "Description": "Web Application Server IP "
+      "Description": "Web Application Server IP"
+    },
+    "SESIdentity": {
+      "Description": "SES Identity for sending emails",
+      "Value": {
+        "Ref": "MySESIdentity"
+      }
     }
   }
 }

@@ -28,7 +28,8 @@ jobs:
           --template-file cloudformation.json \
           --stack-name ai-starter-main-$(date +%s) \
           --parameter-overrides AppName=ai-starter-main VpcId=$VPC_ID	\
-          --no-fail-on-empty-changeset
+          --no-fail-on-empty-changeset \
+          --capabilities CAPABILITY_NAMED_IAM
 
     - name: ⏱️ Wait for installation ...
       id: wait

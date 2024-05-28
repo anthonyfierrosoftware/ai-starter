@@ -83,5 +83,4 @@ class SignUpAPIView(APIView):
                 user.delete()
                 
             return generate_response(status=500, data=str(e)+".", custom_message="Could not register user")
-        
-        
+
