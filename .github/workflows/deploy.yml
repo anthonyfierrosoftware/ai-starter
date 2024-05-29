@@ -21,19 +21,12 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ca-central-1
 
-    - name: Get VPC
-      run: |
-        VPC_ID=$(aws ec2 describe-vpcs --query "Vpcs[0].VpcId" --output text)
-        echo "VPC_ID=$VPC_ID" >> $GITHUB_OUTPUT
-
     - name: Deploy to AWS CloudFormation
       uses: aws-actions/aws-cloudformation-github-deploy@v1
-      env:
-        VPC_ID: ${{ steps.wait.outputs.VPC_ID }}
       with:
         name: ai-starter-main
         template: cloudformation.json
-        parameter-overrides: "AppName=ai-starter-main,VpcId=$VPC_ID,NoReplySenderAddress=noreply@1280labs.ca"
+        parameter-overrides: "AppName=ai-starter-main,NoReplySenderAddress=noreply@1280labs.ca"
 
     - name: ⏱️ Wait for installation ...
       id: wait
