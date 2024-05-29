@@ -87,17 +87,6 @@
         ]
       }
     },
-    "DBSecurityGroup": {
-      "Type": "AWS::RDS::DBSecurityGroup",
-      "Properties": {
-         "DBSecurityGroupIngress": {
-            "EC2SecurityGroupName": {
-               "Fn::GetAtt": ["AIStarterSecurityGroup", "GroupName"]
-            }
-         },
-         "GroupDescription" : "Webapp Access"
-      }
-   },   
     "AppServer": {
       "Type": "AWS::EC2::Instance",
       "Properties": {
@@ -229,7 +218,6 @@
         "MasterUsername": "root",
         "MasterUserPassword": "changeMe!",
         "DBName": "ai-starter",
-        "DBSecurityGroups"  : [ { "Ref" : "DBSecurityGroup" } ],
       }
     }
   },
