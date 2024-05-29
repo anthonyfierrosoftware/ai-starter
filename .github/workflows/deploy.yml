@@ -21,15 +21,19 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ca-central-1
 
-    - name: Deploy CloudFormation stack
+    - name: Get VPC
       run: |
         VPC_ID=$(aws ec2 describe-vpcs --query "Vpcs[0].VpcId" --output text)
-        aws cloudformation deploy \
-          --template-file cloudformation.json \
-          --stack-name ai-starter-main-$(date +%s) \
-          --parameter-overrides AppName=ai-starter-main VpcId=$VPC_ID	\
-          --no-fail-on-empty-changeset \
-          --capabilities CAPABILITY_NAMED_IAM
+        echo "VPC_ID=$VPC_ID" >> $GITHUB_OUTPUT
+
+    - name: Deploy to AWS CloudFormation
+      uses: aws-actions/aws-cloudformation-github-deploy@v1
+      env:
+        VPC_ID: ${{ steps.wait.outputs.VPC_ID }}
+      with:
+        name: ai-starter-main
+        template: cloudformation.json
+        parameter-overrides: "AppName=ai-starter-main,VpcId=$VPC_ID,NoReplySenderAddress=noreply@1280labs.ca"
 
     - name: ⏱️ Wait for installation ...
       id: wait
@@ -40,20 +44,7 @@ jobs:
         echo "Waiting on HTTP 200 response from $PUBLIC_IP..."
         while [[ $(curl -s -o /dev/null -w "%{http_code}" "$PUBLIC_IP") != "200" ]]; do sleep 5; done
 
-        echo "NEWEST_INSTANCE_ID=$NEWEST_INSTANCE_ID" >> $GITHUB_OUTPUT
         echo "PUBLIC_IP=$PUBLIC_IP" >> $GITHUB_OUTPUT
-
-    - name: Terminate older EC2 instances
-      env:
-        NEWEST_INSTANCE_ID: ${{ steps.wait.outputs.NEWEST_INSTANCE_ID }}
-      run: |
-        # Get the instance IDs of running instances
-        INSTANCE_IDS=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=ai-starter-main" "Name=instance-state-name,Values=running" --query "Reservations[*].Instances[*].InstanceId" --output text)
-        for INSTANCE_ID in $INSTANCE_IDS; do
-          if [ "$INSTANCE_ID" != "$NEWEST_INSTANCE_ID" ]; then
-            aws ec2 terminate-instances --instance-ids $INSTANCE_ID
-          fi
-        done
 
     - name: ✅ Done!
       env:
