@@ -17,6 +17,8 @@ sudo chmod +x /usr/local/bin/docker-compose
 rm -r -f ~/ai-starter
 git clone https://github.com/anthonyfierrosoftware/ai-starter ~/ai-starter
 cd ~/ai-starter
+rm docker-compose.local.yml docker-compose.yml 
+mv docker-compose.prod.yml docker-compose.yml 
 
 echo "Enable Docker Service"
 systemctl enable docker.service
@@ -28,4 +30,4 @@ echo "Launching Docker Project"
 sudo -E PUBLIC_IP=`curl http://checkip.amazonaws.com` docker-compose up -d --wait
 
 echo "Running database migrations"
-./migrate.sh
+docker-compose run ai-backend-starter python manage.py migrate

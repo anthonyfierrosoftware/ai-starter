@@ -146,6 +146,7 @@
               [
                 "#!/bin/bash",
                 "echo '********** DAIR BoosterPack is currently being installed... Please wait!!! **********'",
+                {"Fn::Sub" : "export DATABASE_URL=postgres://${DBInstance.MasterUsername}:${DBInstance.MasterUserPassword}@${DBInstance.Endpoint.Address}:5432/ai-starter"},
                 {"Fn::Sub" : "export OPENAI_API_KEY=${OpenAI}"},
                 {"Fn::Sub" : "export CLAUDE_API_KEY=${Claude}"},
                 {"Fn::Sub" : "export MISTRAL_API_KEY=${Mistral}"},
@@ -213,6 +214,26 @@
         "EmailIdentity": {
           "Ref": "NoReplySenderAddress"
         }
+      }
+    },
+    "DBInstance": {
+      "Type": "AWS::RDS::DBInstance",
+      "Properties": {
+        "DBInstanceIdentifier": "dbinstance",
+        "AllocatedStorage": "5",
+        "DBInstanceClass": "db.t2.micro",
+        "Engine": "PostgreSQL",
+        "MasterUsername": "root",
+        "MasterUserPassword": "changeMe!",
+        "DBName": "ai-starter",
+        "VPCSecurityGroups": [
+          {
+            "Ref": "AIStarterSecurityGroup"
+          }
+        ],
+        "DBSubnetGroupName": "dbsubnetgroup",
+        "MultiAZ": false,
+        "BackupRetentionPeriod": 7
       }
     }
   },

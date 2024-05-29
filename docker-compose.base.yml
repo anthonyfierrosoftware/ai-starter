@@ -3,24 +3,17 @@ services:
   ai-web-starter:
     build:
       context: web
-      args:
-        - REACT_APP_API_URL=http://${PUBLIC_IP:-localhost}:8000
-    ports:
-      - "80:80"
     depends_on:
       - ai-backend-starter
 
   ai-backend-starter:
     build:
       context: backend
-    depends_on:
-      - db
     ports:
       - "8000:8000"
     environment:
       ALLOWED_HOSTS: '*,'
       CORS_ALLOW_ALL_ORIGINS: "True"
-      DATABASE_URL: "postgres://root:changeMe!@db:5432/ai-starter"
       OPENAI_API_KEY: ${OPENAI_API_KEY}
       CLAUDE_API_KEY: ${CLAUDE_API_KEY}
       MISTRAL_API_KEY: ${MISTRAL_API_KEY}
@@ -29,21 +22,3 @@ services:
       DEFAULT_FROM_EMAIL: ${DEFAULT_FROM_EMAIL}
       EMAIL_HOST: ${EMAIL_HOST}
       EMAIL_HOST_PASSWORD: ${EMAIL_HOST_PASSWORD}
-
-  db:
-    image: postgres:14.12
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    environment:
-      POSTGRES_DB: ai-starter
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: changeMe!
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U root -d ai-starter"]
-      interval: 2s
-      timeout: 5s
-      retries: 10
-      start_period: 2s
-
-volumes:
-  postgres_data:
