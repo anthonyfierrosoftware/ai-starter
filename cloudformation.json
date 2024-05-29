@@ -217,7 +217,7 @@
         "Engine": "postgres",
         "MasterUsername": "root",
         "MasterUserPassword": "changeMe!",
-        "DBName": "ai-starter"
+        "DBName": "AiStarter"
       }
     }
   },
