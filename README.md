@@ -6,11 +6,6 @@ To get this project running with docker:
 docker-compose up
 ```
 
-Then run database migrations:
-```
-docker-compose -f docker-compose.local.yml run ai-backend-starter python manage.py migrate
-```
-
 The web app will then be accessible at http://localhost:3000/.
 
 ## Deploying with Cloudformation

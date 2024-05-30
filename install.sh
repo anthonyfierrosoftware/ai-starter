@@ -27,7 +27,7 @@ echo "Starting Docker Service"
 systemctl start docker.service
 
 echo "Launching Docker Project"
-sudo -E PUBLIC_IP=`curl http://checkip.amazonaws.com` docker-compose up -d --wait
+sudo -E PUBLIC_PORT=80 PUBLIC_IP=`curl http://checkip.amazonaws.com` docker-compose up -d --wait
 
 echo "Running database migrations"
 docker-compose run ai-backend-starter python manage.py migrate

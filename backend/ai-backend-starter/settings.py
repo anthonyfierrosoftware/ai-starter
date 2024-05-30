@@ -104,7 +104,7 @@ WSGI_APPLICATION = 'ai-backend-starter.wsgi.application'
 
 
 SQLLITE = os.getenv("SQLLITE", "False") == "True"
-
+print(os.getenv("SQLLITE", "False"))
 if SQLLITE is True:
     if os.getenv("DATABASE_URL", None) is not None:
         raise Exception("Unexpected DATABASE_URL environment variable while running sqlite db")
@@ -189,7 +189,7 @@ REST_FRAMEWORK = {
 
 # email stuff
 DEFAULT_EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_BACKEND = os.getenv("EMAIL_BACKEND", DEFAULT_EMAIL_BACKEND)
+EMAIL_BACKEND = os.getenv("EMAIL_BACKEND") or DEFAULT_EMAIL_BACKEND
 if EMAIL_BACKEND == DEFAULT_EMAIL_BACKEND:
     EMAIL_HOST = "smtp.gmail.com"
     EMAIL_HOST_USER = os.getenv("EMAIL_HOST", "False")

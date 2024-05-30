@@ -10,4 +10,4 @@ COPY . .
 
 EXPOSE 8000
 
-CMD ["gunicorn", "-b", ":8000", "ai-backend-starter.wsgi:application"]
+CMD ["./docker-entrypoint.sh"]
