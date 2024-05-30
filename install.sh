@@ -17,8 +17,6 @@ sudo chmod +x /usr/local/bin/docker-compose
 rm -r -f ~/ai-starter
 git clone https://github.com/anthonyfierrosoftware/ai-starter ~/ai-starter
 cd ~/ai-starter
-rm docker-compose.local.yml docker-compose.yml 
-mv docker-compose.prod.yml docker-compose.yml 
 
 echo "Enable Docker Service"
 systemctl enable docker.service
