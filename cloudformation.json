@@ -51,7 +51,7 @@
     "NoReplySenderAddress": {
       "Description": "Email sender for noreply emails such as login and password reset e.g. noreply@<your-domain>.ca (address must verified with Amazon SES to send emails successfully)",
       "Type": "String",
-      "Default": ""
+      "Default": "noreply@example.com"
     }
   },
   "Mappings": {
