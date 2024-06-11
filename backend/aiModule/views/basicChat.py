@@ -357,19 +357,3 @@ class ChatComplete(APIView):
         except Exception as e:
             print(f"error generating chat completion:{e}")
             return generate_response(status=500, data=str(e) + ".", custom_message=None)
-
-            # create new message object linked to a conversation
-
-            # # configure
-            # # send_text_chat(self, message='', system_instructions="You are a helpful assistant", model_id = None, reset=False, results_num=1,  temp=1, top_p = 1)
-            # system_instructions= None
-            # # can set a sepcific model ID
-            # model_id = None
-            # #resets conversation history
-            # reset = False
-            # # the number of results you would like returned defaults to 1, also refered to as n
-            # results_num=1
-            # # the temperature for results affects randomness higher is more random default 1, must be between 0 and 2
-            # temp=1
-            # # similar to temperature affects randomness higher is more random default 1
-            # top_p = 1
