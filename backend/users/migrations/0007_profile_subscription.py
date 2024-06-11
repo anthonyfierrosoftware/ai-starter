@@ -7,13 +7,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('users', '0006_alter_profile_emailverificationcode'),
+        ("users", "0006_alter_profile_emailverificationcode"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='profile',
-            name='subscription',
-            field=models.DateTimeField(blank=True, default=django.utils.timezone.now, null=True),
+            model_name="profile",
+            name="subscription",
+            field=models.DateTimeField(
+                blank=True, default=django.utils.timezone.now, null=True
+            ),
         ),
     ]

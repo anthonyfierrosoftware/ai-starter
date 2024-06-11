@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aiModule', '0028_remove_course_initialized'),
+        ("aiModule", "0028_remove_course_initialized"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='course',
-            name='subject',
+            model_name="course",
+            name="subject",
             field=models.CharField(blank=True, max_length=256, null=True),
         ),
     ]

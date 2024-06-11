@@ -7,17 +7,24 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aiModule', '0010_remove_llmconfiguration_owner'),
+        ("aiModule", "0010_remove_llmconfiguration_owner"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='conversation',
-            name='gptConfig',
+            model_name="conversation",
+            name="gptConfig",
         ),
         migrations.AlterField(
-            model_name='conversation',
-            name='llmConfig',
-            field=models.ForeignKey(blank=True, default=None, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='conversation', to='aiModule.llmconfiguration'),
+            model_name="conversation",
+            name="llmConfig",
+            field=models.ForeignKey(
+                blank=True,
+                default=None,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="conversation",
+                to="aiModule.llmconfiguration",
+            ),
         ),
     ]

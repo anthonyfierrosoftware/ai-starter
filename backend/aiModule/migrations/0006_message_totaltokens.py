@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aiModule', '0005_remove_message_chathistory_conversation_chathistory'),
+        ("aiModule", "0005_remove_message_chathistory_conversation_chathistory"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='message',
-            name='totalTokens',
+            model_name="message",
+            name="totalTokens",
             field=models.IntegerField(blank=True, default=0, null=True),
         ),
     ]

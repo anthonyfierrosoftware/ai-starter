@@ -7,19 +7,33 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aiModule', '0014_course_courseenrollment_lesson'),
-        ('users', '0006_alter_profile_emailverificationcode'),
+        ("aiModule", "0014_course_courseenrollment_lesson"),
+        ("users", "0006_alter_profile_emailverificationcode"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='courseenrollment',
-            name='student',
-            field=models.ForeignKey(blank=True, default=None, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='enrollment', to='users.profile'),
+            model_name="courseenrollment",
+            name="student",
+            field=models.ForeignKey(
+                blank=True,
+                default=None,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="enrollment",
+                to="users.profile",
+            ),
         ),
         migrations.AlterField(
-            model_name='course',
-            name='createdBy',
-            field=models.ForeignKey(blank=True, default=None, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='createdCourses', to='users.profile'),
+            model_name="course",
+            name="createdBy",
+            field=models.ForeignKey(
+                blank=True,
+                default=None,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="createdCourses",
+                to="users.profile",
+            ),
         ),
     ]

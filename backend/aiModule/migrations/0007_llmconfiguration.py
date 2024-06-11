@@ -9,28 +9,61 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aiModule', '0006_message_totaltokens'),
-        ('contenttypes', '0002_remove_content_type_name'),
+        ("aiModule", "0006_message_totaltokens"),
+        ("contenttypes", "0002_remove_content_type_name"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='LLMConfiguration',
+            name="LLMConfiguration",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('apiKey', models.TextField(blank=True, null=True)),
-                ('llm', models.CharField(blank=True, max_length=24, null=True)),
-                ('chat_model', models.TextField(blank=True, null=True)),
-                ('dateCreated', models.DateTimeField(default=django.utils.timezone.now)),
-                ('lastUpdated', models.DateTimeField(default=django.utils.timezone.now)),
-                ('systemInstructions', models.TextField(blank=True, null=True)),
-                ('owner', models.ForeignKey(blank=True, default=None, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='LLM_configurations', to=settings.AUTH_USER_MODEL)),
-                ('polymorphic_ctype', models.ForeignKey(editable=False, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='polymorphic_%(app_label)s.%(class)s_set+', to='contenttypes.contenttype')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("apiKey", models.TextField(blank=True, null=True)),
+                ("llm", models.CharField(blank=True, max_length=24, null=True)),
+                ("chat_model", models.TextField(blank=True, null=True)),
+                (
+                    "dateCreated",
+                    models.DateTimeField(default=django.utils.timezone.now),
+                ),
+                (
+                    "lastUpdated",
+                    models.DateTimeField(default=django.utils.timezone.now),
+                ),
+                ("systemInstructions", models.TextField(blank=True, null=True)),
+                (
+                    "owner",
+                    models.ForeignKey(
+                        blank=True,
+                        default=None,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="LLM_configurations",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    "polymorphic_ctype",
+                    models.ForeignKey(
+                        editable=False,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="polymorphic_%(app_label)s.%(class)s_set+",
+                        to="contenttypes.contenttype",
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
-                'base_manager_name': 'objects',
+                "abstract": False,
+                "base_manager_name": "objects",
             },
         ),
     ]

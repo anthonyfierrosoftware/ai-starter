@@ -7,74 +7,88 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aiModule', '0021_course_datecreated'),
-        ('users', '0006_alter_profile_emailverificationcode'),
+        ("aiModule", "0021_course_datecreated"),
+        ("users", "0006_alter_profile_emailverificationcode"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='course',
-            name='courseOffering',
+            model_name="course",
+            name="courseOffering",
         ),
         migrations.RemoveField(
-            model_name='course',
-            name='lessonCount',
+            model_name="course",
+            name="lessonCount",
         ),
         migrations.RemoveField(
-            model_name='course',
-            name='minuteCount',
+            model_name="course",
+            name="minuteCount",
         ),
         migrations.AddField(
-            model_name='course',
-            name='categoryId',
+            model_name="course",
+            name="categoryId",
             field=models.CharField(blank=True, max_length=256, null=True),
         ),
         migrations.AddField(
-            model_name='course',
-            name='code',
+            model_name="course",
+            name="code",
             field=models.CharField(blank=True, max_length=256, null=True),
         ),
         migrations.AddField(
-            model_name='course',
-            name='description',
+            model_name="course",
+            name="description",
             field=models.TextField(blank=True, max_length=512, null=True),
         ),
         migrations.AddField(
-            model_name='course',
-            name='imageURL',
+            model_name="course",
+            name="imageURL",
             field=models.CharField(blank=True, max_length=256, null=True),
         ),
         migrations.AddField(
-            model_name='course',
-            name='initialized',
+            model_name="course",
+            name="initialized",
             field=models.BooleanField(blank=True, default=False, null=True),
         ),
         migrations.AddField(
-            model_name='course',
-            name='level',
+            model_name="course",
+            name="level",
             field=models.IntegerField(blank=True, default=0, null=True),
         ),
         migrations.AddField(
-            model_name='course',
-            name='name',
+            model_name="course",
+            name="name",
             field=models.CharField(blank=True, max_length=256, null=True),
         ),
         migrations.AddField(
-            model_name='lesson',
-            name='estimatedMinutes',
+            model_name="lesson",
+            name="estimatedMinutes",
             field=models.IntegerField(blank=True, default=0, null=True),
         ),
         migrations.AlterField(
-            model_name='courseenrollment',
-            name='course',
-            field=models.ForeignKey(blank=True, default=None, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='enrollments', to='aiModule.course'),
+            model_name="courseenrollment",
+            name="course",
+            field=models.ForeignKey(
+                blank=True,
+                default=None,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="enrollments",
+                to="aiModule.course",
+            ),
         ),
         migrations.AlterField(
-            model_name='courseenrollment',
-            name='student',
-            field=models.ForeignKey(blank=True, default=None, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='enrollments', to='users.profile'),
+            model_name="courseenrollment",
+            name="student",
+            field=models.ForeignKey(
+                blank=True,
+                default=None,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="enrollments",
+                to="users.profile",
+            ),
         ),
         migrations.DeleteModel(
-            name='CourseOffering',
+            name="CourseOffering",
         ),
     ]

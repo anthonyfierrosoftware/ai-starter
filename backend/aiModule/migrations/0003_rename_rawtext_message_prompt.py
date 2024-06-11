@@ -6,13 +6,13 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aiModule', '0002_message'),
+        ("aiModule", "0002_message"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='message',
-            old_name='rawText',
-            new_name='prompt',
+            model_name="message",
+            old_name="rawText",
+            new_name="prompt",
         ),
     ]

@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('users', '0004_profile_metadata'),
+        ("users", "0004_profile_metadata"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='profile',
-            name='changeTempPassword',
+            model_name="profile",
+            name="changeTempPassword",
             field=models.BooleanField(blank=True, default=False, null=True),
         ),
     ]

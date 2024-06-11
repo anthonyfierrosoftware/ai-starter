@@ -6,43 +6,43 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aiModule', '0011_remove_conversation_gptconfig_and_more'),
+        ("aiModule", "0011_remove_conversation_gptconfig_and_more"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='conversation',
-            old_name='tokens',
-            new_name='total_tokens',
+            model_name="conversation",
+            old_name="tokens",
+            new_name="total_tokens",
         ),
         migrations.AddField(
-            model_name='conversation',
-            name='claude_tokens',
+            model_name="conversation",
+            name="claude_tokens",
             field=models.IntegerField(blank=True, default=0, null=True),
         ),
         migrations.AddField(
-            model_name='conversation',
-            name='gpt3_tokens',
+            model_name="conversation",
+            name="gpt3_tokens",
             field=models.IntegerField(blank=True, default=0, null=True),
         ),
         migrations.AddField(
-            model_name='conversation',
-            name='gpt4_tokens',
+            model_name="conversation",
+            name="gpt4_tokens",
             field=models.IntegerField(blank=True, default=0, null=True),
         ),
         migrations.AddField(
-            model_name='conversation',
-            name='mistral_tokens',
+            model_name="conversation",
+            name="mistral_tokens",
             field=models.IntegerField(blank=True, default=0, null=True),
         ),
         migrations.AddField(
-            model_name='message',
-            name='chat_model',
+            model_name="message",
+            name="chat_model",
             field=models.TextField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='message',
-            name='llm',
+            model_name="message",
+            name="llm",
             field=models.CharField(blank=True, max_length=24, null=True),
         ),
     ]

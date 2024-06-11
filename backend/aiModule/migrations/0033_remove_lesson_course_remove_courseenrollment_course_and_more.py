@@ -6,49 +6,49 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aiModule', '0032_rename_indexerror_lesson_index'),
+        ("aiModule", "0032_rename_indexerror_lesson_index"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='lesson',
-            name='course',
+            model_name="lesson",
+            name="course",
         ),
         migrations.RemoveField(
-            model_name='courseenrollment',
-            name='course',
+            model_name="courseenrollment",
+            name="course",
         ),
         migrations.RemoveField(
-            model_name='courseenrollment',
-            name='polymorphic_ctype',
+            model_name="courseenrollment",
+            name="polymorphic_ctype",
         ),
         migrations.RemoveField(
-            model_name='courseenrollment',
-            name='student',
+            model_name="courseenrollment",
+            name="student",
         ),
         migrations.RemoveField(
-            model_name='lesson',
-            name='polymorphic_ctype',
+            model_name="lesson",
+            name="polymorphic_ctype",
         ),
         migrations.RemoveField(
-            model_name='conversation',
-            name='course_creation_tokens',
+            model_name="conversation",
+            name="course_creation_tokens",
         ),
         migrations.RemoveField(
-            model_name='message',
-            name='functionData',
+            model_name="message",
+            name="functionData",
         ),
         migrations.RemoveField(
-            model_name='message',
-            name='functionType',
+            model_name="message",
+            name="functionType",
         ),
         migrations.DeleteModel(
-            name='Course',
+            name="Course",
         ),
         migrations.DeleteModel(
-            name='CourseEnrollment',
+            name="CourseEnrollment",
         ),
         migrations.DeleteModel(
-            name='Lesson',
+            name="Lesson",
         ),
     ]

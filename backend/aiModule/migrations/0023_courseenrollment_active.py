@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aiModule', '0022_remove_course_courseoffering_and_more'),
+        ("aiModule", "0022_remove_course_courseoffering_and_more"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='courseenrollment',
-            name='active',
+            model_name="courseenrollment",
+            name="active",
             field=models.BooleanField(blank=True, default=True, null=True),
         ),
     ]

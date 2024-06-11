@@ -7,24 +7,45 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aiModule', '0008_conversation_llmconfig'),
-        ('users', '0005_profile_changetemppassword'),
+        ("aiModule", "0008_conversation_llmconfig"),
+        ("users", "0005_profile_changetemppassword"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='conversation',
-            name='owner',
-            field=models.ForeignKey(blank=True, default=None, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='conversations', to='users.profile'),
+            model_name="conversation",
+            name="owner",
+            field=models.ForeignKey(
+                blank=True,
+                default=None,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="conversations",
+                to="users.profile",
+            ),
         ),
         migrations.AlterField(
-            model_name='llmconfiguration',
-            name='owner',
-            field=models.ForeignKey(blank=True, default=None, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='LLM_configurations', to='users.profile'),
+            model_name="llmconfiguration",
+            name="owner",
+            field=models.ForeignKey(
+                blank=True,
+                default=None,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="LLM_configurations",
+                to="users.profile",
+            ),
         ),
         migrations.AlterField(
-            model_name='message',
-            name='owner',
-            field=models.ForeignKey(blank=True, default=None, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='messages', to='users.profile'),
+            model_name="message",
+            name="owner",
+            field=models.ForeignKey(
+                blank=True,
+                default=None,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="messages",
+                to="users.profile",
+            ),
         ),
     ]

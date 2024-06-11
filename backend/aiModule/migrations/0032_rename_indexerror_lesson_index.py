@@ -6,13 +6,13 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aiModule', '0031_lesson_indexerror'),
+        ("aiModule", "0031_lesson_indexerror"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='lesson',
-            old_name='IndexError',
-            new_name='index',
+            model_name="lesson",
+            old_name="IndexError",
+            new_name="index",
         ),
     ]

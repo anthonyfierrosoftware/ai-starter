@@ -6,18 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aiModule', '0017_message_functiondata_message_functiontype_and_more'),
+        ("aiModule", "0017_message_functiondata_message_functiontype_and_more"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='message',
-            name='functionData',
+            model_name="message",
+            name="functionData",
             field=models.TextField(blank=True, null=True),
         ),
         migrations.AlterField(
-            model_name='message',
-            name='functionType',
+            model_name="message",
+            name="functionType",
             field=models.CharField(blank=True, max_length=64, null=True),
         ),
     ]

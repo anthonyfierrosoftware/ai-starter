@@ -6,18 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aiModule', '0012_rename_tokens_conversation_total_tokens_and_more'),
+        ("aiModule", "0012_rename_tokens_conversation_total_tokens_and_more"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='conversation',
-            name='hugging_other_tokens',
+            model_name="conversation",
+            name="hugging_other_tokens",
             field=models.IntegerField(blank=True, default=0, null=True),
         ),
         migrations.AddField(
-            model_name='conversation',
-            name='llama2_tokens',
+            model_name="conversation",
+            name="llama2_tokens",
             field=models.IntegerField(blank=True, default=0, null=True),
         ),
     ]

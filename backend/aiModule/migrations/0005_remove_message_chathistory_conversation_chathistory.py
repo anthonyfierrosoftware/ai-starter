@@ -6,17 +6,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aiModule', '0004_message_generatedreply'),
+        ("aiModule", "0004_message_generatedreply"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='message',
-            name='chatHistory',
+            model_name="message",
+            name="chatHistory",
         ),
         migrations.AddField(
-            model_name='conversation',
-            name='chatHistory',
+            model_name="conversation",
+            name="chatHistory",
             field=models.TextField(blank=True, null=True),
         ),
     ]

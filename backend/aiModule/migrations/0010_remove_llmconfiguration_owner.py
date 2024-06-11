@@ -6,12 +6,12 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('aiModule', '0009_alter_conversation_owner_and_more'),
+        ("aiModule", "0009_alter_conversation_owner_and_more"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='llmconfiguration',
-            name='owner',
+            model_name="llmconfiguration",
+            name="owner",
         ),
     ]
