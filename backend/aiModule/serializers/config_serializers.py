@@ -3,7 +3,6 @@ from aiModule.models.llmConfig import LLMConfiguration
 from aiModule.models.llmConfig import LLM, MODELS, LLM_MODEL
 
 
-
 class ConfigSerializer(serializers.ModelSerializer):
     """
     Used to prep and send data to front
@@ -13,12 +12,12 @@ class ConfigSerializer(serializers.ModelSerializer):
     class Meta:
         model = LLMConfiguration
         fields = [
-            "apiKey",
+            "api_key",
             "llm",
             "chat_model",
-            "dateCreated",
-            "lastUpdated",
-            "systemInstructions",
+            "date_created",
+            "last_updated",
+            "system_instructions",
         ]
 
     def to_representation(self, instance):

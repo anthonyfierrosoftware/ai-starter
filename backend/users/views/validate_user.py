@@ -73,11 +73,11 @@ class ValidateUserEmail(APIView):
             hash.update(str(valid_pass).encode())
             hashed_pass = str(hash.hexdigest())
 
-            user.profile.emailVerificationCode = hashed_pass
+            user.profile.email_verification_code = hashed_pass
             user.profile.save()
 
             # send email
-            if emailVerificationCode(request, user, valid_pass):
+            if email_verification_code(request, user, valid_pass):
                 return generate_response(
                     status=201,
                     data=UserResponseSerializer(user).data,
@@ -120,7 +120,7 @@ class ValidateUserConfirm(APIView):
                     status=403, data=None, custom_message="User not authenticated"
                 )
 
-            if not user.profile.emailVerificationCode:
+            if not user.profile.email_verification_code:
                 return generate_response(
                     status=412,
                     data=None,
@@ -138,8 +138,8 @@ class ValidateUserConfirm(APIView):
                 hash = hashlib.sha256()
                 hash.update(str(data["code"]).encode())
 
-                if str(hash.hexdigest()) == str(user.profile.emailVerificationCode):
-                    user.profile.emailVerificationCode = None
+                if str(hash.hexdigest()) == str(user.profile.email_verification_code):
+                    user.profile.email_verification_code = None
                     user.profile.verified = True
                     user.profile.save()
                     return generate_response(
@@ -194,11 +194,11 @@ class ValidateUserEmailFromEmail(APIView):
             hash.update(str(valid_pass).encode())
             hashed_pass = str(hash.hexdigest())
 
-            user.profile.emailVerificationCode = hashed_pass
+            user.profile.email_verification_code = hashed_pass
             user.profile.save()
 
             # send email
-            if emailVerificationCode(request, user, valid_pass):
+            if email_verification_code(request, user, valid_pass):
                 return generate_response(
                     status=201, data=None, custom_message="Email Sent"
                 )
@@ -234,7 +234,7 @@ class ValidateUserConfirmWithEmail(APIView):
                     status=403, data=None, custom_message="User not authenticated"
                 )
 
-            if not user.profile.emailVerificationCode:
+            if not user.profile.email_verification_code:
                 return generate_response(
                     status=412,
                     data=None,
@@ -245,11 +245,11 @@ class ValidateUserConfirmWithEmail(APIView):
                 hash = hashlib.sha256()
                 hash.update(str(data["code"]).encode())
 
-                if str(hash.hexdigest()) == str(user.profile.emailVerificationCode):
+                if str(hash.hexdigest()) == str(user.profile.email_verification_code):
 
                     # informs front end if the user is a first time log in
                     if user.profile.verified:
-                        user.profile.emailVerificationCode = None
+                        user.profile.email_verification_code = None
                         user.profile.save()
                         return generate_response(
                             status=202,
@@ -257,7 +257,7 @@ class ValidateUserConfirmWithEmail(APIView):
                             custom_message="Email is already verified",
                         )
 
-                    user.profile.emailVerificationCode = None
+                    user.profile.email_verification_code = None
                     user.profile.verified = True
                     user.profile.save()
                     return generate_response(
@@ -290,7 +290,7 @@ class ValidateUserConfirmWithEmail(APIView):
             )
 
 
-def emailVerificationCode(request, user, valid_pass):
+def email_verification_code(request, user, valid_pass):
     """
     Send of the verification email
     """

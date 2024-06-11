@@ -33,15 +33,15 @@ class LLMConfiguration(PolymorphicModel):
     this object is responsible for setting and saveing llm configurations
     """
 
-    apiKey = models.TextField(blank=True, null=True)
+    api_key = models.TextField(blank=True, null=True)
 
     llm = models.CharField(max_length=24, null=True, blank=True)
 
     chat_model = models.TextField(blank=True, null=True)
 
-    dateCreated = models.DateTimeField(default=timezone.now)
+    date_created = models.DateTimeField(default=timezone.now)
 
-    lastUpdated = models.DateTimeField(default=timezone.now)
+    last_updated = models.DateTimeField(default=timezone.now)
 
     # a json field to store the messages
-    systemInstructions = models.TextField(blank=True, null=True)
+    system_instructions = models.TextField(blank=True, null=True)

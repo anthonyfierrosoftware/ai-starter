@@ -10,13 +10,13 @@ class Conversation(PolymorphicModel):
     """
 
     name = models.CharField(max_length=256, null=True, blank=True)
-    dateCreated = models.DateTimeField(default=timezone.now)
+    date_created = models.DateTimeField(default=timezone.now)
 
     # updated in signals.py using receiver
-    lastUpdated = models.DateTimeField(default=timezone.now)
+    last_updated = models.DateTimeField(default=timezone.now)
 
     # the chat history for the conversation
-    chatHistory = models.TextField(blank=True, null=True)
+    chat_history = models.TextField(blank=True, null=True)
 
     owner = models.ForeignKey(
         "users.Profile",
@@ -41,7 +41,7 @@ class Conversation(PolymorphicModel):
 
     hugging_other_tokens = models.IntegerField(null=True, blank=True, default=0)
 
-    llmConfig = models.ForeignKey(
+    llm_config = models.ForeignKey(
         "aiModule.LLMConfiguration",
         default=None,
         blank=True,

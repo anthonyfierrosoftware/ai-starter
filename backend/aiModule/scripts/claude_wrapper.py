@@ -143,7 +143,7 @@ class ClaudeWrapper(AbstractWrapper):
         model_id: the model id to set, if none it uses the current model or defualt model
 
         returns:
-        response, reply, chatHistory,tokens
+        response, reply, chat_history,tokens
         """
         try:
 
@@ -174,7 +174,7 @@ class ClaudeWrapper(AbstractWrapper):
             ret = {
                 "response": response,
                 "reply": response.content[0].text,
-                "chatHistory": self.conversation_history,
+                "chat_history": self.conversation_history,
                 "tokens": total_tokens,
             }
             return (ret, True)

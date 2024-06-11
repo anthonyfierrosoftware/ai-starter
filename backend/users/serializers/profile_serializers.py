@@ -41,7 +41,7 @@ class ProfileUpdateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile
-        fields = ["user", "phone", "metadata", "verified", "changeTempPassword"]
+        fields = ["user", "phone", "metadata", "verified", "change_temp_password"]
 
     def to_representation(self, instance):
         ret = super().to_representation(instance)

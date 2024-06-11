@@ -35,10 +35,10 @@ class ChatComplete(APIView):
             prompt: the users prompt
             converstaion:the pk of the related conversation, do not include to start a new conversation
             config: includes the various elements required to send a chat
-                apiKey: the api key for the llm and model you are trying to use *required
+                api_key: the api key for the llm and model you are trying to use *required
                 llm: openai, mistral, claude, llamma (coming soon) *required
                 chat_model: the specific model to use t=with the llm ex. claude-3-opus-20240229, gpt-3.5-turbo....
-                systemInstructions: the system instructions for the llm only relevant if its a new conversation
+                system_instructions: the system instructions for the llm only relevant if its a new conversation
 
             - a config object with at least and llm and api_key are required to create a conversation
             - if a conversation pk is not present the system will start a new conversation with a new config
@@ -96,9 +96,9 @@ class ChatComplete(APIView):
                     # check for config update then update config or create config if there is none
                     if "config" in data:
                         try:
-                            if conversation.llmConfig:
+                            if conversation.llm_config:
                                 config_serializer = ConfigSerializer(
-                                    conversation.llmConfig,
+                                    conversation.llm_config,
                                     data=data["config"],
                                     partial=True,
                                 )
@@ -109,7 +109,7 @@ class ChatComplete(APIView):
 
                             if config_serializer.is_valid():
                                 config = config_serializer.save()
-                                conversation.llmConfig = config
+                                conversation.llm_config = config
                                 conversation.save()
                             else:
                                 # return errors
@@ -130,7 +130,7 @@ class ChatComplete(APIView):
                                 return generate_response(
                                     status=422,
                                     data=ret,
-                                    custom_message="Invalid configuration, if you are trying to update the configuration please refer to docs; otherwise remove the config object to send messages using current llmConfig",
+                                    custom_message="Invalid configuration, if you are trying to update the configuration please refer to docs; otherwise remove the config object to send messages using current llm_config",
                                 )
 
                         except Exception as e:
@@ -152,7 +152,7 @@ class ChatComplete(APIView):
                         )
 
                     # check config
-                    # if not "config" in data or "apiKey" not in data["config"] or "llm" not in data["config"]:
+                    # if not "config" in data or "api_key" not in data["config"] or "llm" not in data["config"]:
                     #     return generate_response(status=400, data="config required to start a conversation, must include at least: api_key & llm. \nsystemInstruction and chat_model can also be set using the config object", custom_message=None)
 
                     # create conversation
@@ -195,7 +195,7 @@ class ChatComplete(APIView):
                         )
 
                     try:
-                        conversation.llmConfig = config
+                        conversation.llm_config = config
                         conversation.save()
                     except Exception as e:
                         conversation.delete()
@@ -221,8 +221,8 @@ class ChatComplete(APIView):
                 )
 
             # clean up - this shouldnt happen
-            if not conversation.llmConfig:
-                if not conversation.chatHistory:
+            if not conversation.llm_config:
+                if not conversation.chat_history:
                     conversation.delete()
                     if config:
                         config.delete()
@@ -234,44 +234,44 @@ class ChatComplete(APIView):
                 )
 
             try:
-                # please reference llmConfig.py for list of available LLMs
-                match conversation.llmConfig.llm:
+                # please reference llm_config.py for list of available LLMs
+                match conversation.llm_config.llm:
                     case "OPEN_AI":
                         llm = OpenAIWrapper(
-                            api_key=conversation.llmConfig.apiKey,
-                            chat_model=conversation.llmConfig.chat_model,
-                            system_instructions=conversation.llmConfig.systemInstructions,
+                            api_key=conversation.llm_config.api_key,
+                            chat_model=conversation.llm_config.chat_model,
+                            system_instructions=conversation.llm_config.system_instructions,
                         )
                     case "CLAUDE":
                         llm = ClaudeWrapper(
-                            api_key=conversation.llmConfig.apiKey,
-                            chat_model=conversation.llmConfig.chat_model,
-                            system_instructions=conversation.llmConfig.systemInstructions,
+                            api_key=conversation.llm_config.api_key,
+                            chat_model=conversation.llm_config.chat_model,
+                            system_instructions=conversation.llm_config.system_instructions,
                         )
                     case "MISTRAL":
                         llm = MistralWrapper(
-                            api_key=conversation.llmConfig.apiKey,
-                            chat_model=conversation.llmConfig.chat_model,
-                            system_instructions=conversation.llmConfig.systemInstructions,
+                            api_key=conversation.llm_config.api_key,
+                            chat_model=conversation.llm_config.chat_model,
+                            system_instructions=conversation.llm_config.system_instructions,
                         )
                     case "HUGGINGFACE":
                         llm = HuggingWrapper(
-                            api_key=conversation.llmConfig.apiKey,
-                            chat_model=conversation.llmConfig.chat_model,
-                            system_instructions=conversation.llmConfig.systemInstructions,
+                            api_key=conversation.llm_config.api_key,
+                            chat_model=conversation.llm_config.chat_model,
+                            system_instructions=conversation.llm_config.system_instructions,
                         )
 
                 # test to see if credentials and keys are valid
                 if llm.authorize():
                     # set conversation history if it exists
-                    if conversation.chatHistory:
+                    if conversation.chat_history:
                         llm.set_conversation_history(
-                            json.loads(conversation.chatHistory)
+                            json.loads(conversation.chat_history)
                         )
 
                     temp, success = llm.send_text_chat(
                         message=prompt,
-                        system_instructions=conversation.llmConfig.systemInstructions,
+                        system_instructions=conversation.llm_config.system_instructions,
                     )
 
                     if not success:
@@ -280,23 +280,23 @@ class ChatComplete(APIView):
                             data=str(temp),
                             custom_message="Error retrieving chat, please refer to logs.",
                         )
-                    # update and save converstaion conversation.chatHistory=json.dumps(temp["chatHistory"])
-                    ch = temp["chatHistory"]
+                    # update and save converstaion conversation.chat_history=json.dumps(temp["chat_history"])
+                    ch = temp["chat_history"]
                     if not ch[0]["role"] == "system":
                         ch.insert(
                             0,
                             {
                                 "role": "system",
-                                "content": conversation.llmConfig.systemInstructions,
+                                "content": conversation.llm_config.system_instructions,
                             },
                         )
 
-                    conversation.chatHistory = json.dumps(ch)
+                    conversation.chat_history = json.dumps(ch)
 
                     conversation.total_tokens += int(temp["tokens"])
-                    match conversation.llmConfig.llm:
+                    match conversation.llm_config.llm:
                         case "OPEN_AI":
-                            if conversation.llmConfig.chat_model == "gpt-3.5-turbo":
+                            if conversation.llm_config.chat_model == "gpt-3.5-turbo":
                                 conversation.gpt3_tokens += int(temp["tokens"])
                             else:
                                 conversation.gpt4_tokens += int(temp["tokens"])
@@ -306,7 +306,7 @@ class ChatComplete(APIView):
                             conversation.mistral_tokens += int(temp["tokens"])
                         case "HUGGINGFACE":
                             if (
-                                conversation.llmConfig.chat_model
+                                conversation.llm_config.chat_model
                                 == "meta-llama/Llama-2-70b-chat-hf"
                             ):
                                 conversation.llama2_tokens += int(temp["tokens"])
@@ -319,17 +319,17 @@ class ChatComplete(APIView):
                     msg = apps.get_model("aiModule.Message").objects.create(
                         prompt=prompt,
                         response=str(temp["response"]),
-                        generatedReply=temp["reply"],
+                        generated_reply=temp["reply"],
                         conversation=conversation,
                         owner=user.profile,
-                        totalTokens=temp["tokens"],
-                        llm=conversation.llmConfig.llm,
-                        chat_model=conversation.llmConfig.chat_model,
+                        total_tokens=temp["tokens"],
+                        llm=conversation.llm_config.llm,
+                        chat_model=conversation.llm_config.chat_model,
                     )
 
                 else:
 
-                    if not conversation.chatHistory:
+                    if not conversation.chat_history:
                         conversation.delete()
                         if config:
                             config.delete()
@@ -339,7 +339,7 @@ class ChatComplete(APIView):
                     )
 
             except Exception as e:
-                if not conversation.chatHistory:
+                if not conversation.chat_history:
                     conversation.delete()
                     if config:
                         config.delete()

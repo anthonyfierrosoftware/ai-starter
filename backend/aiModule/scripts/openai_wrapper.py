@@ -188,7 +188,7 @@ class OpenAIWrapper(AbstractWrapper):
         model_id: the model id to set, if none it uses the current model or defualt model
 
         returns:
-        response, reply, config, chatHistory,tokens
+        response, reply, config, chat_history,tokens
         """
         try:
 
@@ -223,7 +223,7 @@ class OpenAIWrapper(AbstractWrapper):
                 "response": response,
                 "reply": response.choices[0].message.content,
                 # "config" : None,
-                "chatHistory": self.conversation_history,
+                "chat_history": self.conversation_history,
                 "tokens": response.usage.total_tokens,
             }
 

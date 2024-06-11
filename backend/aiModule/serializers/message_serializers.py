@@ -22,11 +22,11 @@ class MessageSerializer(serializers.ModelSerializer):
         model = Message
         fields = [
             "prompt",
-            "generatedReply",
+            "generated_reply",
             "response",
-            "dateCreated",
+            "date_created",
             "owner",
-            "totalTokens",
+            "total_tokens",
             "pk",
             "llm",
             "chat_model",
@@ -49,11 +49,11 @@ class MessageWithoutConversationSerializer(serializers.ModelSerializer):
         model = Message
         fields = [
             "prompt",
-            "generatedReply",
+            "generated_reply",
             "response",
-            "dateCreated",
+            "date_created",
             "owner",
-            "totalTokens",
+            "total_tokens",
             "pk",
             "llm",
             "chat_model",

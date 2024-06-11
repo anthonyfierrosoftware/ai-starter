@@ -169,7 +169,7 @@ class HuggingWrapper(AbstractWrapper):
         model_id: a new model to switch the config
 
         returns:
-        response, reply, chatHistory,tokens
+        response, reply, chat_history,tokens
         """
         try:
 
@@ -221,7 +221,7 @@ class HuggingWrapper(AbstractWrapper):
             ret = {
                 "response": response,
                 "reply": reply,
-                "chatHistory": self.conversation_history,
+                "chat_history": self.conversation_history,
                 "tokens": int(tokens),
             }
             return (ret, True)

@@ -44,7 +44,7 @@ class ForgotPassword(APIView):
             # email to user
             try:
                 # you need to configur your email in the settings you can agg a google one fairly easily with an app password
-                emailTempPassword(request, user, tempPass)
+                emailtemp_password(request, user, tempPass)
             except Exception as e:
                 print(f"error sending email: {e}")
                 return generate_response(
@@ -59,7 +59,7 @@ class ForgotPassword(APIView):
 
             hashed_pass = str(hash.hexdigest())
 
-            user.profile.tempPassword = hashed_pass
+            user.profile.temp_password = hashed_pass
             user.profile.save()
 
             return generate_response(
@@ -78,7 +78,7 @@ class ForgotPassword(APIView):
             )
 
 
-def emailTempPassword(request, user, temp_pasword):
+def emailtemp_password(request, user, temp_pasword):
     """
     Generates and sends email with temp password to user
     """

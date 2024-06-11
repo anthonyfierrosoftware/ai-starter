@@ -94,15 +94,15 @@ const ChatPanel = ({ chatToLoad, chatMode }) => {
     // console.log(
     //   "chat to load useeffect",
     //   chatToLoad,
-    //   chatToLoad.llmConfig?.chat_model
+    //   chatToLoad.llm_config?.chat_model
     //   chatToLoad.pk
     // );
     if (chatToLoad) {
       setChatByModelId(
-        chatToLoad.llmConfig?.chat_model,
-        chatToLoad.chatHistory
+        chatToLoad.llm_config?.chat_model,
+        chatToLoad.chat_history
       );
-      setChatIdByModelId(chatToLoad.llmConfig?.chat_model, chatToLoad.pk);
+      setChatIdByModelId(chatToLoad.llm_config?.chat_model, chatToLoad.pk);
     }
   }, [chatToLoad]);
 
@@ -124,7 +124,7 @@ const ChatPanel = ({ chatToLoad, chatMode }) => {
         prompt: value,
         config: {
           ...getModelConfig(id),
-          systemInstructions: systemInstructions,
+          system_instructions: systemInstructions,
         },
       },
       (res) => {
@@ -150,7 +150,7 @@ const ChatPanel = ({ chatToLoad, chatMode }) => {
       messageValue,
       (res) => {
         setChatByModelId("GPT3.5", [
-          ...res?.data.data.conversation.chatHistory,
+          ...res?.data.data.conversation.chat_history,
         ]);
         if (chatMode == "Conversation Mode") {
           setGpt35ChatId(res?.data.data.conversation.pk);
@@ -168,7 +168,7 @@ const ChatPanel = ({ chatToLoad, chatMode }) => {
       messageValue,
       (res) => {
         setChatByModelId("GPT4.0", [
-          ...res?.data.data.conversation.chatHistory,
+          ...res?.data.data.conversation.chat_history,
         ]);
         if (chatMode == "Conversation Mode") {
           setGpt4ChatId(res?.data.data.conversation.pk);
@@ -186,7 +186,7 @@ const ChatPanel = ({ chatToLoad, chatMode }) => {
       messageValue,
       (res) => {
         setChatByModelId("Claude", [
-          ...res?.data.data.conversation.chatHistory,
+          ...res?.data.data.conversation.chat_history,
         ]);
         if (chatMode == "Conversation Mode") {
           setClaudeChatId(res?.data.data.conversation.pk);
@@ -203,7 +203,7 @@ const ChatPanel = ({ chatToLoad, chatMode }) => {
       "Llama",
       messageValue,
       (res) => {
-        setChatByModelId("Llama", [...res?.data.data.conversation.chatHistory]);
+        setChatByModelId("Llama", [...res?.data.data.conversation.chat_history]);
         if (chatMode == "Conversation Mode") {
           setLlamaChatId(res?.data.data.conversation.pk);
         }
@@ -219,7 +219,7 @@ const ChatPanel = ({ chatToLoad, chatMode }) => {
       messageValue,
       (res) => {
         setChatByModelId("Mistral", [
-          ...res?.data.data.conversation.chatHistory,
+          ...res?.data.data.conversation.chat_history,
         ]);
         if (chatMode == "Conversation Mode") {
           setMistralChatId(res?.data.data.conversation.pk);
@@ -242,7 +242,7 @@ const ChatPanel = ({ chatToLoad, chatMode }) => {
         messageValue,
         (res) => {
           setChatByModelId("GPT3.5", [
-            ...res?.data.data.conversation.chatHistory,
+            ...res?.data.data.conversation.chat_history,
           ]);
           if (chatMode == "Conversation Mode") {
             setGpt35ChatId(res?.data.data.conversation.pk);
@@ -262,7 +262,7 @@ const ChatPanel = ({ chatToLoad, chatMode }) => {
         messageValue,
         (res) => {
           setChatByModelId("GPT4.0", [
-            ...res?.data.data.conversation.chatHistory,
+            ...res?.data.data.conversation.chat_history,
           ]);
           if (chatMode == "Conversation Mode") {
             setGpt4ChatId(res?.data.data.conversation.pk);
@@ -282,7 +282,7 @@ const ChatPanel = ({ chatToLoad, chatMode }) => {
         messageValue,
         (res) => {
           setChatByModelId("Claude", [
-            ...res?.data.data.conversation.chatHistory,
+            ...res?.data.data.conversation.chat_history,
           ]);
           if (chatMode == "Conversation Mode") {
             setClaudeChatId(res?.data.data.conversation.pk);
@@ -302,7 +302,7 @@ const ChatPanel = ({ chatToLoad, chatMode }) => {
         messageValue,
         (res) => {
           setChatByModelId("Llama", [
-            ...res?.data.data.conversation.chatHistory,
+            ...res?.data.data.conversation.chat_history,
           ]);
           if (chatMode == "Conversation Mode") {
             setLlamaChatId(res?.data.data.conversation.pk);
@@ -321,7 +321,7 @@ const ChatPanel = ({ chatToLoad, chatMode }) => {
         messageValue,
         (res) => {
           setChatByModelId("Mistral", [
-            ...res?.data.data.conversation.chatHistory,
+            ...res?.data.data.conversation.chat_history,
           ]);
           if (chatMode == "Conversation Mode") {
             setMistralChatId(res?.data.data.conversation.pk);

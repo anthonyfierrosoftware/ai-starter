@@ -52,5 +52,5 @@ class AbstractWrapper(ABC):
         essentially it fomrats data and calls text_chat
 
         returns:
-            response, reply, config, chatHistory,tokens
+            response, reply, config, chat_history,tokens
         """

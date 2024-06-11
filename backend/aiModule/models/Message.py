@@ -13,14 +13,14 @@ class Message(PolymorphicModel):
 
     prompt = models.TextField(blank=True, null=True)
 
-    generatedReply = models.TextField(blank=True, null=True)
+    generated_reply = models.TextField(blank=True, null=True)
 
     response = models.TextField(blank=True, null=True)
 
-    dateCreated = models.DateTimeField(default=timezone.now)
+    date_created = models.DateTimeField(default=timezone.now)
 
     # a json field to store the messages ** remove only add to conversation
-    totalTokens = models.IntegerField(null=True, blank=True, default=0)
+    total_tokens = models.IntegerField(null=True, blank=True, default=0)
 
     # the container for the conversation
     conversation = models.ForeignKey(

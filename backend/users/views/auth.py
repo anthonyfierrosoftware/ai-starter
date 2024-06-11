@@ -88,7 +88,7 @@ class ChangePassword(APIView):
                 user.set_password(password1)
                 user.save()
 
-                user.profile.changeTempPassword = False
+                user.profile.change_temp_password = False
                 user.profile.save()
 
             return generate_response(
@@ -153,7 +153,7 @@ class CustomAuthToken(ObtainAuthToken):
             # check for temp pass
             try:
 
-                temp_pass = user.profile.tempPassword
+                temp_pass = user.profile.temp_password
 
                 hash = hashlib.sha256()
                 hash.update(str(payload["password"]).encode())
@@ -163,7 +163,7 @@ class CustomAuthToken(ObtainAuthToken):
                     user.set_password(payload["password"])
                     user.save()
 
-                    user.profile.changeTempPassword = True
+                    user.profile.change_temp_password = True
                     user.profile.save()
 
             except Exception as e:
@@ -183,7 +183,7 @@ class CustomAuthToken(ObtainAuthToken):
                     token.save()
 
                 # reset temp password user has logged in succesfully
-                user.profile.tempPassword = None
+                user.profile.temp_password = None
                 user.profile.save()
 
                 # Format data and return

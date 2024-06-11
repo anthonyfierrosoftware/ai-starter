@@ -31,17 +31,17 @@ class Profile(models.Model):
 
     verified = models.BooleanField(null=True, blank=True, default=False)
 
-    emailVerificationCode = models.CharField(max_length=128, null=True, blank=True)
+    email_verification_code = models.CharField(max_length=128, null=True, blank=True)
 
-    dateCreated = models.DateTimeField(default=timezone.now)
+    date_created = models.DateTimeField(default=timezone.now)
 
-    tempPassword = models.CharField(max_length=128, null=True, blank=True)
+    temp_password = models.CharField(max_length=128, null=True, blank=True)
     # a json field for extra data
     metadata = models.TextField(blank=True, null=True)
     # a flag that tells the system if the user should reset their password due to having a temporary password
-    changeTempPassword = models.BooleanField(null=True, blank=True, default=False)
+    change_temp_password = models.BooleanField(null=True, blank=True, default=False)
 
     subscription = models.DateTimeField(default=timezone.now, null=True, blank=True)
 
     def __str__(self):
-        return f"{str(self.user)} {self.pk}, date: {self.dateCreated}"
+        return f"{str(self.user)} {self.pk}, date: {self.date_created}"
