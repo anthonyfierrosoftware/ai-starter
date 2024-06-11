@@ -1,6 +1,6 @@
 
 from django.urls import path
-from users.views import auth, register, forgot_password, user_data, update_user, validate_user, google_auth
+from users.views import auth, register, forgot_password, user_data, validate_user
 from rest_framework.authtoken.views import obtain_auth_token
 
 
@@ -15,7 +15,6 @@ urlpatterns = [
     # additonally it can be used to control what data is returned as well as the format
     path("email/login/", auth.CustomAuthToken.as_view(), name="email_login"),
     
-    path("google/login/", google_auth.GoogleAuth.as_view(), name="google_login"),
     # logout function just deletes token
     path("logout/", auth.LogOut.as_view(), name="log_out"),
     # standard register route returns same info as log in

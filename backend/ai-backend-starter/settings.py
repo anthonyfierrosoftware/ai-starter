@@ -201,5 +201,3 @@ DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", "no-reply@backend.com")
 
 AWS_SES_REGION_NAME = 'ca-central-1'
 AWS_SES_REGION_ENDPOINT = 'email.ca-central-1.amazonaws.com'
-
-GOOGLE_CLIENT_ID=os.getenv("GOOGLE_CLIENT_ID", False)
