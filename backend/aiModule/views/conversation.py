@@ -12,7 +12,7 @@ from aiModule.serializers.conversation_serializers import ConversationSerializer
 
 import json
 
-class getUserConversationsData(APIView):
+class getConversations(APIView):
     authentication_classes = [ExpiringTokenAuthentication]
     permission_classes = [IsAuthenticated]
     
@@ -35,7 +35,7 @@ class getUserConversationsData(APIView):
             return generate_response(status=500, data=str(e)+".", custom_message="Could not get user")
         
         
-class getConversationData(APIView):
+class getConversation(APIView):
     authentication_classes = [ExpiringTokenAuthentication]
     permission_classes = [IsAuthenticated]
     
@@ -48,7 +48,7 @@ class getConversationData(APIView):
             try:
                 conversation = apps.get_model("aiModule.Conversation").objects.get(pk=pk)
             except Exception as e:
-                print(f"Error parsing data in getUserConversationsData:  {e}")
+                print(f"Error parsing data in getConversation:  {e}")
                 return generate_response(status=400, data="Error retrieving conversation.", custom_message=f"Error: {e}")
                 
 
