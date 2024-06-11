@@ -58,7 +58,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'users.apps.UsersConfig',
-    "aiModule.apps.AimoduleConfig",
+    "aiModule.apps.AIModuleConfig",
     
     "corsheaders",
 ]
