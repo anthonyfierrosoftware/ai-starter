@@ -4,8 +4,6 @@ from aiModule.models.Message import Message
 from .conversation_serializers import ConversationSerializer
 
 
-import re
-import json
 
 
 class MessageSerializer(serializers.ModelSerializer):

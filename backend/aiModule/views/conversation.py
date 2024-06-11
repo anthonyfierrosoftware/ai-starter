@@ -12,7 +12,6 @@ from aiModule.serializers.conversation_serializers import (
 )
 
 
-import json
 
 
 class getConversations(APIView):

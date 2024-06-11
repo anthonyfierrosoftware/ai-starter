@@ -1,6 +1,5 @@
 import os
 from openai import OpenAI
-import json
 from .abstract_wrapper import AbstractWrapper
 from .openapi_utils import *
 

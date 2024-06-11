@@ -7,7 +7,6 @@ from aiModule.serializers.config_serializers import ConfigSerializer
 
 # from rest_framework.authtoken.models import Token
 
-import re
 import json
 
 

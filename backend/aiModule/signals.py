@@ -1,6 +1,6 @@
 from django.dispatch import receiver
 from django.db.models.signals import post_save
-from datetime import date, datetime, timedelta, timezone
+from datetime import datetime, timezone
 from aiModule.models.Conversation import Conversation
 
 

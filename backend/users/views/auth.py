@@ -10,7 +10,7 @@ from users.serializers.user_serializers import UserResponseSerializer
 from rest_framework.views import APIView
 
 from django.apps import apps
-from datetime import date, datetime, timedelta, timezone
+from datetime import datetime, timezone
 from users.middleware.expiring_token_auth import ExpiringTokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 

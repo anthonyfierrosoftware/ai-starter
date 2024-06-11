@@ -2,8 +2,6 @@ from rest_framework import serializers
 from aiModule.models.llmConfig import LLMConfiguration
 from aiModule.models.llmConfig import LLM, MODELS, LLM_MODEL
 
-import re
-import json
 
 
 class ConfigSerializer(serializers.ModelSerializer):
