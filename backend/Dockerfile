@@ -1,4 +1,4 @@
-FROM python:3.12
+FROM python:3.12.3
 
 RUN apt update -y && apt full-upgrade -y && apt autoremove -y && apt clean -y && apt autoclean -y
 
