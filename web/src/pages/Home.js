@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { BodyText, Heading } from "../components/global/Text";
 import { FlexColumn, FlexRow } from "../components/layout/Flex";
+import ContentColumn from "../components/layout/ContentColumn";
 import PageLayout from "../components/layout/PageLayout";
 import ChatPanel from "../components/llms/ChatPanel";
 import ConversationsPanel from "../components/llms/ConversationsPanel";
@@ -13,7 +14,7 @@ const Home = () => {
 
   return (
     <PageLayout>
-      <FlexColumn gap={32}>
+      <ContentColumn>
         <Heading>Home</Heading>
         <FlexColumn>
           <BodyText>
@@ -33,7 +34,7 @@ const Home = () => {
           onConversationSelected={(conversation) => setChatToLoad(conversation)}
         />
         <ChatPanel chatToLoad={chatToLoad} chatMode={chatMode} />
-      </FlexColumn>
+      </ContentColumn>
     </PageLayout>
   );
 };

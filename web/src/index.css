@@ -11,3 +11,30 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.content-container {
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  background-color: #f8f8f8;
+  height: 100%;
+}
+
+.content-column {
+  padding: 24px;
+  gap: 24px;
+  background-color: #ffffff;
+  height: 100%;
+}
+
+@media screen and (min-width: 1280px) {
+  .content-column {
+    width: 1280px;
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .content-column {
+    width: calc(100% - 48px);
+  }
+}
