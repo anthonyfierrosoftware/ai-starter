@@ -2,13 +2,14 @@
 
 import { FlexColumn } from "./Flex";
 import Navbar from "./Navbar";
+import ContentContainer from "./ContentContainer";
 
 const PageLayout = ({ children, displayNav = true, ...props }) => {
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
-      <FlexColumn>
+      <FlexColumn style={{ height: "100%" }} gap={0}>
         {displayNav && <Navbar />}
-        <FlexColumn style={{ padding: "20px" }}>{children}</FlexColumn>
+        <ContentContainer>{children}</ContentContainer>
       </FlexColumn>
     </div>
   );
