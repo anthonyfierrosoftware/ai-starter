@@ -10,7 +10,8 @@ import TextLink from "../components/global/TextLink";
 
 import { login } from "../state/routes";
 import { useAuthStore } from "../state/stores";
-import LoginCard from "../components/layout/LoginCard";
+import ContentCard from "../components/layout/ContentCard";
+import ContentBlock from "../components/layout/ContentBlock";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -47,16 +48,10 @@ const Login = () => {
 
   return (
     <PageLayout displayNav={false}>
-      <LoginCard>
-        
-        <Heading>Your App Title Here</Heading>
-
-        <FlexColumn gap={16}>
-
-          <div style={{borderBottom: "1px solid #808080", paddingBottom: "16px", width: "100%", display:"flex", justifyContent: "center"}}>
-            <Subheading>Login</Subheading>
-          </div>
+      <ContentCard heading={"Your App Title Here"} subheading={"Login"}>
           
+        <ContentBlock>
+
           <TextInput
             label="Email"
             value={email}
@@ -79,25 +74,25 @@ const Login = () => {
             style={{width:"100%"}}
           />
 
-        </FlexColumn>
+        </ContentBlock>
 
-        <FlexColumn gap={16} style={{alignItems: "center"}}>
+        <ContentBlock center={true}>
 
           <div style={{ display: "ruby" }}>
             <BodyText>Don't have an account?</BodyText>{" "}
-            <TextLink onClick={() => navigate("/register")}>Register.</TextLink>
+            <TextLink onClick={() => navigate("/register")}>Register</TextLink>
           </div>
 
           <div style={{ display: "ruby" }}>
             <BodyText>Forgot your password?</BodyText>{" "}
             <TextLink onClick={() => navigate("/forgot-password")}>
-              Reset my password.
+              Reset my password
             </TextLink>
           </div>
 
-        </FlexColumn>
+        </ContentBlock>  
 
-      </LoginCard>
+      </ContentCard>
     </PageLayout>
   );
 };

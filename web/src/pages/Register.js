@@ -3,12 +3,14 @@ import { useNavigate } from "react-router-dom";
 
 import { BodyText, Heading, Subheading } from "../components/global/Text";
 import TextInput from "../components/global/TextInput";
-import { FlexColumn } from "../components/layout/Flex";
+import { FlexColumn, FlexRow } from "../components/layout/Flex";
 import PageLayout from "../components/layout/PageLayout";
 import Button from "../components/global/Button";
 import TextLink from "../components/global/TextLink";
 import { register } from "../state/routes";
 import { useAuthStore } from "../state/stores";
+import ContentCard from "../components/layout/ContentCard";
+import ContentBlock from "../components/layout/ContentBlock";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -43,12 +45,22 @@ const Register = () => {
 
   return (
     <PageLayout displayNav={false}>
-      <FlexColumn style={{ alignItems: "center" }} gap={24}>
-        <Heading>Your App Title Here</Heading>
+      <ContentCard heading={"Your App Title Here"} subheading={"Register"}>
 
-        <Subheading>Register</Subheading>
+        <ContentBlock>
 
-        <FlexColumn>
+          <TextInput
+            label="First Name"
+            value={firstName}
+            onChange={setFirstName}
+          />
+
+          <TextInput
+            label="Last Name"
+            value={lastName}
+            onChange={setLastName}
+          />
+
           <TextInput
             label="Email"
             value={email}
@@ -56,19 +68,6 @@ const Register = () => {
             error={errorState}
             errorTitleOverride={"username"}
           />
-          <TextInput
-            label="First Name"
-            value={firstName}
-            onChange={setFirstName}
-          />
-          <TextInput
-            label="Last Name"
-            value={lastName}
-            onChange={setLastName}
-          />
-
-          <br />
-          <br />
 
           <TextInput
             label="Password"
@@ -78,6 +77,7 @@ const Register = () => {
             errorTitleOverride={"password1"}
             secretField={true}
           />
+
           <TextInput
             label="Confirm Password"
             value={confirmPassword}
@@ -87,27 +87,25 @@ const Register = () => {
             secretField={true}
           />
 
-          <br />
-          <br />
-
           <Button
             text={"Register"}
-            style={{ margin: "auto" }}
+            style={{ margin: "auto", width:"100%"}}
             onClick={() => executeRegister()}
             isLoading={isLoading}
           />
-        </FlexColumn>
 
-        <br />
-        <br />
+          </ContentBlock>
 
-        <div style={{ display: "ruby" }}>
-          <BodyText>Have an account?</BodyText>{" "}
-          <TextLink onClick={() => navigate("/")}>Log in.</TextLink>
-        </div>
-        <br />
-        <br />
-      </FlexColumn>
+        <ContentBlock center={true}>
+
+          <div style={{ display: "ruby" }}>
+            <BodyText>Have an account?</BodyText>{" "}
+            <TextLink onClick={() => navigate("/")}>Log in.</TextLink>
+          </div>
+
+        </ContentBlock>
+
+      </ContentCard>
     </PageLayout>
   );
 };
