@@ -10,6 +10,7 @@ import TextLink from "../components/global/TextLink";
 
 import { login } from "../state/routes";
 import { useAuthStore } from "../state/stores";
+import LoginCard from "../components/layout/LoginCard";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -46,47 +47,57 @@ const Login = () => {
 
   return (
     <PageLayout displayNav={false}>
-      <FlexColumn style={{ alignItems: "center", marginTop: "20vh" }} gap={24}>
+      <LoginCard>
+        
         <Heading>Your App Title Here</Heading>
 
-        <Subheading>Login</Subheading>
+        <FlexColumn gap={16}>
 
-        <TextInput
-          label="Email"
-          value={email}
-          onChange={setEmail}
-          error={errorState}
-        />
-        <TextInput
-          label="Password"
-          secretField={true}
-          value={password}
-          onChange={setPassword}
-          error={errorState}
-        />
+          <div style={{borderBottom: "1px solid #808080", paddingBottom: "16px", width: "100%", display:"flex", justifyContent: "center"}}>
+            <Subheading>Login</Subheading>
+          </div>
+          
+          <TextInput
+            label="Email"
+            value={email}
+            onChange={setEmail}
+            error={errorState}
+          />
+          
+          <TextInput
+            label="Password"
+            secretField={true}
+            value={password}
+            onChange={setPassword}
+            error={errorState}
+          />
 
-        <br />
+          <Button
+            text={"Login"}
+            onClick={() => executeLogin()}
+            isLoading={isLoading}
+            style={{width:"100%"}}
+          />
 
-        <Button
-          text={"Login"}
-          onClick={() => executeLogin()}
-          isLoading={isLoading}
-        />
+        </FlexColumn>
 
-        <br />
+        <FlexColumn gap={16} style={{alignItems: "center"}}>
 
-        <div style={{ display: "ruby" }}>
-          <BodyText>Don't have an account?</BodyText>{" "}
-          <TextLink onClick={() => navigate("/register")}>Register.</TextLink>
-        </div>
+          <div style={{ display: "ruby" }}>
+            <BodyText>Don't have an account?</BodyText>{" "}
+            <TextLink onClick={() => navigate("/register")}>Register.</TextLink>
+          </div>
 
-        <div style={{ display: "ruby" }}>
-          <BodyText>Forgot your password?</BodyText>{" "}
-          <TextLink onClick={() => navigate("/forgot-password")}>
-            Reset my password.
-          </TextLink>
-        </div>
-      </FlexColumn>
+          <div style={{ display: "ruby" }}>
+            <BodyText>Forgot your password?</BodyText>{" "}
+            <TextLink onClick={() => navigate("/forgot-password")}>
+              Reset my password.
+            </TextLink>
+          </div>
+
+        </FlexColumn>
+
+      </LoginCard>
     </PageLayout>
   );
 };

@@ -4,7 +4,7 @@ import { FlexColumn } from "./Flex";
 
 const ContentContainer = ({ children, ...props }) => {
   return (
-    <FlexColumn className="content-container">{children}</FlexColumn>
+    <FlexColumn className="content-container" gap={0}>{children}</FlexColumn>
   );
 };
 

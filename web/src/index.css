@@ -12,9 +12,16 @@ code {
     monospace;
 }
 
+.login-card {
+  align-items: center;
+  margin-top: 20vh;
+  background-color: #ffffff;
+  padding: 32px 24px;
+  border-radius: 16px;
+}
+
 .content-container {
   display: flex;
-  /* justify-content: center; */
   align-items: center;
   background-color: #f8f8f8;
   height: 100%;
@@ -22,7 +29,6 @@ code {
 
 .content-column {
   padding: 24px;
-  gap: 24px;
   background-color: #ffffff;
   height: 100%;
 }
