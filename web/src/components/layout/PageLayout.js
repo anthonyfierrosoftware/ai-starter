@@ -4,12 +4,12 @@ import { FlexColumn } from "./Flex";
 import Navbar from "./Navbar";
 import ContentContainer from "./ContentContainer";
 
-const PageLayout = ({ children, displayNav = true, ...props }) => {
+const PageLayout = ({ children, displayNav = true, isCentered = false, ...props }) => {
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
-      <FlexColumn style={{ height: "100%" }} gap={0}>
+      <FlexColumn style={{ height: "100%"}} gap={0}>
         {displayNav && <Navbar />}
-        <ContentContainer>{children}</ContentContainer>
+        <ContentContainer isCentered={isCentered}>{children}</ContentContainer>
       </FlexColumn>
     </div>
   );

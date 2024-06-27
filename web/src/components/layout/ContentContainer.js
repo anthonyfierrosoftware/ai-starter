@@ -2,9 +2,9 @@
 
 import { FlexColumn } from "./Flex";
 
-const ContentContainer = ({ children, ...props }) => {
+const ContentContainer = ({ children, isCentered=false, ...props }) => {
   return (
-    <FlexColumn className="content-container" gap={0}>{children}</FlexColumn>
+    <FlexColumn className="content-container" gap={0} style={{justifyContent: isCentered && "center"}}>{children}</FlexColumn>
   );
 };
 

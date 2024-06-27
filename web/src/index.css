@@ -12,12 +12,12 @@ code {
     monospace;
 }
 
-.login-card {
-  align-items: center;
-  margin-top: 10vh;
+.content-card {
   background-color: #ffffff;
   padding: 32px 24px;
   border-radius: 16px;
+  min-height: 480px;
+  width: 320px;
 }
 
 .content-container {

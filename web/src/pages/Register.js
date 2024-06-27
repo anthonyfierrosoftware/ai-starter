@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { BodyText, Heading, Subheading } from "../components/global/Text";
+import { BodyText} from "../components/global/Text";
 import TextInput from "../components/global/TextInput";
-import { FlexColumn, FlexRow } from "../components/layout/Flex";
 import PageLayout from "../components/layout/PageLayout";
 import Button from "../components/global/Button";
 import TextLink from "../components/global/TextLink";
@@ -44,8 +43,8 @@ const Register = () => {
   };
 
   return (
-    <PageLayout displayNav={false}>
-      <ContentCard heading={"Your App Title Here"} subheading={"Register"}>
+    <PageLayout displayNav={false} isCentered={true}>
+      <ContentCard heading={"Your App Title Here"} subheading={"Register"} isCentered={true}>
 
         <ContentBlock>
 
@@ -96,11 +95,11 @@ const Register = () => {
 
           </ContentBlock>
 
-        <ContentBlock center={true}>
+        <ContentBlock isCentered={true}>
 
           <div style={{ display: "ruby" }}>
             <BodyText>Have an account?</BodyText>{" "}
-            <TextLink onClick={() => navigate("/")}>Log in.</TextLink>
+            <TextLink onClick={() => navigate("/")}>Log in</TextLink>
           </div>
 
         </ContentBlock>

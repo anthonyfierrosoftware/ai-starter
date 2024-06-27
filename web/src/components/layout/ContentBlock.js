@@ -1,9 +1,9 @@
 // Standardized component that groups content together
 import { FlexColumn } from "./Flex";
 
-const ContentBlock = ({ children, center, ...props }) => {
+const ContentBlock = ({ children, isCentered, ...props }) => {
   return (
-    <FlexColumn gap={16} style={{alignItems: center && "center"}}>{children}</FlexColumn>
+    <FlexColumn gap={16} style={{alignItems: isCentered && "center"}}>{children}</FlexColumn>
   );
 };
 

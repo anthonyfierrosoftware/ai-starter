@@ -1,11 +1,13 @@
 import { useState } from "react";
 import PageLayout from "../components/layout/PageLayout";
-import { Heading, Subheading } from "../components/global/Text";
+import { BodyText, Heading, Subheading } from "../components/global/Text";
 import { FlexColumn } from "../components/layout/Flex";
 import TextInput from "../components/global/TextInput";
 import Button from "../components/global/Button";
 import { resetPassword } from "../state/routes";
 import TextLink from "../components/global/TextLink";
+import ContentCard from "../components/layout/ContentCard";
+import ContentBlock from "../components/layout/ContentBlock";
 
 const ForgotPassword = ({}) => {
   const [email, setEmail] = useState("");
@@ -31,42 +33,56 @@ const ForgotPassword = ({}) => {
   };
 
   return (
-    <PageLayout displayNav={false}>
-      <Heading>Forgot Password</Heading>
-      <br />
-      <br />
-      {isReset ? (
-        <FlexColumn>
-          <Subheading>
-            Your password has been successfully reset. Check your email to set
-            your new password.
-          </Subheading>
-          <TextLink
-            onClick={() => {
-              window.location.href = "/";
-            }}
-          >
-            Go home.
-          </TextLink>
-        </FlexColumn>
+    <PageLayout displayNav={false} isCentered={true}>
+      {!isReset ? (
+        <ContentCard heading={"Password Reset Successfully"} isCentered={true}>
+          <ContentBlock isCentered={true}>
+            <BodyText>
+              Check your email to set your new password
+            </BodyText>
+          </ContentBlock>
+          <ContentBlock isCentered={true}>
+            <TextLink
+              onClick={() => {
+                window.location.href = "/";
+              }}
+            >
+              Go home
+            </TextLink>
+          </ContentBlock>
+        </ContentCard>
       ) : (
-        <FlexColumn style={{ margin: "auto", alignItems: "center" }} gap={24}>
-          <Subheading>
-            Enter your email below to reset your password.
-          </Subheading>
-          <TextInput
-            value={email}
-            label="Email address"
-            onChange={setEmail}
-            error={errorState}
-            errorTitleOverride="Email"
-          />
-          <Button
-            text="Submit"
-            onClick={() => onResetPassword()}
-            isLoading={isLoading}
-          />
-        </FlexColumn>
+        <ContentCard heading={"Forgot Password"} isCentered={true}>
+          <ContentBlock isCentered={true}>
+            <BodyText>
+              Enter your email below to reset your password
+            </BodyText>
+          </ContentBlock>
+          <ContentBlock isCentered={true}>
+            <TextInput
+              value={email}
+              label="Email address"
+              onChange={setEmail}
+              error={errorState}
+              errorTitleOverride="Email"
+            />
+            <Button
+              text="Submit"
+              onClick={() => onResetPassword()}
+              isLoading={isLoading}
+              style={{width:"100%"}}
+            />
+          </ContentBlock>
+          <ContentBlock>
+            <TextLink
+              onClick={() => {
+                window.location.href = "/";
+              }}
+            >
+              Go home
+            </TextLink>
+          </ContentBlock>
+        </ContentCard>
       )}
     </PageLayout>
   );

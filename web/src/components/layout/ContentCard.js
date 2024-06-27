@@ -2,13 +2,13 @@
 import { FlexColumn } from "./Flex";
 import { Heading, Subheading } from "../global/Text";
 
-const ContentCard = ({ children, heading, subheading, ...props }) => {
+const ContentCard = ({ children, heading, subheading, isCentered=false, ...props }) => {
   return (
-    <FlexColumn className="login-card" gap={32}>
+    <FlexColumn className="content-card" style={{alignItems: isCentered && "center"}} gap={32}>
 
-        {heading && <Heading>{heading}</Heading>}    
+        {heading && <Heading style={{textAlign: isCentered && "center"}}>{heading}</Heading>}    
         
-        {subheading && <Subheading>{subheading}</Subheading>}
+        {subheading && <Subheading style={{textAlign: isCentered && "center"}}>{subheading}</Subheading>}
 
         {children}
         

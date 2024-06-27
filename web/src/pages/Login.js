@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { BodyText, Heading, Subheading } from "../components/global/Text";
+import { BodyText} from "../components/global/Text";
 import TextInput from "../components/global/TextInput";
-import { FlexColumn } from "../components/layout/Flex";
 import PageLayout from "../components/layout/PageLayout";
 import Button from "../components/global/Button";
 import TextLink from "../components/global/TextLink";
@@ -47,8 +46,8 @@ const Login = () => {
   };
 
   return (
-    <PageLayout displayNav={false}>
-      <ContentCard heading={"Your App Title Here"} subheading={"Login"}>
+    <PageLayout displayNav={false} isCentered={true}>
+      <ContentCard heading={"Your App Title Here"} subheading={"Login"} isCentered={true}>
           
         <ContentBlock>
 
@@ -76,7 +75,7 @@ const Login = () => {
 
         </ContentBlock>
 
-        <ContentBlock center={true}>
+        <ContentBlock isCentered={true}>
 
           <div style={{ display: "ruby" }}>
             <BodyText>Don't have an account?</BodyText>{" "}
