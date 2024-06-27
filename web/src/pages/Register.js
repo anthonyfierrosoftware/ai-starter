@@ -95,7 +95,7 @@ const Register = () => {
 
           </ContentBlock>
 
-        <ContentBlock isCentered={true}>
+        <ContentBlock isCentered={true} isLast={true}>
 
           <div style={{ display: "ruby" }}>
             <BodyText>Have an account?</BodyText>{" "}

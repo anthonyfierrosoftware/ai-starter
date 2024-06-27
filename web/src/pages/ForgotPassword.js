@@ -1,7 +1,6 @@
 import { useState } from "react";
 import PageLayout from "../components/layout/PageLayout";
-import { BodyText, Heading, Subheading } from "../components/global/Text";
-import { FlexColumn } from "../components/layout/Flex";
+import { BodyText} from "../components/global/Text";
 import TextInput from "../components/global/TextInput";
 import Button from "../components/global/Button";
 import { resetPassword } from "../state/routes";
@@ -34,14 +33,14 @@ const ForgotPassword = ({}) => {
 
   return (
     <PageLayout displayNav={false} isCentered={true}>
-      {!isReset ? (
-        <ContentCard heading={"Password Reset Successfully"} isCentered={true}>
+      {isReset ? (
+        <ContentCard heading={"Password Reset"} isCentered={true}>
           <ContentBlock isCentered={true}>
-            <BodyText>
+            <BodyText isCentered={true}>
               Check your email to set your new password
             </BodyText>
           </ContentBlock>
-          <ContentBlock isCentered={true}>
+          <ContentBlock isCentered={true} isLast={true}>
             <TextLink
               onClick={() => {
                 window.location.href = "/";
@@ -54,7 +53,7 @@ const ForgotPassword = ({}) => {
       ) : (
         <ContentCard heading={"Forgot Password"} isCentered={true}>
           <ContentBlock isCentered={true}>
-            <BodyText>
+            <BodyText isCentered={true}>
               Enter your email below to reset your password
             </BodyText>
           </ContentBlock>
@@ -73,7 +72,7 @@ const ForgotPassword = ({}) => {
               style={{width:"100%"}}
             />
           </ContentBlock>
-          <ContentBlock>
+          <ContentBlock isLast={true}>
             <TextLink
               onClick={() => {
                 window.location.href = "/";

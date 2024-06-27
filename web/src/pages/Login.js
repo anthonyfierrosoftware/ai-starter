@@ -75,7 +75,7 @@ const Login = () => {
 
         </ContentBlock>
 
-        <ContentBlock isCentered={true}>
+        <ContentBlock isCentered={true} isLast={true}>
 
           <div style={{ display: "ruby" }}>
             <BodyText>Don't have an account?</BodyText>{" "}
