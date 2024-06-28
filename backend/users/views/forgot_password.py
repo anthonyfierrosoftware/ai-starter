@@ -31,7 +31,7 @@ class ForgotPassword(APIView):
                 
             except Exception as e:
                 print("Forgot Password could not find user from email: {e}")
-                error= [error_list_object("Email", "No user assosciated to the email provided.")]
+                error= [error_list_object("Email", "No user assosciated with the email provided.")]
                 return generate_response(status=422, data=error, custom_message=None )
             
             # create random password 
