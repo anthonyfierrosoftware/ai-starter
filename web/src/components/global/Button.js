@@ -9,7 +9,7 @@ const Button = ({ text, onClick = () => {}, style, isLoading = false }) => {
     <button
       style={{
         width: "100px",
-        height: "48px",
+        height: "40px",
         border: "1px solid #CCCCCC",
         borderRadius: "4px",
         cursor: "pointer",

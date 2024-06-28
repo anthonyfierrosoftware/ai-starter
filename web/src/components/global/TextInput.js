@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { FlexColumn } from "../layout/Flex";
+import { ErrorText } from "./Text";
 
 const TextInput = ({
   value = "",
@@ -9,6 +10,7 @@ const TextInput = ({
   error = false,
   errorTitleOverride = false,
   disabled = false,
+  isSplit = false,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
 
@@ -34,7 +36,7 @@ const TextInput = ({
   }, [error]);
 
   return (
-    <FlexColumn gap={4}>
+    <FlexColumn gap={4} style={{width: isSplit ? "calc(50% - 6px)" : "100%"}}>
       <label style={{ lineHeight: "22px", fontSize: "14px" }}>{label}</label>
       <input
         disabled={disabled}
@@ -49,20 +51,13 @@ const TextInput = ({
           height: "28px",
           borderRadius: "4px",
           border: `1px solid ${borderColor()}`,
-          width: "268px",
-          padding: "8px 16px",
+          padding: "4px 8px",
         }}
         type={secretField && "password"}
       />
       {errorMessage && (
-        <div
-          style={{
-            width: "268px",
-            borderRadius: "4px",
-            color: "red",
-          }}
-        >
-          <span>{errorMessage}</span>
+        <div style={{ width: "100%"}}>
+          <ErrorText>{errorMessage}</ErrorText>
         </div>
       )}
     </FlexColumn>
