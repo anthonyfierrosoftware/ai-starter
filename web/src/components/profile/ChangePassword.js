@@ -5,6 +5,8 @@ import { Subheading } from "../global/Text";
 import TextInput from "../global/TextInput";
 import { FlexColumn } from "../layout/Flex";
 import { useAuthStore } from "../../state/stores";
+import ContentBlock from "../layout/ContentBlock";
+import ContentGroup from "../layout/ContentGroup";
 
 const ChangePassword = ({ onSuccess = () => {} }) => {
   const [currentPassword, setCurrentPassword] = useState("");
@@ -40,18 +42,8 @@ const ChangePassword = ({ onSuccess = () => {} }) => {
   };
 
   return (
-    <FlexColumn>
-      <Subheading>Change Password</Subheading>
-      <FlexColumn
-        style={{
-          padding: 8,
-          backgroundColor: "#EEEEEE",
-          borderRadius: 4,
-          maxWidth: "308px",
-        }}
-        gap={24}
-      >
-        <FlexColumn>
+    <ContentGroup subheading={"Change Password"}>
+      <ContentBlock>
           <TextInput
             label="Current Password"
             value={currentPassword}
@@ -60,30 +52,32 @@ const ChangePassword = ({ onSuccess = () => {} }) => {
             errorTitleOverride={"Password"}
             secretField={true}
           />
-          <TextInput
-            label="New Password"
-            value={newPassword}
-            onChange={setNewPassword}
-            secretField={true}
-            errorTitleOverride={"Password1"}
-            error={errorState}
-          />
-          <TextInput
-            label="Confirm Password"
-            value={confirmPassword}
-            onChange={setConfirmPassword}
-            secretField={true}
-          />
-        </FlexColumn>
-        {/* //TODO convert to card styles */}
+          <ContentBlock isRow={true}>
+            <TextInput
+              label="New Password"
+              value={newPassword}
+              onChange={setNewPassword}
+              secretField={true}
+              errorTitleOverride={"Password1"}
+              error={errorState}
+              isRow={true}
+            />
+            <TextInput
+              label="Confirm Password"
+              value={confirmPassword}
+              onChange={setConfirmPassword}
+              secretField={true}
+              isRow={true}
+            />
+          </ContentBlock>
         <Button
-          text={"Save"}
+          text={"Save Changes"}
           onClick={() => executeChangePassword()}
           style={{ width: "100%" }}
           isLoading={isLoading}
         />
-      </FlexColumn>
-    </FlexColumn>
+      </ContentBlock>
+    </ContentGroup>
   );
 };
 

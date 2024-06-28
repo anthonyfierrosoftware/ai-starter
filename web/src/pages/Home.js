@@ -14,8 +14,7 @@ const Home = () => {
 
   return (
     <PageLayout>
-      <ContentColumn>
-        <Heading>Home</Heading>
+      <ContentColumn heading={"Home"}>
         <FlexColumn>
           <BodyText>
             Toggle between Conversation and Single Prompt mode to enable or

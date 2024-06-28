@@ -10,7 +10,7 @@ const TextInput = ({
   error = false,
   errorTitleOverride = false,
   disabled = false,
-  isSplit = false,
+  isRow = false,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
 
@@ -36,7 +36,7 @@ const TextInput = ({
   }, [error]);
 
   return (
-    <FlexColumn gap={4} style={{width: isSplit ? "calc(50% - 6px)" : "100%"}}>
+    <FlexColumn gap={4} style={{width: isRow ? "calc(50% - 6px)" : "100%"}}>
       <label style={{ lineHeight: "22px", fontSize: "14px" }}>{label}</label>
       <input
         disabled={disabled}

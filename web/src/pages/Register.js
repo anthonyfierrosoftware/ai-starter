@@ -54,14 +54,14 @@ const Register = () => {
               label="First Name"
               value={firstName}
               onChange={setFirstName}
-              isSplit={true}
+              isRow={true}
             />
 
             <TextInput
               label="Last Name"
               value={lastName}
               onChange={setLastName}
-              isSplit={true}
+              isRow={true}
             />
 
           </ContentBlock>
