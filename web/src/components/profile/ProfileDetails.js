@@ -3,8 +3,10 @@ import { useAuthStore } from "../../state/stores";
 import { updateSettings } from "../../state/routes";
 import { FlexColumn } from "../layout/Flex";
 import { Subheading } from "../global/Text";
+import ContentBlock from "../layout/ContentBlock";
 import TextInput from "../global/TextInput";
 import Button from "../global/Button";
+import ContentGroup from "../layout/ContentGroup";
 
 const ProfileDetails = ({ userData }) => {
   const authState = useAuthStore((state) => state.auth);
@@ -39,45 +41,37 @@ const ProfileDetails = ({ userData }) => {
   };
 
   return (
-    <FlexColumn>
-      <Subheading>Profile Details</Subheading>
-      <FlexColumn
-        style={{
-          padding: 8,
-          backgroundColor: "#EEEEEE",
-          borderRadius: 4,
-          maxWidth: "308px",
-        }}
-        gap={24}
-      >
-        <FlexColumn>
-          <TextInput
-            label="Email"
-            value={userData?.email}
-            error={errorState}
-            errorTitleOverride={"username"}
-            disabled={true}
-          />
+    <ContentGroup subheading={"Profile Details"}>
+      <ContentBlock>
+        <TextInput
+          label="Email"
+          value={userData?.email}
+          error={errorState}
+          errorTitleOverride={"username"}
+          disabled={true}
+        />
+        <ContentBlock isRow={true}>
           <TextInput
             label="First Name"
             value={firstName}
             onChange={setFirstName}
+            isRow={true}
           />
           <TextInput
             label="Last Name"
             value={lastName}
             onChange={setLastName}
+            isRow={true}
           />
-        </FlexColumn>
-        {/* //TODO convert to card styles */}
+        </ContentBlock>
         <Button
-          text={"Save"}
+          text={"Save Changes"}
           onClick={() => updateProfile()}
           style={{ width: "100%" }}
           isLoading={isLoading}
         />
-      </FlexColumn>
-    </FlexColumn>
+      </ContentBlock>
+    </ContentGroup>
   );
 };
 

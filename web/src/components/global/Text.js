@@ -14,4 +14,10 @@ const BodyText = ({ style, children, isCentered = false, onClick = () => {} }) =
   );
 };
 
-export { Heading, Subheading, BodyText };
+const ErrorText = ({style, children}) => {
+  return (
+    <span style={{ color: "red", fontSize: "12px", ...style }}>{children}</span>
+  )
+}
+
+export { Heading, Subheading, BodyText, ErrorText };

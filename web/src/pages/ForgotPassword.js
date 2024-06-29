@@ -72,7 +72,7 @@ const ForgotPassword = ({}) => {
               style={{width:"100%"}}
             />
           </ContentBlock>
-          <ContentBlock isLast={true}>
+          <ContentBlock isCentered={true} isLast={true}>
             <TextLink
               onClick={() => {
                 window.location.href = "/";
