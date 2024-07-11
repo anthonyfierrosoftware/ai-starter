@@ -14,26 +14,29 @@ const Home = () => {
 
   return (
     <PageLayout>
-      <ContentColumn heading={"Home"}>
-        <FlexColumn>
-          <BodyText>
-            Toggle between Conversation and Single Prompt mode to enable or
-            disable LLM chat history.
-          </BodyText>
-          <FlexRow>
-            <RadioCheckbox
-              options={["Conversation Mode", "Single Prompt Mode"]}
-              onChange={(data) => setChatMode(data)}
-              defaultValue={"Single Prompt Mode"}
-            />
-          </FlexRow>
-        </FlexColumn>
-        <ConversationsPanel
-          chatMode={chatMode}
-          onConversationSelected={(conversation) => setChatToLoad(conversation)}
-        />
-        <ChatPanel chatToLoad={chatToLoad} chatMode={chatMode} />
-      </ContentColumn>
+      <FlexRow gap={0}>
+        <div style={{width: '280px', height: '100vh', backgroundColor:'black'}}/>
+        <ContentColumn heading={"Home"}>
+          <FlexColumn>
+            <BodyText>
+              Toggle between Conversation and Single Prompt mode to enable or
+              disable LLM chat history.
+            </BodyText>
+            <FlexRow>
+              <RadioCheckbox
+                options={["Conversation Mode", "Single Prompt Mode"]}
+                onChange={(data) => setChatMode(data)}
+                defaultValue={"Single Prompt Mode"}
+              />
+            </FlexRow>
+          </FlexColumn>
+          <ConversationsPanel
+            chatMode={chatMode}
+            onConversationSelected={(conversation) => setChatToLoad(conversation)}
+          />
+          <ChatPanel chatToLoad={chatToLoad} chatMode={chatMode} />
+        </ContentColumn>
+      </FlexRow>
     </PageLayout>
   );
 };
