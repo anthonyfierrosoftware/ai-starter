@@ -36,6 +36,6 @@ code {
 
 @media screen and (min-width: 1280px) {
   .content-column {
-    width: calc(1280px - 280px);
+    width: calc(1280px - 248px);
   }
 }

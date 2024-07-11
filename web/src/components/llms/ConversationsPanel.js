@@ -26,10 +26,8 @@ const ConversationsPanel = ({ chatMode, onConversationSelected }) => {
   }, []);
 
   return (
-    <FlexColumn
-      style={{ borderBottom: "1px solid #AAAAAA", paddingBottom: 16 }}
-    >
-      <FlexRow style={{ width: "100%", justifyContent: "space-between" }}>
+    <FlexColumn>
+      {/* <FlexRow style={{ width: "100%", justifyContent: "space-between" }}>
         <Subheading>Conversations</Subheading>
         {chatMode == "Conversation Mode" && (
           <Button
@@ -37,7 +35,8 @@ const ConversationsPanel = ({ chatMode, onConversationSelected }) => {
             onClick={() => setIsDisplayConversations(!isDisplayConversations)}
           />
         )}
-      </FlexRow>
+      </FlexRow> */}
+      <Subheading>Conversation History</Subheading>
       {isDisplayConversations &&
         (chatMode == "Conversation Mode" ? (
           <FlexColumn>

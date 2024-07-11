@@ -4,6 +4,7 @@ import { FlexColumn, FlexRow } from "../layout/Flex";
 const RadioCheckbox = ({
   options,
   onChange,
+  isStacked = false,
   defaultValue = null,
   style = {},
 }) => {
@@ -17,17 +18,24 @@ const RadioCheckbox = ({
   };
 
   return (
-    <FlexRow
+    <div
       style={{
-        backgroundColor: "#F3F3F3",
-        borderRadius: "4px",
-        padding: "16px",
-        maxHeight: "22px",
+        display: 'flex',
+        flexDirection: isStacked ? 'column' : 'row',
+        gap: '8px',
         ...style,
       }}
     >
       {options.map((option) => (
-        <FlexColumn>
+        <FlexColumn
+          style={{
+            backgroundColor: selectedOption === option ? '#b5b5b5': "#ffffff",
+            border: '1px solid black',
+            borderRadius: "4px",
+            padding: "16px 8px",
+            minWidth: '200px'
+          }}
+        >
           <label key={option}>
             <input
               type="radio"
@@ -39,7 +47,7 @@ const RadioCheckbox = ({
           </label>
         </FlexColumn>
       ))}
-    </FlexRow>
+    </div>
   );
 };
 
