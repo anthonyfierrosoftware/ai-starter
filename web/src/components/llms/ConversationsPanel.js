@@ -9,7 +9,7 @@ import { formatDate } from "../../utils/formatDate";
 const ConversationsPanel = ({ onConversationSelected }) => {
   const [fetchedConversations, setFetchedConversations] = useState([]);
   // const [isDisplayConversations, setIsDisplayConversations] = useState(true);
-  const [chatMode, setChatMode] = useState("Single Prompt Mode");
+  const [chatMode, setChatMode] = useState("Off");
   const authState = useAuthStore((state) => state.auth);
   const apiHeaders = { Authorization: `Token ${authState.token}` };
 
@@ -29,38 +29,32 @@ const ConversationsPanel = ({ onConversationSelected }) => {
     <FlexColumn>
       {/* <FlexRow style={{ width: "100%", justifyContent: "space-between" }}>
         <Subheading>Conversations</Subheading>
-        {chatMode == "Conversation Mode" && (
+        {chatMode == "On" && (
           <Button
             text={isDisplayConversations ? "Hide" : "Show"}
             onClick={() => setIsDisplayConversations(!isDisplayConversations)}
           />
         )}
       </FlexRow> */}
-      <Subheading>Conversations</Subheading>
+      <Subheading>Conversation Mode</Subheading>
       <BodyText style={{fontSize: '14px'}}>
-        {chatMode == "Conversation Mode" ?
+        {chatMode == "On" ?
           <>
-          {fetchedConversations?.length > 0 ? "Select a conversation to load it into a chat panel" : "Send a message to get started"}
+          {fetchedConversations?.length > 0 ? "Select a conversation to load it into the chat panel" : "Send a message to get started"}
           </> 
           :
-          "Select conversation mode to view and load past conversations"
+          "Your conversation history will not be saved"
         }
       </BodyText>
       <RadioCheckbox
-        options={["Single Prompt Mode", "Conversation Mode"]}
+        options={["Off", "On"]}
         onChange={(data) => setChatMode(data)}
-        defaultValue={"Single Prompt Mode"}
-        isStacked={true}
+        defaultValue={"Off"}
+        isCondensed={true}
       />
       {
-        (chatMode == "Conversation Mode" ? (
-          <FlexColumn>
-            <FlexRow
-              style={{
-                flexWrap: "wrap",
-                overflowX: "scroll",
-              }}
-            >
+        (chatMode == "On" ? (
+          <FlexColumn style={{overflowY: 'auto'}} gap={0}>
               {fetchedConversations?.map((conversation, i) => (
                 <ConversationCard
                   key={i}
@@ -72,7 +66,6 @@ const ConversationsPanel = ({ onConversationSelected }) => {
                   onClick={onConversationSelected}
                 />
               ))}
-            </FlexRow>
           </FlexColumn>
         ) : (
           <>
@@ -105,16 +98,16 @@ const ConversationCard = ({
       }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      gap={"8px"}
+      gap={4}
       onClick={() => {
         console.log("load conversation");
         onClick(conversationData);
       }}
     >
-      <BodyText>
+      <BodyText style={{fontSize: 14}}>
         <b>{model}</b> {name}
       </BodyText>
-      <FlexColumn gap={4}>
+      <FlexColumn gap={2}>
         <BodyText style={{ fontSize: 11 }}>
           Created {formatDate(dateCreated)}
         </BodyText>

@@ -45,7 +45,6 @@ const TextArea = ({
           height: "60px",
           borderRadius: "4px",
           border: `1px solid ${borderColor()}`,
-          // width: "268px",
           padding: "4px 8px",
           height: isFullWidth && '30px'
         }}

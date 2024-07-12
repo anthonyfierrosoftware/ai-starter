@@ -9,6 +9,8 @@ import { models, getModelConfig } from "../../state/modelsConfig";
 import Button from "../global/Button";
 import { sendChat } from "../../state/routes";
 import { useAuthStore } from "../../state/stores";
+import ContentColumn from "../layout/ContentColumn";
+import ContentBlock from "../layout/ContentBlock";
 
 const ChatPanel = ({ chatToLoad, chatMode }) => {
   const [isMultiPrompt, setIsMultiPrompt] = useState("Single input");
@@ -152,7 +154,7 @@ const ChatPanel = ({ chatToLoad, chatMode }) => {
         setChatByModelId("GPT3.5", [
           ...res?.data.data.conversation.chat_history,
         ]);
-        if (chatMode == "Conversation Mode") {
+        if (chatMode == "On") {
           setGpt35ChatId(res?.data.data.conversation.pk);
         }
         setGpt35ChatLoading(false);
@@ -161,7 +163,7 @@ const ChatPanel = ({ chatToLoad, chatMode }) => {
         setGpt35ChatError(err?.data?.errors);
         setGpt35ChatLoading(false);
       },
-      chatMode == "Conversation Mode" ? gpt35ChatId : false
+      chatMode == "On" ? gpt35ChatId : false
     );
     sendPrompt(
       "GPT4.0",
@@ -170,7 +172,7 @@ const ChatPanel = ({ chatToLoad, chatMode }) => {
         setChatByModelId("GPT4.0", [
           ...res?.data.data.conversation.chat_history,
         ]);
-        if (chatMode == "Conversation Mode") {
+        if (chatMode == "On") {
           setGpt4ChatId(res?.data.data.conversation.pk);
         }
         setGpt4ChatLoading(false);
@@ -179,7 +181,7 @@ const ChatPanel = ({ chatToLoad, chatMode }) => {
         setGpt4ChatError(err?.data?.errors);
         setGpt4ChatLoading(false);
       },
-      chatMode == "Conversation Mode" ? gpt4ChatId : false
+      chatMode == "On" ? gpt4ChatId : false
     );
     sendPrompt(
       "Claude",
@@ -188,7 +190,7 @@ const ChatPanel = ({ chatToLoad, chatMode }) => {
         setChatByModelId("Claude", [
           ...res?.data.data.conversation.chat_history,
         ]);
-        if (chatMode == "Conversation Mode") {
+        if (chatMode == "On") {
           setClaudeChatId(res?.data.data.conversation.pk);
         }
         setClaudeChatLoading(false);
@@ -197,14 +199,14 @@ const ChatPanel = ({ chatToLoad, chatMode }) => {
         setClaudeChatError(err?.data?.errors);
         setClaudeChatLoading(false);
       },
-      chatMode == "Conversation Mode" ? claudeChatId : false
+      chatMode == "On" ? claudeChatId : false
     );
     sendPrompt(
       "Llama",
       messageValue,
       (res) => {
-        setChatByModelId("Llama", [...res?.data.data.conversation.chat_history]);
-        if (chatMode == "Conversation Mode") {
+        setChatByModelId("Llama", [...res?.data.data.conversation.chatHistory]);
+        if (chatMode == "On") {
           setLlamaChatId(res?.data.data.conversation.pk);
         }
         setLlamaChatLoading(false);
@@ -221,7 +223,7 @@ const ChatPanel = ({ chatToLoad, chatMode }) => {
         setChatByModelId("Mistral", [
           ...res?.data.data.conversation.chat_history,
         ]);
-        if (chatMode == "Conversation Mode") {
+        if (chatMode == "On") {
           setMistralChatId(res?.data.data.conversation.pk);
         }
         setMistralChatLoading(false);
@@ -230,7 +232,7 @@ const ChatPanel = ({ chatToLoad, chatMode }) => {
         setMistralChatError(err?.data?.errors);
         setMistralChatLoading(false);
       },
-      chatMode == "Conversation Mode" ? mistralChatId : false
+      chatMode == "On" ? mistralChatId : false
     );
   };
 
@@ -244,7 +246,7 @@ const ChatPanel = ({ chatToLoad, chatMode }) => {
           setChatByModelId("GPT3.5", [
             ...res?.data.data.conversation.chat_history,
           ]);
-          if (chatMode == "Conversation Mode") {
+          if (chatMode == "On") {
             setGpt35ChatId(res?.data.data.conversation.pk);
           }
           setGpt35ChatLoading(false);
@@ -253,7 +255,7 @@ const ChatPanel = ({ chatToLoad, chatMode }) => {
           setGpt35ChatError(err?.data?.errors);
           setGpt35ChatLoading(false);
         },
-        chatMode == "Conversation Mode" ? gpt35ChatId : false
+        chatMode == "On" ? gpt35ChatId : false
       );
     } else if (modelId == "GPT4.0") {
       setGpt4ChatLoading(true);
@@ -264,7 +266,7 @@ const ChatPanel = ({ chatToLoad, chatMode }) => {
           setChatByModelId("GPT4.0", [
             ...res?.data.data.conversation.chat_history,
           ]);
-          if (chatMode == "Conversation Mode") {
+          if (chatMode == "On") {
             setGpt4ChatId(res?.data.data.conversation.pk);
           }
           setGpt4ChatLoading(false);
@@ -273,7 +275,7 @@ const ChatPanel = ({ chatToLoad, chatMode }) => {
           setGpt4ChatError(err?.data?.errors);
           setGpt4ChatLoading(false);
         },
-        chatMode == "Conversation Mode" ? gpt4ChatId : false
+        chatMode == "On" ? gpt4ChatId : false
       );
     } else if (modelId == "Claude") {
       setClaudeChatLoading(true);
@@ -284,7 +286,7 @@ const ChatPanel = ({ chatToLoad, chatMode }) => {
           setChatByModelId("Claude", [
             ...res?.data.data.conversation.chat_history,
           ]);
-          if (chatMode == "Conversation Mode") {
+          if (chatMode == "On") {
             setClaudeChatId(res?.data.data.conversation.pk);
           }
           setClaudeChatLoading(false);
@@ -293,7 +295,7 @@ const ChatPanel = ({ chatToLoad, chatMode }) => {
           setClaudeChatError(err?.data?.errors);
           setClaudeChatLoading(false);
         },
-        chatMode == "Conversation Mode" ? claudeChatId : false
+        chatMode == "On" ? claudeChatId : false
       );
     } else if (modelId == "Llama") {
       setLlamaChatLoading(true);
@@ -304,7 +306,7 @@ const ChatPanel = ({ chatToLoad, chatMode }) => {
           setChatByModelId("Llama", [
             ...res?.data.data.conversation.chat_history,
           ]);
-          if (chatMode == "Conversation Mode") {
+          if (chatMode == "On") {
             setLlamaChatId(res?.data.data.conversation.pk);
           }
           setLlamaChatLoading(false);
@@ -323,7 +325,7 @@ const ChatPanel = ({ chatToLoad, chatMode }) => {
           setChatByModelId("Mistral", [
             ...res?.data.data.conversation.chat_history,
           ]);
-          if (chatMode == "Conversation Mode") {
+          if (chatMode == "On") {
             setMistralChatId(res?.data.data.conversation.pk);
           }
           setMistralChatLoading(false);
@@ -332,45 +334,18 @@ const ChatPanel = ({ chatToLoad, chatMode }) => {
           setMistralChatError(err?.data?.errors);
           setMistralChatLoading(false);
         },
-        chatMode == "Conversation Mode" ? mistralChatId : false
+        chatMode == "On" ? mistralChatId : false
       );
     }
   };
 
   return (
-    <FlexColumn>
-      <FlexColumn>
-        {models.map((chat, i) => (
-          <Chat
-            chat={chat}
-            conversationMode={chatMode == "Conversation Mode"}
-            conversation={getChatByModelId(chat.name)}
-            sendMultipleInput={sendMultipleInput}
-            isLoading={getChatLoadStateByModelId(chat.name)}
-            conversationId={
-              chatMode == "Conversation Mode"
-                ? getChatIdByModelId(chat.name)
-                : false
-            }
-            key={i}
-            isMultiPrompt={isMultiPrompt}
-            sendPrompt={sendPrompt}
-          />
-        ))}
-      </FlexColumn>
-
-      {isMultiPrompt == "Single input" && (
-        <SendMessage
-          messageValue={messageValue} 
-          setMessageValue={setMessageValue} 
-          buttonIsLoading={buttonIsLoading}
-          sendMultiplePrompt={sendMultiplePrompt}
-        />
-      )}
-
+    <>
       <FlexColumn>
         <BodyText style={{ fontSize: 14 }}>
-          Share inputs between chats
+          {isMultiPrompt == "Single input"
+            ? "Your messages will be sent to all LLMs simultaneously"
+            : "You can send messages to each LLM individually"}
         </BodyText>
         <RadioCheckbox
           options={["Single input", "Multi-input"]}
@@ -378,14 +353,47 @@ const ChatPanel = ({ chatToLoad, chatMode }) => {
           defaultValue={"Single input"}
         />
       </FlexColumn>
-      <FlexRow>
-        <TextArea
-          label="Set instructions for the LLMs in the prompt configuration"
-          value={systemInstructions}
-          onChange={setSystemInstructions}
-        />
+
+      <FlexRow style={{ flexWrap: "wrap" }}>
+        {models.map((chat, i) => (
+          <Chat
+            chat={chat}
+            conversationMode={chatMode == "On"}
+            conversation={getChatByModelId(chat.name)}
+            sendMultipleInput={sendMultipleInput}
+            isLoading={getChatLoadStateByModelId(chat.name)}
+            conversationId={
+              chatMode == "On" ? getChatIdByModelId(chat.name) : false
+            }
+            key={i}
+            isMultiPrompt={isMultiPrompt}
+            sendPrompt={sendPrompt}
+          />
+        ))}
       </FlexRow>
-    </FlexColumn>
+
+      <div style={{ width: "100%", borderBottom: "1px solid black" }} />
+
+      <ContentBlock>
+        {isMultiPrompt == "Single input" && (
+          <SendMessage
+            messageValue={messageValue}
+            setMessageValue={setMessageValue}
+            buttonIsLoading={buttonIsLoading}
+            sendMultiplePrompt={sendMultiplePrompt}
+          />
+        )}
+
+        <FlexRow style={{ width: "calc(100% - 84px)" }}>
+          <TextArea
+            label="Set instructions for the LLMs in the prompt configuration (eg. 'Talk like a pirate')"
+            value={systemInstructions}
+            onChange={setSystemInstructions}
+            isFullWidth={true}
+          />
+        </FlexRow>
+      </ContentBlock>
+    </>
   );
 };
 
@@ -404,7 +412,7 @@ const Chat = ({
   const [buttonIsLoading, setButtonIsLoading] = useState(false);
 
   return (
-    <FlexColumn style={{ flex: 1 }}>
+    <FlexColumn style={{ width: "calc(50% - 4px)", marginBottom: "8px" }}>
       <BodyText>
         <b>
           {chat?.name}
@@ -416,12 +424,13 @@ const Chat = ({
         <ChatMessages conversation={conversation} />
       </FlexColumn>
       {isMultiPrompt == "Multi-input" && (
-        <FlexColumn>
+        <FlexRow style={{ alignItems: "flex-end" }}>
           <TextArea
             isTextArea={true}
             label="Send a message"
             value={messageValue}
             onChange={setMessageValue}
+            isFullWidth={true}
           />
           <Button
             text={buttonIsLoading ? "Sending..." : "Send"}
@@ -430,9 +439,13 @@ const Chat = ({
               sendMultipleInput(chat.name, messageValue);
               setMessageValue("");
             }}
-            style={{ width: "100%" }}
+            style={{
+              width: "80px",
+              height: "40px",
+              backgroundColor: "#b5b5b5",
+            }}
           />
-        </FlexColumn>
+        </FlexRow>
       )}
     </FlexColumn>
   );
@@ -443,7 +456,7 @@ const ChatMessages = ({ conversation }) => {
     <FlexColumn
       style={{
         height: "80px",
-        overflowY: "scroll",
+        overflowY: "auto",
         border: "1px solid #B6B6B6",
         padding: "4px",
         borderRadius: "4px",
@@ -466,9 +479,14 @@ const ChatMessage = ({ message }) => {
   );
 };
 
-const SendMessage = ({messageValue, setMessageValue, buttonIsLoading, sendMultiplePrompt}) => {
+const SendMessage = ({
+  messageValue,
+  setMessageValue,
+  buttonIsLoading,
+  sendMultiplePrompt,
+}) => {
   return (
-    <FlexRow style={{alignItems: 'flex-end'}}>
+    <FlexRow style={{ alignItems: "flex-end" }}>
       <TextArea
         label="Send a message"
         value={messageValue}
@@ -480,10 +498,10 @@ const SendMessage = ({messageValue, setMessageValue, buttonIsLoading, sendMultip
         onClick={() => {
           sendMultiplePrompt();
         }}
-        style={{ width: "80px", height: '40px', backgroundColor: '#b5b5b5' }}
+        style={{ width: "80px", height: "40px", backgroundColor: "#b5b5b5" }}
       />
     </FlexRow>
-  )
-}
+  );
+};
 
 export default ChatPanel;

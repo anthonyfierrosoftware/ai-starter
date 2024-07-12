@@ -5,6 +5,7 @@ const RadioCheckbox = ({
   options,
   onChange,
   isStacked = false,
+  isCondensed = false,
   defaultValue = null,
   style = {},
 }) => {
@@ -33,7 +34,7 @@ const RadioCheckbox = ({
             border: '1px solid #B6B6B6',
             borderRadius: "4px",
             padding: "8px 4px",
-            minWidth: '200px'
+            minWidth: isCondensed ? '60px' : '200px'
           }}
         >
           <label key={option}>

@@ -4,10 +4,9 @@ import ContentColumn from "../components/layout/ContentColumn";
 import PageLayout from "../components/layout/PageLayout";
 import ChatPanel from "../components/llms/ChatPanel";
 import ConversationsPanel from "../components/llms/ConversationsPanel";
-import RadioCheckbox from "../components/global/RadioInput";
 
 const Home = () => {
-  const [chatMode, setChatMode] = useState("Single Prompt Mode");
+  const [chatMode, setChatMode] = useState("Off");
 
   const [chatToLoad, setChatToLoad] = useState(false);
 
@@ -15,7 +14,7 @@ const Home = () => {
     <PageLayout>
       <FlexRow gap={0}>
         {/* This is the sidebar */}
-        <FlexColumn style={{width: '248px', height: '100vh', backgroundColor:'#F3F3F3', padding: '40px 16px', gap: '24px', overflowY: 'scroll'}}>
+        <FlexColumn style={{width: '248px', height: 'calc(100vh - 48px)', backgroundColor:'#F3F3F3', padding: '40px 16px', gap: '24px', overflowY: 'auto'}}>
           <ConversationsPanel
             chatMode={chatMode}
             onConversationSelected={(conversation) => setChatToLoad(conversation)}
