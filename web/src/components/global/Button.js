@@ -14,7 +14,6 @@ const Button = ({ text, onClick = () => {}, style, isLoading = false }) => {
         borderRadius: "4px",
         cursor: "pointer",
         backgroundColor: hovered ? "#EEEEEE" : "white",
-
         fontWeight: 600,
         ...style,
       }}

@@ -30,9 +30,9 @@ const RadioCheckbox = ({
         <FlexColumn
           style={{
             backgroundColor: selectedOption === option ? '#b5b5b5': "#ffffff",
-            border: '1px solid black',
+            border: '1px solid #B6B6B6',
             borderRadius: "4px",
-            padding: "16px 8px",
+            padding: "8px 4px",
             minWidth: '200px'
           }}
         >

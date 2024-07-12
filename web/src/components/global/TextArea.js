@@ -8,6 +8,7 @@ const TextArea = ({
   secretField = false,
   error = false,
   errorTitleOverride = false,
+  isFullWidth = false
 }) => {
   const [isFocused, setIsFocused] = useState(false);
 
@@ -29,7 +30,7 @@ const TextArea = ({
   }, [error]);
 
   return (
-    <FlexColumn gap={4}>
+    <FlexColumn gap={4} style={{width: isFullWidth && '100%'}}>
       <label style={{ lineHeight: "22px", fontSize: "14px" }}>{label}</label>
       <textarea
         value={value}
@@ -45,7 +46,8 @@ const TextArea = ({
           borderRadius: "4px",
           border: `1px solid ${borderColor()}`,
           // width: "268px",
-          padding: "8px 16px",
+          padding: "4px 8px",
+          height: isFullWidth && '30px'
         }}
         type={secretField && "password"}
       />

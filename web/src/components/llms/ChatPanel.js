@@ -339,28 +339,7 @@ const ChatPanel = ({ chatToLoad, chatMode }) => {
 
   return (
     <FlexColumn>
-      <Subheading>Chat Panel</Subheading>
-      <FlexRow>
-        <FlexColumn>
-          <BodyText style={{ fontSize: 14 }}>
-            Share inputs between chats
-          </BodyText>
-          <RadioCheckbox
-            options={["Single input", "Multi-input"]}
-            onChange={(data) => setIsMultiPrompt(data)}
-            defaultValue={"Single input"}
-          />
-        </FlexColumn>
-        <FlexRow>
-          <TextArea
-            label="Set instructions for the LLMs in the prompt configuration"
-            value={systemInstructions}
-            onChange={setSystemInstructions}
-          />
-        </FlexRow>
-      </FlexRow>
-      <FlexRow></FlexRow>
-      <FlexRow>
+      <FlexColumn>
         {models.map((chat, i) => (
           <Chat
             chat={chat}
@@ -378,23 +357,34 @@ const ChatPanel = ({ chatToLoad, chatMode }) => {
             sendPrompt={sendPrompt}
           />
         ))}
-      </FlexRow>
+      </FlexColumn>
+
       {isMultiPrompt == "Single input" && (
-        <FlexColumn>
-          <TextArea
-            label="Send a message"
-            value={messageValue}
-            onChange={setMessageValue}
-          />
-          <Button
-            text={buttonIsLoading ? "Sending..." : "Send"}
-            onClick={() => {
-              sendMultiplePrompt();
-            }}
-            style={{ width: "100%" }}
-          />
-        </FlexColumn>
+        <SendMessage
+          messageValue={messageValue} 
+          setMessageValue={setMessageValue} 
+          buttonIsLoading={buttonIsLoading}
+          sendMultiplePrompt={sendMultiplePrompt}
+        />
       )}
+
+      <FlexColumn>
+        <BodyText style={{ fontSize: 14 }}>
+          Share inputs between chats
+        </BodyText>
+        <RadioCheckbox
+          options={["Single input", "Multi-input"]}
+          onChange={(data) => setIsMultiPrompt(data)}
+          defaultValue={"Single input"}
+        />
+      </FlexColumn>
+      <FlexRow>
+        <TextArea
+          label="Set instructions for the LLMs in the prompt configuration"
+          value={systemInstructions}
+          onChange={setSystemInstructions}
+        />
+      </FlexRow>
     </FlexColumn>
   );
 };
@@ -452,9 +442,9 @@ const ChatMessages = ({ conversation }) => {
   return (
     <FlexColumn
       style={{
-        maxHeight: "200px",
-        overflowX: "scroll",
-        border: "1px solid black",
+        height: "80px",
+        overflowY: "scroll",
+        border: "1px solid #B6B6B6",
         padding: "4px",
         borderRadius: "4px",
       }}
@@ -475,5 +465,25 @@ const ChatMessage = ({ message }) => {
     </div>
   );
 };
+
+const SendMessage = ({messageValue, setMessageValue, buttonIsLoading, sendMultiplePrompt}) => {
+  return (
+    <FlexRow style={{alignItems: 'flex-end'}}>
+      <TextArea
+        label="Send a message"
+        value={messageValue}
+        onChange={setMessageValue}
+        isFullWidth={true}
+      />
+      <Button
+        text={buttonIsLoading ? "Sending..." : "Send"}
+        onClick={() => {
+          sendMultiplePrompt();
+        }}
+        style={{ width: "80px", height: '40px', backgroundColor: '#b5b5b5' }}
+      />
+    </FlexRow>
+  )
+}
 
 export default ChatPanel;

@@ -3,13 +3,13 @@ import { BodyText, Subheading } from "../global/Text";
 import { FlexColumn, FlexRow } from "../layout/Flex";
 import { fetchConversations } from "../../state/routes";
 import { useAuthStore } from "../../state/stores";
-import Button from "../global/Button";
+import RadioCheckbox from "../global/RadioInput";
 import { formatDate } from "../../utils/formatDate";
 
-const ConversationsPanel = ({ chatMode, onConversationSelected }) => {
+const ConversationsPanel = ({ onConversationSelected }) => {
   const [fetchedConversations, setFetchedConversations] = useState([]);
-  const [isDisplayConversations, setIsDisplayConversations] = useState(true);
-
+  // const [isDisplayConversations, setIsDisplayConversations] = useState(true);
+  const [chatMode, setChatMode] = useState("Single Prompt Mode");
   const authState = useAuthStore((state) => state.auth);
   const apiHeaders = { Authorization: `Token ${authState.token}` };
 
@@ -36,23 +36,29 @@ const ConversationsPanel = ({ chatMode, onConversationSelected }) => {
           />
         )}
       </FlexRow> */}
-      <Subheading>Conversation History</Subheading>
-      {isDisplayConversations &&
+      <Subheading>Conversations</Subheading>
+      <BodyText style={{fontSize: '14px'}}>
+        {chatMode == "Conversation Mode" ?
+          <>
+          {fetchedConversations?.length > 0 ? "Select a conversation to load it into a chat panel" : "Send a message to get started"}
+          </> 
+          :
+          "Select conversation mode to view and load past conversations"
+        }
+      </BodyText>
+      <RadioCheckbox
+        options={["Single Prompt Mode", "Conversation Mode"]}
+        onChange={(data) => setChatMode(data)}
+        defaultValue={"Single Prompt Mode"}
+        isStacked={true}
+      />
+      {
         (chatMode == "Conversation Mode" ? (
           <FlexColumn>
-            <FlexRow>
-              <BodyText>
-                Select a conversation to load it into the Chat Panel.
-              </BodyText>
-            </FlexRow>
             <FlexRow
               style={{
                 flexWrap: "wrap",
-                maxHeight: "200px",
                 overflowX: "scroll",
-                border: "1px solid black",
-                padding: "4px",
-                borderRadius: "4px",
               }}
             >
               {fetchedConversations?.map((conversation, i) => (
@@ -66,20 +72,11 @@ const ConversationsPanel = ({ chatMode, onConversationSelected }) => {
                   onClick={onConversationSelected}
                 />
               ))}
-              {fetchConversations?.length < 1 && (
-                <BodyText style={{ padding: 8, color: "#777777" }}>
-                  You have no conversations. Send a message while in
-                  Conversation Mode to get started.
-                </BodyText>
-              )}
             </FlexRow>
           </FlexColumn>
         ) : (
-          <FlexRow>
-            <BodyText>
-              Select Conversation Mode to view and load past conversations.
-            </BodyText>
-          </FlexRow>
+          <>
+          </>
         ))}
     </FlexColumn>
   );
@@ -99,8 +96,8 @@ const ConversationCard = ({
     <FlexColumn
       style={{
         backgroundColor: hovered ? "#E3E3E3" : "#F3F3F3",
-        borderRadius: "4px",
-        padding: "4px",
+        // borderRadius: "4px",
+        padding: "4px 0",
         cursor: "pointer",
         flex: 1,
         minWidth: 200,
