@@ -9,7 +9,7 @@ import { formatDate } from "../../utils/formatDate";
 const ConversationsPanel = ({ onConversationSelected }) => {
   const [fetchedConversations, setFetchedConversations] = useState([]);
   // const [isDisplayConversations, setIsDisplayConversations] = useState(true);
-  const [chatMode, setChatMode] = useState("Off");
+  const [conversationMode, setconversationMode] = useState("Off");
   const authState = useAuthStore((state) => state.auth);
   const apiHeaders = { Authorization: `Token ${authState.token}` };
 
@@ -29,7 +29,7 @@ const ConversationsPanel = ({ onConversationSelected }) => {
     <FlexColumn>
       {/* <FlexRow style={{ width: "100%", justifyContent: "space-between" }}>
         <Subheading>Conversations</Subheading>
-        {chatMode == "On" && (
+        {conversationMode == "On" && (
           <Button
             text={isDisplayConversations ? "Hide" : "Show"}
             onClick={() => setIsDisplayConversations(!isDisplayConversations)}
@@ -38,7 +38,7 @@ const ConversationsPanel = ({ onConversationSelected }) => {
       </FlexRow> */}
       <Subheading>Conversation Mode</Subheading>
       <BodyText style={{fontSize: '14px'}}>
-        {chatMode == "On" ?
+        {conversationMode == "On" ?
           <>
           {fetchedConversations?.length > 0 ? "Select a conversation to load it into the chat panel" : "Send a message to get started"}
           </> 
@@ -48,12 +48,12 @@ const ConversationsPanel = ({ onConversationSelected }) => {
       </BodyText>
       <RadioCheckbox
         options={["Off", "On"]}
-        onChange={(data) => setChatMode(data)}
+        onChange={(data) => setconversationMode(data)}
         defaultValue={"Off"}
         isCondensed={true}
       />
       {
-        (chatMode == "On" ? (
+        (conversationMode == "On" ? (
           <FlexColumn style={{overflowY: 'auto'}} gap={0}>
               {fetchedConversations?.map((conversation, i) => (
                 <ConversationCard
@@ -100,7 +100,7 @@ const ConversationCard = ({
       onMouseLeave={() => setHovered(false)}
       gap={4}
       onClick={() => {
-        console.log("load conversation");
+        // console.log("load conversation");
         onClick(conversationData);
       }}
     >

@@ -12,7 +12,7 @@ import { useAuthStore } from "../../state/stores";
 import ContentColumn from "../layout/ContentColumn";
 import ContentBlock from "../layout/ContentBlock";
 
-const ChatPanel = ({ chatToLoad, chatMode }) => {
+const ChatPanel = ({ chatToLoad, conversationMode }) => {
   const [isMultiPrompt, setIsMultiPrompt] = useState("Single input");
   const [messageValue, setMessageValue] = useState();
   const [systemInstructions, setSystemInstructions] = useState("");
@@ -154,7 +154,7 @@ const ChatPanel = ({ chatToLoad, chatMode }) => {
         setChatByModelId("GPT3.5", [
           ...res?.data.data.conversation.chat_history,
         ]);
-        if (chatMode == "On") {
+        if (conversationMode == "On") {
           setGpt35ChatId(res?.data.data.conversation.pk);
         }
         setGpt35ChatLoading(false);
@@ -163,7 +163,7 @@ const ChatPanel = ({ chatToLoad, chatMode }) => {
         setGpt35ChatError(err?.data?.errors);
         setGpt35ChatLoading(false);
       },
-      chatMode == "On" ? gpt35ChatId : false
+      conversationMode == "On" ? gpt35ChatId : false
     );
     sendPrompt(
       "GPT4.0",
@@ -172,7 +172,7 @@ const ChatPanel = ({ chatToLoad, chatMode }) => {
         setChatByModelId("GPT4.0", [
           ...res?.data.data.conversation.chat_history,
         ]);
-        if (chatMode == "On") {
+        if (conversationMode == "On") {
           setGpt4ChatId(res?.data.data.conversation.pk);
         }
         setGpt4ChatLoading(false);
@@ -181,7 +181,7 @@ const ChatPanel = ({ chatToLoad, chatMode }) => {
         setGpt4ChatError(err?.data?.errors);
         setGpt4ChatLoading(false);
       },
-      chatMode == "On" ? gpt4ChatId : false
+      conversationMode == "On" ? gpt4ChatId : false
     );
     sendPrompt(
       "Claude",
@@ -190,7 +190,7 @@ const ChatPanel = ({ chatToLoad, chatMode }) => {
         setChatByModelId("Claude", [
           ...res?.data.data.conversation.chat_history,
         ]);
-        if (chatMode == "On") {
+        if (conversationMode == "On") {
           setClaudeChatId(res?.data.data.conversation.pk);
         }
         setClaudeChatLoading(false);
@@ -199,14 +199,14 @@ const ChatPanel = ({ chatToLoad, chatMode }) => {
         setClaudeChatError(err?.data?.errors);
         setClaudeChatLoading(false);
       },
-      chatMode == "On" ? claudeChatId : false
+      conversationMode == "On" ? claudeChatId : false
     );
     sendPrompt(
       "Llama",
       messageValue,
       (res) => {
         setChatByModelId("Llama", [...res?.data.data.conversation.chatHistory]);
-        if (chatMode == "On") {
+        if (conversationMode == "On") {
           setLlamaChatId(res?.data.data.conversation.pk);
         }
         setLlamaChatLoading(false);
@@ -223,7 +223,7 @@ const ChatPanel = ({ chatToLoad, chatMode }) => {
         setChatByModelId("Mistral", [
           ...res?.data.data.conversation.chat_history,
         ]);
-        if (chatMode == "On") {
+        if (conversationMode == "On") {
           setMistralChatId(res?.data.data.conversation.pk);
         }
         setMistralChatLoading(false);
@@ -232,7 +232,7 @@ const ChatPanel = ({ chatToLoad, chatMode }) => {
         setMistralChatError(err?.data?.errors);
         setMistralChatLoading(false);
       },
-      chatMode == "On" ? mistralChatId : false
+      conversationMode == "On" ? mistralChatId : false
     );
   };
 
@@ -246,7 +246,7 @@ const ChatPanel = ({ chatToLoad, chatMode }) => {
           setChatByModelId("GPT3.5", [
             ...res?.data.data.conversation.chat_history,
           ]);
-          if (chatMode == "On") {
+          if (conversationMode == "On") {
             setGpt35ChatId(res?.data.data.conversation.pk);
           }
           setGpt35ChatLoading(false);
@@ -255,7 +255,7 @@ const ChatPanel = ({ chatToLoad, chatMode }) => {
           setGpt35ChatError(err?.data?.errors);
           setGpt35ChatLoading(false);
         },
-        chatMode == "On" ? gpt35ChatId : false
+        conversationMode == "On" ? gpt35ChatId : false
       );
     } else if (modelId == "GPT4.0") {
       setGpt4ChatLoading(true);
@@ -266,7 +266,7 @@ const ChatPanel = ({ chatToLoad, chatMode }) => {
           setChatByModelId("GPT4.0", [
             ...res?.data.data.conversation.chat_history,
           ]);
-          if (chatMode == "On") {
+          if (conversationMode == "On") {
             setGpt4ChatId(res?.data.data.conversation.pk);
           }
           setGpt4ChatLoading(false);
@@ -275,7 +275,7 @@ const ChatPanel = ({ chatToLoad, chatMode }) => {
           setGpt4ChatError(err?.data?.errors);
           setGpt4ChatLoading(false);
         },
-        chatMode == "On" ? gpt4ChatId : false
+        conversationMode == "On" ? gpt4ChatId : false
       );
     } else if (modelId == "Claude") {
       setClaudeChatLoading(true);
@@ -286,7 +286,7 @@ const ChatPanel = ({ chatToLoad, chatMode }) => {
           setChatByModelId("Claude", [
             ...res?.data.data.conversation.chat_history,
           ]);
-          if (chatMode == "On") {
+          if (conversationMode == "On") {
             setClaudeChatId(res?.data.data.conversation.pk);
           }
           setClaudeChatLoading(false);
@@ -295,7 +295,7 @@ const ChatPanel = ({ chatToLoad, chatMode }) => {
           setClaudeChatError(err?.data?.errors);
           setClaudeChatLoading(false);
         },
-        chatMode == "On" ? claudeChatId : false
+        conversationMode == "On" ? claudeChatId : false
       );
     } else if (modelId == "Llama") {
       setLlamaChatLoading(true);
@@ -306,7 +306,7 @@ const ChatPanel = ({ chatToLoad, chatMode }) => {
           setChatByModelId("Llama", [
             ...res?.data.data.conversation.chat_history,
           ]);
-          if (chatMode == "On") {
+          if (conversationMode == "On") {
             setLlamaChatId(res?.data.data.conversation.pk);
           }
           setLlamaChatLoading(false);
@@ -325,7 +325,7 @@ const ChatPanel = ({ chatToLoad, chatMode }) => {
           setChatByModelId("Mistral", [
             ...res?.data.data.conversation.chat_history,
           ]);
-          if (chatMode == "On") {
+          if (conversationMode == "On") {
             setMistralChatId(res?.data.data.conversation.pk);
           }
           setMistralChatLoading(false);
@@ -334,7 +334,7 @@ const ChatPanel = ({ chatToLoad, chatMode }) => {
           setMistralChatError(err?.data?.errors);
           setMistralChatLoading(false);
         },
-        chatMode == "On" ? mistralChatId : false
+        conversationMode == "On" ? mistralChatId : false
       );
     }
   };
@@ -358,12 +358,12 @@ const ChatPanel = ({ chatToLoad, chatMode }) => {
         {models.map((chat, i) => (
           <Chat
             chat={chat}
-            conversationMode={chatMode == "On"}
+            conversationMode={conversationMode == "On"}
             conversation={getChatByModelId(chat.name)}
             sendMultipleInput={sendMultipleInput}
             isLoading={getChatLoadStateByModelId(chat.name)}
             conversationId={
-              chatMode == "On" ? getChatIdByModelId(chat.name) : false
+              conversationMode == "On" ? getChatIdByModelId(chat.name) : false
             }
             key={i}
             isMultiPrompt={isMultiPrompt}

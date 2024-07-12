@@ -6,7 +6,7 @@ import ChatPanel from "../components/llms/ChatPanel";
 import ConversationsPanel from "../components/llms/ConversationsPanel";
 
 const Home = () => {
-  const [chatMode, setChatMode] = useState("Off");
+  const [conversationMode, setconversationMode] = useState("Off");
 
   const [chatToLoad, setChatToLoad] = useState(false);
 
@@ -16,12 +16,12 @@ const Home = () => {
         {/* This is the sidebar */}
         <FlexColumn style={{width: '248px', height: 'calc(100vh - 48px)', backgroundColor:'#F3F3F3', padding: '40px 16px', gap: '24px', overflowY: 'auto'}}>
           <ConversationsPanel
-            chatMode={chatMode}
+            conversationMode={conversationMode}
             onConversationSelected={(conversation) => setChatToLoad(conversation)}
           />
         </FlexColumn>
         <ContentColumn heading={"Chat Panel"}>
-          <ChatPanel chatToLoad={chatToLoad} chatMode={chatMode} />
+          <ChatPanel chatToLoad={chatToLoad} conversationMode={conversationMode} />
         </ContentColumn>
       </FlexRow>
     </PageLayout>
