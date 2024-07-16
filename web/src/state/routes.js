@@ -48,7 +48,7 @@ export const fetchProfileData = (
   onError = () => {},
   apiHeaders = {}
 ) => {
-  apiGet("/getdata", onSuccess, onError, apiHeaders);
+  apiGet("/api/user/", onSuccess, onError, apiHeaders);
 };
 
 export const resetPassword = (
@@ -65,7 +65,7 @@ export const updateSettings = (
   onError = () => {},
   apiHeaders = {}
 ) => {
-  apiPut("/update/user/", { ...body }, onSuccess, onError, apiHeaders);
+  apiPut("/api/user/", { ...body }, onSuccess, onError, apiHeaders);
 };
 
 export const changePassword = (
@@ -74,5 +74,5 @@ export const changePassword = (
   onError = () => {},
   apiHeaders = {}
 ) => {
-  apiPost("/change/password/", { ...body }, onSuccess, onError, apiHeaders);
+  apiPost("/api/change-password/", { ...body }, onSuccess, onError, apiHeaders);
 };

@@ -1,5 +1,7 @@
 FROM node:lts as build
 
+RUN apt update -y && apt full-upgrade -y && apt autoremove -y && apt clean -y && apt autoclean -y
+
 COPY package-lock.json ./
 COPY package.json ./
 

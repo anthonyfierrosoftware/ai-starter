@@ -31,7 +31,7 @@ const Login = () => {
       { username: email, password },
       (res) => {
         setIsLoading(false);
-        if (res.data?.data.profile.changeTempPassword == true) {
+        if (res.data?.data.profile.change_temp_password == true) {
           addCredentials(res?.data?.data);
           window.location.href = "/change-forgot-password";
         }
