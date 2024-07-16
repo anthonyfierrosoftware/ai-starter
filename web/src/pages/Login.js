@@ -1,15 +1,16 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { BodyText, Heading, Subheading } from "../components/global/Text";
+import { BodyText} from "../components/global/Text";
 import TextInput from "../components/global/TextInput";
-import { FlexColumn } from "../components/layout/Flex";
 import PageLayout from "../components/layout/PageLayout";
 import Button from "../components/global/Button";
 import TextLink from "../components/global/TextLink";
 
 import { login } from "../state/routes";
 import { useAuthStore } from "../state/stores";
+import ContentCard from "../components/layout/ContentCard";
+import ContentBlock from "../components/layout/ContentBlock";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -45,48 +46,52 @@ const Login = () => {
   };
 
   return (
-    <PageLayout displayNav={false}>
-      <FlexColumn style={{ alignItems: "center", marginTop: "20vh" }} gap={24}>
-        <Heading>Your App Title Here</Heading>
+    <PageLayout displayNav={false} isCentered={true}>
+      <ContentCard heading={"Your App Title Here"} subheading={"Login"} isCentered={true}>
+          
+        <ContentBlock>
 
-        <Subheading>Login</Subheading>
+          <TextInput
+            label="Email"
+            value={email}
+            onChange={setEmail}
+            error={errorState}
+          />
+          
+          <TextInput
+            label="Password"
+            secretField={true}
+            value={password}
+            onChange={setPassword}
+            error={errorState}
+          />
 
-        <TextInput
-          label="Email"
-          value={email}
-          onChange={setEmail}
-          error={errorState}
-        />
-        <TextInput
-          label="Password"
-          secretField={true}
-          value={password}
-          onChange={setPassword}
-          error={errorState}
-        />
+          <Button
+            text={"Login"}
+            onClick={() => executeLogin()}
+            isLoading={isLoading}
+            style={{width:"100%"}}
+          />
 
-        <br />
+        </ContentBlock>
 
-        <Button
-          text={"Login"}
-          onClick={() => executeLogin()}
-          isLoading={isLoading}
-        />
+        <ContentBlock isCentered={true} isLast={true}>
 
-        <br />
+          <div style={{ display: "ruby" }}>
+            <BodyText>Don't have an account?</BodyText>{" "}
+            <TextLink onClick={() => navigate("/register")}>Register</TextLink>
+          </div>
 
-        <div style={{ display: "ruby" }}>
-          <BodyText>Don't have an account?</BodyText>{" "}
-          <TextLink onClick={() => navigate("/register")}>Register.</TextLink>
-        </div>
+          <div style={{ display: "ruby" }}>
+            <BodyText>Forgot your password?</BodyText>{" "}
+            <TextLink onClick={() => navigate("/forgot-password")}>
+              Reset my password
+            </TextLink>
+          </div>
 
-        <div style={{ display: "ruby" }}>
-          <BodyText>Forgot your password?</BodyText>{" "}
-          <TextLink onClick={() => navigate("/forgot-password")}>
-            Reset my password.
-          </TextLink>
-        </div>
-      </FlexColumn>
+        </ContentBlock>  
+
+      </ContentCard>
     </PageLayout>
   );
 };

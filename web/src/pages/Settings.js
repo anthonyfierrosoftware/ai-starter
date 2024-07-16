@@ -1,15 +1,13 @@
 import { useEffect, useState } from "react";
-import { Heading, Subheading } from "../components/global/Text";
-import { FlexColumn, FlexRow } from "../components/layout/Flex";
+import { Heading } from "../components/global/Text";
 import PageLayout from "../components/layout/PageLayout";
+import ContentColumn from "../components/layout/ContentColumn";
 import {
   changePassword,
   fetchProfileData,
   updateSettings,
 } from "../state/routes";
 import { useAuthStore } from "../state/stores";
-import TextInput from "../components/global/TextInput";
-import Button from "../components/global/Button";
 import ChangePassword from "../components/profile/ChangePassword";
 import ProfileDetails from "../components/profile/ProfileDetails";
 
@@ -33,17 +31,14 @@ const Settings = ({}) => {
 
   return (
     <PageLayout>
-      <FlexColumn gap={32}>
-        <Heading>Settings</Heading>
-        <FlexRow style={{ flexWrap: "wrap" }}>
-          <ProfileDetails
-            authState={authState}
-            userData={fetchedProfile}
-            apiHeaders={apiHeaders}
-          />
-          <ChangePassword apiHeaders={apiHeaders} />
-        </FlexRow>
-      </FlexColumn>
+      <ContentColumn heading={"Settings"}>
+        <ProfileDetails
+          authState={authState}
+          userData={fetchedProfile}
+          apiHeaders={apiHeaders}
+        />
+        <ChangePassword apiHeaders={apiHeaders} />
+      </ContentColumn>
     </PageLayout>
   );
 };
