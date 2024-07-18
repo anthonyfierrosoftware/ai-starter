@@ -52,6 +52,16 @@
       "Description": "Email sender for noreply emails such as login and password reset e.g. noreply@<your-domain>.ca (address must verified with Amazon SES to send emails successfully)",
       "Type": "String",
       "Default": "noreply@example.com"
+    },
+    "SecurityGroup": {
+      "Description" : "Select a Security Group in the default VPC",
+      "Type" : "AWS::EC2::SecurityGroup::GroupName",
+      "ConstraintDescription" : " Must use an existing Security Group in the default VPC"
+    },
+    "KeyPair": {
+      "Description" : "Select an existing KeyPair for SSH access to the BoosterPack Servers",
+      "Type": "AWS::EC2::KeyPair::KeyName",
+      "ConstraintDescription" : "Must use an existing key pair"
     }
   },
   "Mappings": {
@@ -62,32 +72,6 @@
     }
   },
   "Resources": {
-    "AIStarterSecurityGroup": {
-      "Type": "AWS::EC2::SecurityGroup",
-      "Properties": {
-        "GroupDescription": "Enable HTTP and SSH access",
-        "SecurityGroupIngress": [
-          {
-            "IpProtocol": "tcp",
-            "FromPort": 22,
-            "ToPort": 22,
-            "CidrIp": "0.0.0.0/0"
-          },
-          {
-            "IpProtocol": "tcp",
-            "FromPort": 80,
-            "ToPort": 80,
-            "CidrIp": "0.0.0.0/0"
-          },
-          {
-            "IpProtocol": "tcp",
-            "FromPort": 8000,
-            "ToPort": 8000,
-            "CidrIp": "0.0.0.0/0"
-          }
-        ]
-      }
-    },
     "AppServer": {
       "Type": "AWS::EC2::Instance",
       "Properties": {
@@ -115,9 +99,12 @@
         "InstanceType": {
           "Ref": "AppInstanceType"
         },
+        "KeyName": {
+          "Ref" : "KeyPair"
+        },
         "SecurityGroupIds": [
           {
-            "Ref": "AIStarterSecurityGroup"
+            "Ref": "SecurityGroup"
           }
         ],
         "IamInstanceProfile": {
