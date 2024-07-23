@@ -26,7 +26,7 @@ const ConversationsPanel = ({ onConversationSelected }) => {
   }, []);
 
   return (
-    <FlexColumn>
+    <FlexColumn style={{ minWidth: 280 }}>
       {/* <FlexRow style={{ width: "100%", justifyContent: "space-between" }}>
         <Subheading>Conversations</Subheading>
         {conversationMode == "On" && (
@@ -37,14 +37,16 @@ const ConversationsPanel = ({ onConversationSelected }) => {
         )}
       </FlexRow> */}
       <Subheading>Conversation Mode</Subheading>
-      <BodyText style={{fontSize: '14px'}}>
-        {conversationMode == "On" ?
+      <BodyText style={{ fontSize: "14px" }}>
+        {conversationMode == "On" ? (
           <>
-          {fetchedConversations?.length > 0 ? "Select a conversation to load it into the chat panel" : "Send a message to get started"}
-          </> 
-          :
+            {fetchedConversations?.length > 0
+              ? "Select a conversation to load it into the chat panel"
+              : "Send a message to get started"}
+          </>
+        ) : (
           "Your conversation history will not be saved"
-        }
+        )}
       </BodyText>
       <RadioCheckbox
         options={["Off", "On"]}
@@ -52,25 +54,23 @@ const ConversationsPanel = ({ onConversationSelected }) => {
         defaultValue={"Off"}
         isCondensed={true}
       />
-      {
-        (conversationMode == "On" ? (
-          <FlexColumn style={{overflowY: 'auto'}} gap={0}>
-              {fetchedConversations?.map((conversation, i) => (
-                <ConversationCard
-                  key={i}
-                  model={conversation.llm_config?.chat_model}
-                  name={conversation.name}
-                  dateCreated={conversation.date_created}
-                  dateUpdated={conversation.last_updated}
-                  conversationData={conversation}
-                  onClick={onConversationSelected}
-                />
-              ))}
-          </FlexColumn>
-        ) : (
-          <>
-          </>
-        ))}
+      {conversationMode == "On" ? (
+        <FlexColumn style={{ overflowY: "auto" }} gap={0}>
+          {fetchedConversations?.map((conversation, i) => (
+            <ConversationCard
+              key={i}
+              model={conversation.llmConfig?.chat_model}
+              name={conversation.name}
+              dateCreated={conversation.dateCreated}
+              dateUpdated={conversation.lastUpdated}
+              conversationData={conversation}
+              onClick={onConversationSelected}
+            />
+          ))}
+        </FlexColumn>
+      ) : (
+        <></>
+      )}
     </FlexColumn>
   );
 };
@@ -104,7 +104,7 @@ const ConversationCard = ({
         onClick(conversationData);
       }}
     >
-      <BodyText style={{fontSize: 14}}>
+      <BodyText style={{ fontSize: 14 }}>
         <b>{model}</b> {name}
       </BodyText>
       <FlexColumn gap={2}>
