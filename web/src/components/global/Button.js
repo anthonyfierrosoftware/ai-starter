@@ -1,19 +1,22 @@
 import { useState } from "react";
 import { FlexRow } from "../layout/Flex";
 import { BodyText } from "./Text";
+import { useThemeStore } from "../../state/stores";
 
 const Button = ({ text, onClick = () => {}, style, isLoading = false }) => {
   const [hovered, setHovered] = useState(false);
-
+  const { theme, setTheme, toggleTheme } = useThemeStore();
   return (
     <button
       style={{
         width: "100px",
         height: "40px",
-        border: "1px solid #CCCCCC",
+        border: `1px solid ${theme.secondaryActionBorder}`,
         borderRadius: "4px",
         cursor: "pointer",
-        backgroundColor: hovered ? "#EEEEEE" : "white",
+        backgroundColor: hovered
+          ? theme.secondaryActionHoverColor
+          : theme.secondaryActionColor,
         fontWeight: 600,
         ...style,
       }}

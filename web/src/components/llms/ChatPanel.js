@@ -457,9 +457,10 @@ const ChatMessages = ({ conversation }) => {
       style={{
         height: "80px",
         overflowY: "auto",
-        border: "1px solid #B6B6B6",
+        // border: "1px solid #B6B6B6",
         padding: "4px",
         borderRadius: "4px",
+        backgroundColor: "lightgrey",
       }}
     >
       {conversation.map((message, i) => (
