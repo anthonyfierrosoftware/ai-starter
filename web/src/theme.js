@@ -2,13 +2,18 @@ export const defaultTheme = {
   backgroundColor: "#FFFFFF",
   borderColor: "#000000",
   textColor: "#000000",
-  cardBackground: "#D3D3D3",
+  cardBackground: "#D6D6D6",
   primaryActionColor: "#B5B5B5",
   primaryActionHoverColor: "#BBBBBB",
   primaryActionBorder: "#CCCCCC",
+  primaryTextColor: "#000000",
+  secondaryTextColor: "#FFFFF",
   secondaryActionColor: "#FFFFFF",
   secondaryActionHoverColor: "#EEEEEE",
   secondaryBackground: "#F3F3F3",
+  optionSelectedBackground: "#D3D3D3",
+  optionUnselectedBackground: "#FFFFFF",
+  iconColor: "#F3F3F3",
 };
 
 export const darkTheme = {
@@ -19,9 +24,14 @@ export const darkTheme = {
   primaryActionColor: "#B5B5B5",
   primaryActionHoverColor: "#BBBBBB",
   primaryActionBorder: "#CCCCCC",
+  primaryTextColor: "#FFFFFF",
+  secondaryTextColor: "#000000",
   secondaryActionColor: "#FFFFFF",
   secondaryActionHoverColor: "#EEEEEE",
-  secondaryBackground: "#F3F3F3",
+  secondaryBackground: "#333333",
+  optionSelectedBackground: "#A3A3A3",
+  optionUnselectedBackground: "#FFFFFF",
+  iconColor: "#333333",
 };
 
 export const blueTheme = {
@@ -32,7 +42,12 @@ export const blueTheme = {
   primaryActionColor: "#0277BD",
   primaryActionHoverColor: "#01579B",
   primaryActionBorder: "#CCCCCC",
+  primaryTextColor: "#FFFFFF",
+  secondaryTextColor: "#01579B",
   secondaryActionColor: "#B3E5FC",
   secondaryActionHoverColor: "#81D4FA",
   secondaryBackground: "#E1F5FE",
+  optionSelectedBackground: "#B3E5FC",
+  optionUnselectedBackground: "#FFFFFF",
+  iconColor: "#0277BD",
 };

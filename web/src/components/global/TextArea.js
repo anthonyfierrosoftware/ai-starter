@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { FlexColumn } from "../layout/Flex";
+import { useThemeStore } from "../../state/stores";
 
 const TextArea = ({
   value = "",
@@ -8,11 +9,13 @@ const TextArea = ({
   secretField = false,
   error = false,
   errorTitleOverride = false,
-  isFullWidth = false
+  isFullWidth = false,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
 
   const [errorMessage, setErrorMessage] = useState(false);
+
+  const { theme } = useThemeStore();
 
   const borderColor = () => {
     if (errorMessage) return "red";
@@ -30,8 +33,12 @@ const TextArea = ({
   }, [error]);
 
   return (
-    <FlexColumn gap={4} style={{width: isFullWidth && '100%'}}>
-      <label style={{ lineHeight: "22px", fontSize: "14px" }}>{label}</label>
+    <FlexColumn gap={4} style={{ width: isFullWidth && "100%" }}>
+      <label
+        style={{ lineHeight: "22px", fontSize: "14px", color: theme.textColor }}
+      >
+        {label}
+      </label>
       <textarea
         value={value}
         rows={4}
@@ -46,7 +53,7 @@ const TextArea = ({
           borderRadius: "4px",
           border: `1px solid ${borderColor()}`,
           padding: "4px 8px",
-          height: isFullWidth && '30px'
+          height: isFullWidth && "30px",
         }}
         type={secretField && "password"}
       />

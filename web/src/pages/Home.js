@@ -35,7 +35,10 @@ const Home = () => {
             }
           />
         </FlexColumn>
-        <ContentColumn heading={"Chat Panel"}>
+        <ContentColumn
+          heading={"Chat Panel"}
+          style={{ backgroundColor: theme.backgroundColor }}
+        >
           <ChatPanel
             chatToLoad={chatToLoad}
             conversationMode={conversationMode}

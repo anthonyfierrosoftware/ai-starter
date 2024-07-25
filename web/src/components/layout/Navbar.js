@@ -20,7 +20,7 @@ const Navbar = () => {
         <b>AI Web Starter</b>
       </BodyText>
       <FlexRow gap={24}>
-        <ThemeToggler toggleTheme={toggleTheme} />
+        <ThemeToggler />
         <TextLink
           style={{ margin: "auto", fontSize: "14px" }}
           onClick={() => navigate("/component-library")}
@@ -35,6 +35,7 @@ const Navbar = () => {
         </TextLink>
         <Button
           text={"Log out"}
+          type="secondary"
           onClick={() => {
             logout();
             window.location.href = "/";
@@ -52,7 +53,8 @@ const navbarStyles = {
   justifyContent: "space-between",
 };
 
-const ThemeToggler = ({ toggleTheme }) => {
+const ThemeToggler = ({}) => {
+  const { theme, setTheme, toggleTheme } = useThemeStore();
   return (
     <div
       onClick={() => toggleTheme()}
@@ -61,7 +63,7 @@ const ThemeToggler = ({ toggleTheme }) => {
         height: 24,
         border: "1px solid grey",
         borderRadius: 4,
-        backgroundColor: "darkgray",
+        backgroundColor: theme.iconColor,
         cursor: "pointer",
         margin: "auto 0",
       }}

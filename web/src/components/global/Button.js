@@ -3,20 +3,32 @@ import { FlexRow } from "../layout/Flex";
 import { BodyText } from "./Text";
 import { useThemeStore } from "../../state/stores";
 
-const Button = ({ text, onClick = () => {}, style, isLoading = false }) => {
+const Button = ({
+  text,
+  onClick = () => {},
+  style,
+  isLoading = false,
+  type = "default",
+}) => {
   const [hovered, setHovered] = useState(false);
-  const { theme, setTheme, toggleTheme } = useThemeStore();
+  const { theme } = useThemeStore();
+
   return (
     <button
       style={{
         width: "100px",
         height: "40px",
-        border: `1px solid ${theme.secondaryActionBorder}`,
+        borderColor: theme.secondaryActionBorder,
         borderRadius: "4px",
+        borderWidth: 1,
         cursor: "pointer",
         backgroundColor: hovered
-          ? theme.secondaryActionHoverColor
-          : theme.secondaryActionColor,
+          ? type == "secondary"
+            ? theme.secondaryActionHoverColor
+            : theme.primaryActionHoverColor
+          : type == "secondary"
+          ? theme.secondaryActionColor
+          : theme.primaryActionColor,
         fontWeight: 600,
         ...style,
       }}
@@ -32,7 +44,17 @@ const Button = ({ text, onClick = () => {}, style, isLoading = false }) => {
             height="20px"
           />
         )}
-        <BodyText style={{ margin: "auto 0" }}>{text}</BodyText>
+        <BodyText
+          style={{
+            margin: "auto 0",
+            color:
+              type == "secondary"
+                ? theme.secondaryTextColor
+                : theme.primaryTextColor,
+          }}
+        >
+          {text}
+        </BodyText>
       </FlexRow>
     </button>
   );

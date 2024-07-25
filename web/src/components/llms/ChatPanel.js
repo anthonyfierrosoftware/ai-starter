@@ -8,7 +8,7 @@ import TextArea from "../global/TextArea";
 import { models, getModelConfig } from "../../state/modelsConfig";
 import Button from "../global/Button";
 import { sendChat } from "../../state/routes";
-import { useAuthStore } from "../../state/stores";
+import { useAuthStore, useThemeStore } from "../../state/stores";
 import ContentColumn from "../layout/ContentColumn";
 import ContentBlock from "../layout/ContentBlock";
 
@@ -442,7 +442,6 @@ const Chat = ({
             style={{
               width: "80px",
               height: "40px",
-              backgroundColor: "#b5b5b5",
             }}
           />
         </FlexRow>
@@ -452,6 +451,7 @@ const Chat = ({
 };
 
 const ChatMessages = ({ conversation }) => {
+  const { theme } = useThemeStore();
   return (
     <FlexColumn
       style={{
@@ -460,7 +460,7 @@ const ChatMessages = ({ conversation }) => {
         // border: "1px solid #B6B6B6",
         padding: "4px",
         borderRadius: "4px",
-        backgroundColor: "lightgrey",
+        backgroundColor: theme.cardBackground,
       }}
     >
       {conversation.map((message, i) => (
@@ -499,7 +499,7 @@ const SendMessage = ({
         onClick={() => {
           sendMultiplePrompt();
         }}
-        style={{ width: "80px", height: "40px", backgroundColor: "#b5b5b5" }}
+        style={{ width: "80px", height: "40px" }}
       />
     </FlexRow>
   );

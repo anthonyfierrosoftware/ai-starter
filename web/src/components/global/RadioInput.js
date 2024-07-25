@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FlexColumn, FlexRow } from "../layout/Flex";
+import { useThemeStore } from "../../state/stores";
 
 const RadioCheckbox = ({
   options,
@@ -10,6 +11,7 @@ const RadioCheckbox = ({
   style = {},
 }) => {
   const [selectedOption, setSelectedOption] = useState(defaultValue);
+  const { theme } = useThemeStore();
 
   const handleOptionChange = (option) => {
     setSelectedOption(option);
@@ -21,20 +23,24 @@ const RadioCheckbox = ({
   return (
     <div
       style={{
-        display: 'flex',
-        flexDirection: isStacked ? 'column' : 'row',
-        gap: '8px',
+        display: "flex",
+        flexDirection: isStacked ? "column" : "row",
+        gap: "8px",
         ...style,
       }}
     >
       {options.map((option) => (
         <FlexColumn
           style={{
-            backgroundColor: selectedOption === option ? '#b5b5b5': "#ffffff",
-            border: '1px solid #B6B6B6',
+            // backgroundColor: "red",
+            backgroundColor:
+              selectedOption === option
+                ? theme.optionSelectedBackground
+                : theme.optionUnselectedBackground,
+            border: `1px solid ${theme.primaryActionColor}`,
             borderRadius: "4px",
             padding: "8px 4px",
-            minWidth: isCondensed ? '60px' : '200px'
+            minWidth: isCondensed ? "60px" : "200px",
           }}
         >
           <label key={option}>
