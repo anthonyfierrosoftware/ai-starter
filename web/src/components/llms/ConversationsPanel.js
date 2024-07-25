@@ -38,7 +38,7 @@ const ConversationsPanel = ({ onConversationSelected }) => {
       </FlexRow> */}
       <Subheading>Conversation Mode</Subheading>
       <BodyText style={{ fontSize: "14px" }}>
-        {conversationMode == "On" ? (
+        {conversationMode === "On" ? (
           <>
             {fetchedConversations?.length > 0
               ? "Select a conversation to load it into the chat panel"
@@ -54,7 +54,7 @@ const ConversationsPanel = ({ onConversationSelected }) => {
         defaultValue={"Off"}
         isCondensed={true}
       />
-      {conversationMode == "On" ? (
+      {conversationMode === "On" ? (
         <FlexColumn style={{ overflowY: "auto" }} gap={0}>
           {fetchedConversations?.map((conversation, i) => (
             <ConversationCard

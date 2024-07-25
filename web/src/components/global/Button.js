@@ -23,10 +23,10 @@ const Button = ({
         borderWidth: 1,
         cursor: "pointer",
         backgroundColor: hovered
-          ? type == "secondary"
+          ? type === "secondary"
             ? theme.secondaryActionHoverColor
             : theme.primaryActionHoverColor
-          : type == "secondary"
+          : type === "secondary"
           ? theme.secondaryActionColor
           : theme.primaryActionColor,
         fontWeight: 600,
@@ -48,7 +48,7 @@ const Button = ({
           style={{
             margin: "auto 0",
             color:
-              type == "secondary"
+              type === "secondary"
                 ? theme.secondaryTextColor
                 : theme.primaryTextColor,
           }}

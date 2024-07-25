@@ -26,7 +26,7 @@ const TextArea = ({
   useEffect(() => {
     if (error?.length > 0) {
       error.forEach((err) => {
-        if (err.errorTitle == label || err.errorTitle == errorTitleOverride)
+        if (err.errorTitle === label || err.errorTitle === errorTitleOverride)
           setErrorMessage(err.errorMessage);
       });
     }

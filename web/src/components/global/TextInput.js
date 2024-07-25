@@ -25,18 +25,21 @@ const TextInput = ({
   useEffect(() => {
     if (error?.length > 0) {
       error.forEach((err) => {
-        if (err.errorTitle == label || err.errorTitle == errorTitleOverride)
+        if (err.errorTitle === label || err.errorTitle === errorTitleOverride)
           setErrorMessage(err.errorMessage);
       });
     } else if (error.errorTitle && error.errorMessage) {
-      if (error.errorTitle == label || error.errorTitle == errorTitleOverride) {
+      if (
+        error.errorTitle === label ||
+        error.errorTitle === errorTitleOverride
+      ) {
         setErrorMessage(error.errorMessage);
       }
     }
   }, [error]);
 
   return (
-    <FlexColumn gap={4} style={{width: isRow ? "calc(50% - 6px)" : "100%"}}>
+    <FlexColumn gap={4} style={{ width: isRow ? "calc(50% - 6px)" : "100%" }}>
       <label style={{ lineHeight: "22px", fontSize: "14px" }}>{label}</label>
       <input
         disabled={disabled}
@@ -56,7 +59,7 @@ const TextInput = ({
         type={secretField && "password"}
       />
       {errorMessage && (
-        <div style={{ width: "100%"}}>
+        <div style={{ width: "100%" }}>
           <ErrorText>{errorMessage}</ErrorText>
         </div>
       )}
