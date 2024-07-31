@@ -1,15 +1,12 @@
 import { useEffect, useState } from "react";
 import { Heading } from "../components/global/Text";
 import PageLayout from "../components/layout/PageLayout";
-import ContentColumn from "../components/layout/ContentColumn";
-import {
-  changePassword,
-  fetchProfileData,
-  updateSettings,
-} from "../state/routes";
+
+import { fetchProfileData } from "../state/routes";
 import { useAuthStore } from "../state/stores";
 import ChangePassword from "../components/profile/ChangePassword";
 import ProfileDetails from "../components/profile/ProfileDetails";
+import { FlexColumn } from "../components/layout/Flex";
 
 const Settings = ({}) => {
   const [fetchedProfile, setFetchedProfile] = useState();
@@ -31,14 +28,15 @@ const Settings = ({}) => {
 
   return (
     <PageLayout>
-      <ContentColumn heading={"Settings"}>
+      <FlexColumn style={{ padding: 16 }}>
+        <Heading>Settings</Heading>
         <ProfileDetails
           authState={authState}
           userData={fetchedProfile}
           apiHeaders={apiHeaders}
         />
         <ChangePassword apiHeaders={apiHeaders} />
-      </ContentColumn>
+      </FlexColumn>
     </PageLayout>
   );
 };

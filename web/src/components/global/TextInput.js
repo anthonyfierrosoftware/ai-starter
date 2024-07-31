@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { FlexColumn } from "../layout/Flex";
 import { ErrorText } from "./Text";
+import { useThemeStore } from "../../state/stores";
 
 const TextInput = ({
   value = "",
@@ -12,6 +13,7 @@ const TextInput = ({
   disabled = false,
   isRow = false,
 }) => {
+  const { theme } = useThemeStore();
   const [isFocused, setIsFocused] = useState(false);
 
   const [errorMessage, setErrorMessage] = useState(false);
@@ -40,7 +42,11 @@ const TextInput = ({
 
   return (
     <FlexColumn gap={4} style={{ width: isRow ? "calc(50% - 6px)" : "100%" }}>
-      <label style={{ lineHeight: "22px", fontSize: "14px" }}>{label}</label>
+      <label
+        style={{ lineHeight: "22px", fontSize: "14px", color: theme.textColor }}
+      >
+        {label}
+      </label>
       <input
         disabled={disabled}
         value={value}

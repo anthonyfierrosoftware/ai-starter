@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { BodyText, Subheading } from "../global/Text";
-import { FlexColumn, FlexRow } from "../layout/Flex";
+import { FlexColumn } from "../layout/Flex";
 import { fetchConversations } from "../../state/routes";
-import { useAuthStore } from "../../state/stores";
+import { useAuthStore, useThemeStore } from "../../state/stores";
 import RadioCheckbox from "../global/RadioInput";
 import { formatDate } from "../../utils/formatDate";
 
@@ -55,7 +55,7 @@ const ConversationsPanel = ({ onConversationSelected }) => {
         isCondensed={true}
       />
       {conversationMode === "On" ? (
-        <FlexColumn style={{ overflowY: "auto" }} gap={0}>
+        <FlexColumn style={{ overflowY: "auto" }} gap={4}>
           {fetchedConversations?.map((conversation, i) => (
             <ConversationCard
               key={i}
@@ -84,12 +84,15 @@ const ConversationCard = ({
   conversationData,
 }) => {
   const [hovered, setHovered] = useState(false);
+  const { theme } = useThemeStore();
 
   return (
     <FlexColumn
       style={{
-        backgroundColor: hovered ? "#E3E3E3" : "#F3F3F3",
-        // borderRadius: "4px",
+        backgroundColor: hovered
+          ? theme.secondaryActionHoverColor
+          : theme.secondaryActionColor,
+        borderRadius: 4,
         padding: "4px 0",
         cursor: "pointer",
         flex: 1,
@@ -104,14 +107,14 @@ const ConversationCard = ({
         onClick(conversationData);
       }}
     >
-      <BodyText style={{ fontSize: 14 }}>
+      <BodyText style={{ fontSize: 14, color: theme.secondaryTextColor }}>
         <b>{model}</b> {name}
       </BodyText>
       <FlexColumn gap={2}>
-        <BodyText style={{ fontSize: 11 }}>
+        <BodyText style={{ fontSize: 11, color: theme.secondaryTextColor }}>
           Created {formatDate(dateCreated)}
         </BodyText>
-        <BodyText style={{ fontSize: 11 }}>
+        <BodyText style={{ fontSize: 11, color: theme.secondaryTextColor }}>
           Last updated {formatDate(dateUpdated)}
         </BodyText>
       </FlexColumn>

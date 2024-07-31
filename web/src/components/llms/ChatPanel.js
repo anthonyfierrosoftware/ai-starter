@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { BodyText, Subheading } from "../global/Text";
+import { BodyText } from "../global/Text";
 import { FlexColumn, FlexRow } from "../layout/Flex";
 import RadioCheckbox from "../global/RadioInput";
 import TextArea from "../global/TextArea";
@@ -9,10 +9,11 @@ import { models, getModelConfig } from "../../state/modelsConfig";
 import Button from "../global/Button";
 import { sendChat } from "../../state/routes";
 import { useAuthStore, useThemeStore } from "../../state/stores";
-import ContentColumn from "../layout/ContentColumn";
 import ContentBlock from "../layout/ContentBlock";
 
 const ChatPanel = ({ chatToLoad, conversationMode }) => {
+  const { theme } = useThemeStore();
+
   const [isMultiPrompt, setIsMultiPrompt] = useState("Single input");
   const [messageValue, setMessageValue] = useState();
   const [systemInstructions, setSystemInstructions] = useState("");
@@ -372,7 +373,12 @@ const ChatPanel = ({ chatToLoad, conversationMode }) => {
         ))}
       </FlexRow>
 
-      <div style={{ width: "100%", borderBottom: "1px solid black" }} />
+      <div
+        style={{
+          width: "100%",
+          borderBottom: `1px solid ${theme.borderColor}`,
+        }}
+      />
 
       <ContentBlock>
         {isMultiPrompt === "Single input" && (

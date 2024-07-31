@@ -3,6 +3,7 @@
 import { FlexColumn } from "./Flex";
 import Navbar from "./Navbar";
 import ContentContainer from "./ContentContainer";
+import { useThemeStore } from "../../state/stores";
 
 const PageLayout = ({
   children,
@@ -10,13 +11,22 @@ const PageLayout = ({
   isCentered = false,
   ...props
 }) => {
+  const { theme } = useThemeStore();
   return (
-    <div style={{ width: "100vw", height: "100vh" }}>
+    <div
+      style={{
+        width: "100vw",
+        height: "100vh",
+        backgroundColor: theme.backgroundColor,
+      }}
+    >
       <FlexColumn style={{ height: "100%" }} gap={0}>
         {displayNav && <Navbar />}
         {isCentered ? (
           <ContentContainer isCentered={isCentered}>
-            {children}
+            <FlexColumn style={{ paddingLeft: 16, paddingTop: 16 }}>
+              {children}
+            </FlexColumn>
           </ContentContainer>
         ) : (
           children

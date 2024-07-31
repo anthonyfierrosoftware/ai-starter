@@ -6,9 +6,9 @@ import PageLayout from "../components/layout/PageLayout";
 import Button from "../components/global/Button";
 import TextLink from "../components/global/TextLink";
 import RadioCheckbox from "../components/global/RadioInput";
-import ContentColumn from "../components/layout/ContentColumn";
 import ContentGroup from "../components/layout/ContentGroup";
 import ContentBlock from "../components/layout/ContentBlock";
+import { FlexColumn } from "../components/layout/Flex";
 
 const ComponentLibrary = ({}) => {
   const [textField, setTextField] = useState("");
@@ -17,8 +17,8 @@ const ComponentLibrary = ({}) => {
 
   return (
     <PageLayout>
-      <ContentColumn heading={"Component Library"}>
-
+      <FlexColumn gap={20} style={{ paddingLeft: 20, paddingTop: 20 }}>
+        <Heading>Component Library</Heading>
         <ContentGroup subheading={"Text Components"}>
           <ContentBlock>
             <Heading>Hello, this a Heading.</Heading>
@@ -41,7 +41,11 @@ const ComponentLibrary = ({}) => {
               onChange={setSecretField}
               secretField={true}
             />
-            <TextArea label="Text Area" value={textArea} setValue={setTextArea} />
+            <TextArea
+              label="Text Area"
+              value={textArea}
+              setValue={setTextArea}
+            />
           </ContentBlock>
         </ContentGroup>
 
@@ -56,8 +60,7 @@ const ComponentLibrary = ({}) => {
             />
           </ContentBlock>
         </ContentGroup>
-
-      </ContentColumn>
+      </FlexColumn>
     </PageLayout>
   );
 };

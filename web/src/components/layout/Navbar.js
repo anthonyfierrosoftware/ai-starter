@@ -8,10 +8,15 @@ import { FlexRow } from "./Flex";
 const Navbar = () => {
   const logout = useAuthStore((state) => state.logout);
   const navigate = useNavigate();
-  const { theme, setTheme, toggleTheme } = useThemeStore();
+  const { theme } = useThemeStore();
   return (
     <FlexRow
-      style={{ backgroundColor: theme.backgroundColor, ...navbarStyles }}
+      style={{
+        backgroundColor: theme.backgroundColor,
+        borderBottom: `1px solid ${theme.borderColor}`,
+        padding: "4px 20px",
+        justifyContent: "space-between",
+      }}
     >
       <BodyText
         style={{ margin: "auto 0", cursor: "pointer" }}
@@ -45,12 +50,6 @@ const Navbar = () => {
       </FlexRow>
     </FlexRow>
   );
-};
-
-const navbarStyles = {
-  borderBottom: "1px solid black",
-  padding: "4px 20px",
-  justifyContent: "space-between",
 };
 
 const ThemeToggler = ({}) => {
