@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { BodyText} from "../components/global/Text";
+import { BodyText } from "../components/global/Text";
 import TextInput from "../components/global/TextInput";
 import PageLayout from "../components/layout/PageLayout";
 import Button from "../components/global/Button";
@@ -23,15 +23,13 @@ const Login = () => {
 
   const addCredentials = useAuthStore((state) => state.addCredentials);
 
-  const authState = useAuthStore((state) => state.auth);
-
   const executeLogin = () => {
     setIsLoading(true);
     login(
       { username: email, password },
       (res) => {
         setIsLoading(false);
-        if (res.data?.data.profile.change_temp_password == true) {
+        if (res.data?.data.profile.changeTempPassword === true) {
           addCredentials(res?.data?.data);
           window.location.href = "/change-forgot-password";
         }
@@ -47,17 +45,19 @@ const Login = () => {
 
   return (
     <PageLayout displayNav={false} isCentered={true}>
-      <ContentCard heading={"Your App Title Here"} subheading={"Login"} isCentered={true}>
-          
+      <ContentCard
+        heading={"Your App Title Here"}
+        subheading={"Login"}
+        isCentered={true}
+      >
         <ContentBlock>
-
           <TextInput
             label="Email"
             value={email}
             onChange={setEmail}
             error={errorState}
           />
-          
+
           <TextInput
             label="Password"
             secretField={true}
@@ -70,13 +70,11 @@ const Login = () => {
             text={"Login"}
             onClick={() => executeLogin()}
             isLoading={isLoading}
-            style={{width:"100%"}}
+            style={{ width: "100%" }}
           />
-
         </ContentBlock>
 
         <ContentBlock isCentered={true} isLast={true}>
-
           <div style={{ display: "ruby" }}>
             <BodyText>Don't have an account?</BodyText>{" "}
             <TextLink onClick={() => navigate("/register")}>Register</TextLink>
@@ -88,9 +86,7 @@ const Login = () => {
               Reset my password
             </TextLink>
           </div>
-
-        </ContentBlock>  
-
+        </ContentBlock>
       </ContentCard>
     </PageLayout>
   );

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import PageLayout from "../components/layout/PageLayout";
-import { BodyText} from "../components/global/Text";
+import { BodyText } from "../components/global/Text";
 import TextInput from "../components/global/TextInput";
 import Button from "../components/global/Button";
 import { resetPassword } from "../state/routes";
@@ -8,7 +8,7 @@ import TextLink from "../components/global/TextLink";
 import ContentCard from "../components/layout/ContentCard";
 import ContentBlock from "../components/layout/ContentBlock";
 
-const ForgotPassword = ({}) => {
+const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [isReset, setIsReset] = useState(false);
   const [errorState, setErrorState] = useState(false);
@@ -69,7 +69,7 @@ const ForgotPassword = ({}) => {
               text="Submit"
               onClick={() => onResetPassword()}
               isLoading={isLoading}
-              style={{width:"100%"}}
+              style={{ width: "100%" }}
             />
           </ContentBlock>
           <ContentBlock isCentered={true} isLast={true}>

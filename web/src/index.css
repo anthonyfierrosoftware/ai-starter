@@ -16,32 +16,24 @@ code {
   background-color: #ffffff;
   padding: 32px 24px;
   border-radius: 16px;
-  min-height: 480px;
+  min-height: 400px;
   width: 320px;
   box-shadow: 2px 2px 8px 2px rgb(0, 0, 0, 0.12);
+  margin-top: 18vh;
 }
 
 .content-container {
   display: flex;
   align-items: center;
-  background-color: #f8f8f8;
-  height: 100%;
 }
 
 .content-column {
   padding: 24px;
   background-color: #ffffff;
-  height: 100%;
 }
 
 @media screen and (min-width: 1280px) {
   .content-column {
-    width: 1280px;
-  }
-}
-
-@media screen and (max-width: 1280px) {
-  .content-column {
-    width: calc(100% - 48px);
+    width: calc(1280px - 248px);
   }
 }

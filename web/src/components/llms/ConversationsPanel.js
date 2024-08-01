@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { BodyText, Subheading } from "../global/Text";
-import { FlexColumn, FlexRow } from "../layout/Flex";
+import { FlexColumn } from "../layout/Flex";
 import { fetchConversations } from "../../state/routes";
-import { useAuthStore } from "../../state/stores";
-import Button from "../global/Button";
+import { useAuthStore, useThemeStore } from "../../state/stores";
+import RadioCheckbox from "../global/RadioInput";
 import { formatDate } from "../../utils/formatDate";
 
-const ConversationsPanel = ({ chatMode, onConversationSelected }) => {
+const ConversationsPanel = ({ onConversationSelected }) => {
   const [fetchedConversations, setFetchedConversations] = useState([]);
-  const [isDisplayConversations, setIsDisplayConversations] = useState(true);
 
+  const [conversationMode, setconversationMode] = useState("Off");
   const authState = useAuthStore((state) => state.auth);
   const apiHeaders = { Authorization: `Token ${authState.token}` };
 
@@ -26,62 +26,42 @@ const ConversationsPanel = ({ chatMode, onConversationSelected }) => {
   }, []);
 
   return (
-    <FlexColumn
-      style={{ borderBottom: "1px solid #AAAAAA", paddingBottom: 16 }}
-    >
-      <FlexRow style={{ width: "100%", justifyContent: "space-between" }}>
-        <Subheading>Conversations</Subheading>
-        {chatMode == "Conversation Mode" && (
-          <Button
-            text={isDisplayConversations ? "Hide" : "Show"}
-            onClick={() => setIsDisplayConversations(!isDisplayConversations)}
-          />
-        )}
-      </FlexRow>
-      {isDisplayConversations &&
-        (chatMode == "Conversation Mode" ? (
-          <FlexColumn>
-            <FlexRow>
-              <BodyText>
-                Select a conversation to load it into the Chat Panel.
-              </BodyText>
-            </FlexRow>
-            <FlexRow
-              style={{
-                flexWrap: "wrap",
-                maxHeight: "200px",
-                overflowX: "scroll",
-                border: "1px solid black",
-                padding: "4px",
-                borderRadius: "4px",
-              }}
-            >
-              {fetchedConversations?.map((conversation, i) => (
-                <ConversationCard
-                  key={i}
-                  model={conversation.llm_config?.chat_model}
-                  name={conversation.name}
-                  dateCreated={conversation.date_created}
-                  dateUpdated={conversation.last_updated}
-                  conversationData={conversation}
-                  onClick={onConversationSelected}
-                />
-              ))}
-              {fetchConversations?.length < 1 && (
-                <BodyText style={{ padding: 8, color: "#777777" }}>
-                  You have no conversations. Send a message while in
-                  Conversation Mode to get started.
-                </BodyText>
-              )}
-            </FlexRow>
-          </FlexColumn>
+    <FlexColumn style={{ minWidth: 280 }}>
+      <Subheading>Conversation Mode</Subheading>
+      <BodyText style={{ fontSize: "14px" }}>
+        {conversationMode === "On" ? (
+          <>
+            {fetchedConversations?.length > 0
+              ? "Select a conversation to load it into the chat panel"
+              : "Send a message to get started"}
+          </>
         ) : (
-          <FlexRow>
-            <BodyText>
-              Select Conversation Mode to view and load past conversations.
-            </BodyText>
-          </FlexRow>
-        ))}
+          "Your conversation history will not be saved"
+        )}
+      </BodyText>
+      <RadioCheckbox
+        options={["Off", "On"]}
+        onChange={(data) => setconversationMode(data)}
+        defaultValue={"Off"}
+        isCondensed={true}
+      />
+      {conversationMode === "On" ? (
+        <FlexColumn style={{ overflowY: "auto" }} gap={4}>
+          {fetchedConversations?.map((conversation, i) => (
+            <ConversationCard
+              key={i}
+              model={conversation.llmConfig?.chat_model}
+              name={conversation.name}
+              dateCreated={conversation.dateCreated}
+              dateUpdated={conversation.lastUpdated}
+              conversationData={conversation}
+              onClick={onConversationSelected}
+            />
+          ))}
+        </FlexColumn>
+      ) : (
+        <></>
+      )}
     </FlexColumn>
   );
 };
@@ -95,13 +75,16 @@ const ConversationCard = ({
   conversationData,
 }) => {
   const [hovered, setHovered] = useState(false);
+  const { theme } = useThemeStore();
 
   return (
     <FlexColumn
       style={{
-        backgroundColor: hovered ? "#E3E3E3" : "#F3F3F3",
-        borderRadius: "4px",
-        padding: "4px",
+        backgroundColor: hovered
+          ? theme.secondaryActionHoverColor
+          : theme.secondaryActionColor,
+        borderRadius: 4,
+        padding: "4px 0",
         cursor: "pointer",
         flex: 1,
         minWidth: 200,
@@ -109,20 +92,20 @@ const ConversationCard = ({
       }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      gap={"8px"}
+      gap={4}
       onClick={() => {
-        console.log("load conversation");
+        // console.log("load conversation");
         onClick(conversationData);
       }}
     >
-      <BodyText>
+      <BodyText style={{ fontSize: 14, color: theme.secondaryTextColor }}>
         <b>{model}</b> {name}
       </BodyText>
-      <FlexColumn gap={4}>
-        <BodyText style={{ fontSize: 11 }}>
+      <FlexColumn gap={2}>
+        <BodyText style={{ fontSize: 11, color: theme.secondaryTextColor }}>
           Created {formatDate(dateCreated)}
         </BodyText>
-        <BodyText style={{ fontSize: 11 }}>
+        <BodyText style={{ fontSize: 11, color: theme.secondaryTextColor }}>
           Last updated {formatDate(dateUpdated)}
         </BodyText>
       </FlexColumn>

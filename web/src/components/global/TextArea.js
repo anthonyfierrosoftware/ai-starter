@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { FlexColumn } from "../layout/Flex";
+import { useThemeStore } from "../../state/stores";
 
 const TextArea = ({
   value = "",
@@ -8,10 +9,13 @@ const TextArea = ({
   secretField = false,
   error = false,
   errorTitleOverride = false,
+  isFullWidth = false,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
 
   const [errorMessage, setErrorMessage] = useState(false);
+
+  const { theme } = useThemeStore();
 
   const borderColor = () => {
     if (errorMessage) return "red";
@@ -22,15 +26,19 @@ const TextArea = ({
   useEffect(() => {
     if (error?.length > 0) {
       error.forEach((err) => {
-        if (err.errorTitle == label || err.errorTitle == errorTitleOverride)
+        if (err.errorTitle === label || err.errorTitle === errorTitleOverride)
           setErrorMessage(err.errorMessage);
       });
     }
   }, [error]);
 
   return (
-    <FlexColumn gap={4}>
-      <label style={{ lineHeight: "22px", fontSize: "14px" }}>{label}</label>
+    <FlexColumn gap={4} style={{ width: isFullWidth && "100%" }}>
+      <label
+        style={{ lineHeight: "22px", fontSize: "14px", color: theme.textColor }}
+      >
+        {label}
+      </label>
       <textarea
         value={value}
         rows={4}
@@ -41,19 +49,18 @@ const TextArea = ({
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
         style={{
-          height: "60px",
-          borderRadius: "4px",
+          borderRadius: 4,
           border: `1px solid ${borderColor()}`,
-          // width: "268px",
-          padding: "8px 16px",
+          padding: "4px 8px",
+          height: isFullWidth ? 30 : 60,
         }}
         type={secretField && "password"}
       />
       {errorMessage && (
         <div
           style={{
-            width: "268px",
-            borderRadius: "4px",
+            width: 268,
+            borderRadius: 4,
             color: "red",
           }}
         >

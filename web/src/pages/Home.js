@@ -1,39 +1,48 @@
 import { useState } from "react";
-import { BodyText, Heading } from "../components/global/Text";
 import { FlexColumn, FlexRow } from "../components/layout/Flex";
 import ContentColumn from "../components/layout/ContentColumn";
 import PageLayout from "../components/layout/PageLayout";
 import ChatPanel from "../components/llms/ChatPanel";
 import ConversationsPanel from "../components/llms/ConversationsPanel";
-import RadioCheckbox from "../components/global/RadioInput";
+import { useThemeStore } from "../state/stores";
 
 const Home = () => {
-  const [chatMode, setChatMode] = useState("Single Prompt Mode");
+  const [conversationMode, setConversationMode] = useState("Off");
 
   const [chatToLoad, setChatToLoad] = useState(false);
 
+  const { theme } = useThemeStore();
+
   return (
     <PageLayout>
-      <ContentColumn heading={"Home"}>
-        <FlexColumn>
-          <BodyText>
-            Toggle between Conversation and Single Prompt mode to enable or
-            disable LLM chat history.
-          </BodyText>
-          <FlexRow>
-            <RadioCheckbox
-              options={["Conversation Mode", "Single Prompt Mode"]}
-              onChange={(data) => setChatMode(data)}
-              defaultValue={"Single Prompt Mode"}
-            />
-          </FlexRow>
+      <FlexRow gap={0}>
+        {/* This is the sidebar */}
+        <FlexColumn
+          style={{
+            width: "248px",
+            height: "calc(100vh - 48px)",
+            backgroundColor: theme.secondaryBackground,
+            padding: "40px 16px",
+            gap: "24px",
+            overflowY: "auto",
+          }}
+        >
+          <ConversationsPanel
+            onConversationSelected={(conversation) =>
+              setChatToLoad(conversation)
+            }
+          />
         </FlexColumn>
-        <ConversationsPanel
-          chatMode={chatMode}
-          onConversationSelected={(conversation) => setChatToLoad(conversation)}
-        />
-        <ChatPanel chatToLoad={chatToLoad} chatMode={chatMode} />
-      </ContentColumn>
+        <ContentColumn
+          heading={"Chat Panel"}
+          style={{ backgroundColor: theme.backgroundColor }}
+        >
+          <ChatPanel
+            chatToLoad={chatToLoad}
+            conversationMode={conversationMode}
+          />
+        </ContentColumn>
+      </FlexRow>
     </PageLayout>
   );
 };
