@@ -47,7 +47,7 @@ export const blueTheme = {
   primaryTextColor: "#FFFFFF",
   secondaryTextColor: "#01579B",
   secondaryActionColor: "#B3E5FC",
-  secondaryActionHoverColor: "#81D4FA",
+  secondaryActionHoverColor: "#93C5DC",
   secondaryBackground: "#E1F5FE",
   optionSelectedBackground: "#B3E5FC",
   optionUnselectedBackground: "#FFFFFF",
