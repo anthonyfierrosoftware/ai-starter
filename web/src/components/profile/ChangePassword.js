@@ -1,9 +1,7 @@
 import { useState } from "react";
 import { changePassword } from "../../state/routes";
 import Button from "../global/Button";
-import { Subheading } from "../global/Text";
 import TextInput from "../global/TextInput";
-import { FlexColumn } from "../layout/Flex";
 import { useAuthStore } from "../../state/stores";
 import ContentBlock from "../layout/ContentBlock";
 import ContentGroup from "../layout/ContentGroup";
@@ -44,32 +42,32 @@ const ChangePassword = ({ onSuccess = () => {} }) => {
   return (
     <ContentGroup subheading={"Change Password"}>
       <ContentBlock>
+        <TextInput
+          label="Current Password"
+          value={currentPassword}
+          onChange={setCurrentPassword}
+          error={errorState}
+          errorTitleOverride={"Password"}
+          secretField={true}
+        />
+        <ContentBlock isRow={true}>
           <TextInput
-            label="Current Password"
-            value={currentPassword}
-            onChange={setCurrentPassword}
-            error={errorState}
-            errorTitleOverride={"Password"}
+            label="New Password"
+            value={newPassword}
+            onChange={setNewPassword}
             secretField={true}
+            errorTitleOverride={"Password1"}
+            error={errorState}
+            isRow={true}
           />
-          <ContentBlock isRow={true}>
-            <TextInput
-              label="New Password"
-              value={newPassword}
-              onChange={setNewPassword}
-              secretField={true}
-              errorTitleOverride={"Password1"}
-              error={errorState}
-              isRow={true}
-            />
-            <TextInput
-              label="Confirm Password"
-              value={confirmPassword}
-              onChange={setConfirmPassword}
-              secretField={true}
-              isRow={true}
-            />
-          </ContentBlock>
+          <TextInput
+            label="Confirm Password"
+            value={confirmPassword}
+            onChange={setConfirmPassword}
+            secretField={true}
+            isRow={true}
+          />
+        </ContentBlock>
         <Button
           text={"Save Changes"}
           onClick={() => executeChangePassword()}

@@ -10,7 +10,7 @@ import ContentGroup from "../components/layout/ContentGroup";
 import ContentBlock from "../components/layout/ContentBlock";
 import { FlexColumn } from "../components/layout/Flex";
 
-const ComponentLibrary = ({}) => {
+const ComponentLibrary = () => {
   const [textField, setTextField] = useState("");
   const [secretField, setSecretField] = useState("somesecret");
   const [textArea, setTextArea] = useState("");

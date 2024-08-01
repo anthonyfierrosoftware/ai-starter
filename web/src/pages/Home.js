@@ -4,15 +4,14 @@ import ContentColumn from "../components/layout/ContentColumn";
 import PageLayout from "../components/layout/PageLayout";
 import ChatPanel from "../components/llms/ChatPanel";
 import ConversationsPanel from "../components/llms/ConversationsPanel";
-import { defaultTheme } from "../theme";
 import { useThemeStore } from "../state/stores";
 
 const Home = () => {
-  const [conversationMode, setconversationMode] = useState("Off");
+  const [conversationMode, setConversationMode] = useState("Off");
 
   const [chatToLoad, setChatToLoad] = useState(false);
 
-  const { theme, setTheme } = useThemeStore();
+  const { theme } = useThemeStore();
 
   return (
     <PageLayout>
@@ -29,7 +28,6 @@ const Home = () => {
           }}
         >
           <ConversationsPanel
-            conversationMode={conversationMode}
             onConversationSelected={(conversation) =>
               setChatToLoad(conversation)
             }

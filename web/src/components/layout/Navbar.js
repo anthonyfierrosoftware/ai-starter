@@ -52,8 +52,8 @@ const Navbar = () => {
   );
 };
 
-const ThemeToggler = ({}) => {
-  const { theme, setTheme, toggleTheme } = useThemeStore();
+const ThemeToggler = () => {
+  const { theme, toggleTheme } = useThemeStore();
   return (
     <div
       onClick={() => toggleTheme()}

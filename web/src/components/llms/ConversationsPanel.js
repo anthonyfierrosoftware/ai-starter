@@ -8,7 +8,7 @@ import { formatDate } from "../../utils/formatDate";
 
 const ConversationsPanel = ({ onConversationSelected }) => {
   const [fetchedConversations, setFetchedConversations] = useState([]);
-  // const [isDisplayConversations, setIsDisplayConversations] = useState(true);
+
   const [conversationMode, setconversationMode] = useState("Off");
   const authState = useAuthStore((state) => state.auth);
   const apiHeaders = { Authorization: `Token ${authState.token}` };
@@ -27,15 +27,6 @@ const ConversationsPanel = ({ onConversationSelected }) => {
 
   return (
     <FlexColumn style={{ minWidth: 280 }}>
-      {/* <FlexRow style={{ width: "100%", justifyContent: "space-between" }}>
-        <Subheading>Conversations</Subheading>
-        {conversationMode == "On" && (
-          <Button
-            text={isDisplayConversations ? "Hide" : "Show"}
-            onClick={() => setIsDisplayConversations(!isDisplayConversations)}
-          />
-        )}
-      </FlexRow> */}
       <Subheading>Conversation Mode</Subheading>
       <BodyText style={{ fontSize: "14px" }}>
         {conversationMode === "On" ? (

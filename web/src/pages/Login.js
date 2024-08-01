@@ -23,8 +23,6 @@ const Login = () => {
 
   const addCredentials = useAuthStore((state) => state.addCredentials);
 
-  const authState = useAuthStore((state) => state.auth);
-
   const executeLogin = () => {
     setIsLoading(true);
     login(

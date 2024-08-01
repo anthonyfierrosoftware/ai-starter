@@ -479,7 +479,7 @@ const ChatMessages = ({ conversation }) => {
 const ChatMessage = ({ message }) => {
   return (
     <div>
-      <BodyText style={{ fontWeight: message.role != "user" && 800 }}>
+      <BodyText style={{ fontWeight: message.role !== "user" && 800 }}>
         {message.content}
       </BodyText>
     </div>

@@ -49,19 +49,18 @@ const TextArea = ({
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
         style={{
-          height: "60px",
-          borderRadius: "4px",
+          borderRadius: 4,
           border: `1px solid ${borderColor()}`,
           padding: "4px 8px",
-          height: isFullWidth && "30px",
+          height: isFullWidth ? 30 : 60,
         }}
         type={secretField && "password"}
       />
       {errorMessage && (
         <div
           style={{
-            width: "268px",
-            borderRadius: "4px",
+            width: 268,
+            borderRadius: 4,
             color: "red",
           }}
         >

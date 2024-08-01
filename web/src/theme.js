@@ -14,6 +14,7 @@ export const defaultTheme = {
   optionSelectedBackground: "#D3D3D3",
   optionUnselectedBackground: "#FFFFFF",
   iconColor: "#F3F3F3",
+  error: "#ff0000",
 };
 
 export const darkTheme = {
@@ -32,6 +33,7 @@ export const darkTheme = {
   optionSelectedBackground: "#A3A3A3",
   optionUnselectedBackground: "#FFFFFF",
   iconColor: "#333333",
+  error: "#ff0000",
 };
 
 export const blueTheme = {
@@ -50,4 +52,5 @@ export const blueTheme = {
   optionSelectedBackground: "#B3E5FC",
   optionUnselectedBackground: "#FFFFFF",
   iconColor: "#0277BD",
+  error: "#ff0000",
 };

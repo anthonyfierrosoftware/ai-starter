@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAuthStore } from "../../state/stores";
 import { updateSettings } from "../../state/routes";
-import { FlexColumn } from "../layout/Flex";
-import { Subheading } from "../global/Text";
+
 import ContentBlock from "../layout/ContentBlock";
 import TextInput from "../global/TextInput";
 import Button from "../global/Button";
@@ -11,7 +10,6 @@ import ContentGroup from "../layout/ContentGroup";
 const ProfileDetails = ({ userData }) => {
   const authState = useAuthStore((state) => state.auth);
   const apiHeaders = { Authorization: `Token ${authState.token}` };
-  const [profileData, setProfileData] = useState(false);
   const [firstName, setFirstName] = useState(userData?.first_name || "");
   const [lastName, setLastName] = useState(userData?.last_name || "");
 

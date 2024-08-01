@@ -39,7 +39,9 @@ const BodyText = ({
 const ErrorText = ({ style, children }) => {
   const { theme } = useThemeStore();
   return (
-    <span style={{ color: "red", fontSize: "12px", ...style }}>{children}</span>
+    <span style={{ color: theme.error, fontSize: "12px", ...style }}>
+      {children}
+    </span>
   );
 };
 

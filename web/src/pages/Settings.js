@@ -8,7 +8,7 @@ import ChangePassword from "../components/profile/ChangePassword";
 import ProfileDetails from "../components/profile/ProfileDetails";
 import { FlexColumn } from "../components/layout/Flex";
 
-const Settings = ({}) => {
+const Settings = () => {
   const [fetchedProfile, setFetchedProfile] = useState();
   const authState = useAuthStore((state) => state.auth);
   const apiHeaders = { Authorization: `Token ${authState.token}` };
