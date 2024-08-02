@@ -28,7 +28,7 @@ const Settings = () => {
 
   return (
     <PageLayout>
-      <FlexColumn style={{ padding: 16 }}>
+      <FlexColumn style={{ padding: 16 }} gap={32}>
         <Heading>Settings</Heading>
         <ProfileDetails
           authState={authState}
