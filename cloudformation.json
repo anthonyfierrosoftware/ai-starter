@@ -1,0 +1,216 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "AI webapp starter by 1280 Labs",
+  "Parameters": {
+    "AppName": {
+      "Description": "Instance Name of the BoosterPack Web Server",
+      "Type": "String",
+      "MinLength": "1",
+      "MaxLength": "32",
+      "ConstraintDescription": "Please provide a unique name within 1 to 32 characters long",
+      "Default": "ai-starter-app"
+    },
+    "ServerImage": {
+      "Description": "Recommended AMI for the BoosterPack Application Server",
+      "Type": "String",
+      "Default": "Amazon-Linux-2023-ARM",
+      "AllowedValues": [
+        "Amazon-Linux-2023-ARM"
+      ],
+      "ConstraintDescription": "Preset configuration cannot be changed"
+    },
+    "AppInstanceType": {
+      "Description": "Recommended EC2 Instance Type for the BoosterPack Web Server",
+      "Type": "String",
+      "Default": "t4g.nano",
+      "AllowedValues": [
+        "t4g.nano"
+      ],
+      "ConstraintDescription": "Preset configuration cannot be changed"
+    },
+    "OpenAI": {
+      "Description": "API Key for OpenAI (optional)",
+      "Type": "String",
+      "Default": ""
+    },
+    "Claude": {
+      "Description": "API Key for Claude (optional)",
+      "Type": "String",
+      "Default": ""
+    },
+    "Mistral": {
+      "Description": "API Key for Mistral (optional)",
+      "Type": "String",
+      "Default": ""
+    },
+    "Huggingface": {
+      "Description": "API Key for HuggingFace (optional)",
+      "Type": "String",
+      "Default": ""
+    },
+    "NoReplySenderAddress": {
+      "Description": "Email sender for noreply emails such as login and password reset e.g. noreply@<your-domain>.ca (address must verified with Amazon SES to send emails successfully)",
+      "Type": "String",
+      "Default": "noreply@example.com"
+    },
+    "SecurityGroup": {
+      "Description" : "Select a Security Group in the default VPC",
+      "Type" : "AWS::EC2::SecurityGroup::GroupName",
+      "ConstraintDescription" : " Must use an existing Security Group in the default VPC"
+    },
+    "KeyPair": {
+      "Description" : "Select an existing KeyPair for SSH access to the BoosterPack Servers",
+      "Type": "AWS::EC2::KeyPair::KeyName",
+      "ConstraintDescription" : "Must use an existing key pair"
+    }
+  },
+  "Mappings": {
+    "OSType2AMI": {
+      "Amazon-Linux-2023-ARM": {
+        "AMIId": "ami-0b0d2abef64746350"
+      }
+    }
+  },
+  "Resources": {
+    "AppServer": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": {
+              "Ref": "AppName"
+            }
+          },
+          {
+            "Key": "BoosterPack",
+            "Value": "1280Labs-AI-starter"
+          }
+        ],
+        "ImageId": {
+          "Fn::FindInMap": [
+            "OSType2AMI",
+            {
+              "Ref": "ServerImage"
+            },
+            "AMIId"
+          ]
+        },
+        "InstanceType": {
+          "Ref": "AppInstanceType"
+        },
+        "KeyName": {
+          "Ref" : "KeyPair"
+        },
+        "SecurityGroupIds": [
+          {
+            "Ref": "SecurityGroup"
+          }
+        ],
+        "IamInstanceProfile": {
+          "Ref": "MyIAMInstanceProfile"
+        },
+        "BlockDeviceMappings": [
+          {
+            "DeviceName": "/dev/xvda",
+            "Ebs": {
+              "VolumeType": "gp3",
+              "VolumeSize": "160"
+            }
+          }
+        ],
+        "UserData": {
+          "Fn::Base64": {
+            "Fn::Join": [
+              "\n",
+              [
+                "#!/bin/bash",
+                "echo '********** DAIR BoosterPack is currently being installed... Please wait!!! **********'",
+                {"Fn::Sub" : "export OPENAI_API_KEY=${OpenAI}"},
+                {"Fn::Sub" : "export CLAUDE_API_KEY=${Claude}"},
+                {"Fn::Sub" : "export MISTRAL_API_KEY=${Mistral}"},
+                {"Fn::Sub" : "export HUGGINGFACE_API_KEY=${Huggingface}"},
+                {"Fn::Sub" : "export EMAIL_BACKEND=django_ses.SESBackend"},
+                {"Fn::Sub" : "export DEFAULT_FROM_EMAIL=${NoReplySenderAddress}"},
+                {"Fn::Sub" : "aws ses verify-email-identity --email-address ${NoReplySenderAddress}"},
+                "curl -L -s 'https://raw.githubusercontent.com/anthonyfierrosoftware/ai-starter/main/install.sh' | bash -x >&1",
+                "echo '********** DAIR BoosterPack is installed !!! **********'"
+              ]
+            ]
+          }
+        }
+      }
+    },
+    "MyIAMRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "ec2.amazonaws.com"
+              },
+              "Action": "sts:AssumeRole"
+            }
+          ]
+        },
+        "Policies": [
+          {
+            "PolicyName": "AllowSESSendEmail",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "ses:SendEmail",
+                    "ses:GetSendQuota",
+                    "ses:SendRawEmail"
+                  ],
+                  "Resource": "*"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "MyIAMInstanceProfile": {
+      "Type": "AWS::IAM::InstanceProfile",
+      "Properties": {
+        "Roles": [
+          {
+            "Ref": "MyIAMRole"
+          }
+        ]
+      }
+    },
+    "MySESIdentity": {
+      "Type": "AWS::SES::EmailIdentity",
+      "Properties": {
+        "EmailIdentity": {
+          "Ref": "NoReplySenderAddress"
+        }
+      }
+    }
+  },
+  "Outputs": {
+    "AppAddress": {
+      "Value": {
+        "Fn::GetAtt": [
+          "AppServer",
+          "PublicIp"
+        ]
+      },
+      "Description": "Web Application Server IP"
+    },
+    "SESIdentity": {
+      "Description": "SES Identity for sending emails",
+      "Value": {
+        "Ref": "MySESIdentity"
+      }
+    }
+  }
+}

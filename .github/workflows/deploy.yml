@@ -1,0 +1,46 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: aws
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ca-central-1
+
+    - name: Deploy to AWS CloudFormation
+      uses: aws-actions/aws-cloudformation-github-deploy@v1
+      with:
+        name: ai-starter-main
+        template: cloudformation.json
+        parameter-overrides: "AppName=ai-starter-main,NoReplySenderAddress=noreply@1280labs.ca"
+
+    - name: ⏱️ Wait for installation ...
+      id: wait
+      run: |
+        NEWEST_INSTANCE_ID=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=ai-starter-main" --query "Reservations[*].Instances[*].[InstanceId,LaunchTime]" --output text | sort -k2 | tail -n 1 | awk '{print $1}')
+        PUBLIC_IP=$(aws ec2 describe-instances --instance-ids $NEWEST_INSTANCE_ID --query 'Reservations[*].Instances[*].PublicIpAddress' --output text)
+
+        echo "Waiting on HTTP 200 response from $PUBLIC_IP..."
+        while [[ $(curl -s -o /dev/null -w "%{http_code}" "$PUBLIC_IP") != "200" ]]; do sleep 5; done
+
+        echo "PUBLIC_IP=$PUBLIC_IP" >> $GITHUB_OUTPUT
+
+    - name: ✅ Done!
+      env:
+        PUBLIC_IP: ${{ steps.wait.outputs.PUBLIC_IP }}
+      run: |
+        echo "Deployed to $PUBLIC_IP"
