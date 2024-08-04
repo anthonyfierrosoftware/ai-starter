@@ -477,9 +477,10 @@ const ChatMessages = ({ conversation }) => {
 };
 
 const ChatMessage = ({ message }) => {
+  const { theme } = useThemeStore()
   return (
     <div>
-      <BodyText style={{ fontWeight: message.role !== "user" && 800 }}>
+      <BodyText style={{ fontWeight: message.role !== "user" && 800, color: theme.secondaryTextColor }}>
         {message.content}
       </BodyText>
     </div>
