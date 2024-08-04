@@ -52,8 +52,8 @@ const ConversationsPanel = ({ onConversationSelected }) => {
               key={i}
               model={conversation.llmConfig?.chat_model}
               name={conversation.name}
-              dateCreated={conversation.dateCreated}
-              dateUpdated={conversation.lastUpdated}
+              dateCreated={conversation.date_created}
+              dateUpdated={conversation.last_updated}
               conversationData={conversation}
               onClick={onConversationSelected}
             />
