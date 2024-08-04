@@ -1,0 +1,37 @@
+services:
+
+  ai-web-starter:
+    build:
+      context: web
+      args:
+        - REACT_APP_API_URL=http://${PUBLIC_IP:-localhost}:8000
+    ports:
+      - "${PUBLIC_PORT:-3000}:80"
+    depends_on:
+      - ai-backend-starter
+
+  ai-backend-starter:
+    build:
+      context: backend
+    ports:
+      - "8000:8000"
+    environment:
+      ALLOWED_HOSTS: '*,'
+      CORS_ALLOW_ALL_ORIGINS: "True"
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      CLAUDE_API_KEY: ${CLAUDE_API_KEY}
+      MISTRAL_API_KEY: ${MISTRAL_API_KEY}
+      HUGGINGFACE_API_KEY: ${HUGGINGFACE_API_KEY}
+      EMAIL_BACKEND: ${EMAIL_BACKEND}
+      DEFAULT_FROM_EMAIL: ${DEFAULT_FROM_EMAIL}
+      EMAIL_HOST: ${EMAIL_HOST}
+      EMAIL_HOST_PASSWORD: ${EMAIL_HOST_PASSWORD}
+
+      # Remove SQLLITE to use an external database
+      SQLLITE: "True"
+      # Uncomment DATABASE_URL to use an external database
+      #DATABASE_URL: ""
+
+      # Uncomment to send emails with Amazon SES in development
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
