@@ -5,10 +5,10 @@ from aiModule.views import basicChat, conversation
 urlpatterns = [
     path("chat/send/", basicChat.ChatComplete.as_view(), name="send_chat"),
     path(
-        "get/conversations/", conversation.getConversations.as_view(), name="send_chat"
+        "conversations/", conversation.getConversations.as_view(), name="send_chat"
     ),
     path(
-        "get/conversations/<int:pk>/",
+        "conversations/<int:pk>/",
         conversation.getConversation.as_view(),
         name="send_chat",
     ),

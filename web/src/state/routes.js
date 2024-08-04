@@ -31,7 +31,7 @@ export const fetchConversations = (
   onError = () => {},
   apiHeaders = {}
 ) => {
-  apiGet("/get/conversations/", onSuccess, onError, apiHeaders);
+  apiGet("/conversations/", onSuccess, onError, apiHeaders);
 };
 
 export const sendChat = (
@@ -48,7 +48,7 @@ export const fetchProfileData = (
   onError = () => {},
   apiHeaders = {}
 ) => {
-  apiGet("/api/user/", onSuccess, onError, apiHeaders);
+  apiGet("/user/", onSuccess, onError, apiHeaders);
 };
 
 export const resetPassword = (
@@ -65,7 +65,7 @@ export const updateSettings = (
   onError = () => {},
   apiHeaders = {}
 ) => {
-  apiPut("/api/user/", { ...body }, onSuccess, onError, apiHeaders);
+  apiPut("/user/", { ...body }, onSuccess, onError, apiHeaders);
 };
 
 export const changePassword = (
@@ -74,5 +74,5 @@ export const changePassword = (
   onError = () => {},
   apiHeaders = {}
 ) => {
-  apiPost("/api/change-password/", { ...body }, onSuccess, onError, apiHeaders);
+  apiPost("/change-password/", { ...body }, onSuccess, onError, apiHeaders);
 };

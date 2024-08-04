@@ -44,7 +44,7 @@
 
 ## Fetch Conversations
 
-**Endpoint:** `/get/conversations/`  
+**Endpoint:** `/conversations/`
 **Method:** GET  
 **Authentication:** Authenticated
 
@@ -77,7 +77,7 @@
 
 ## Fetch Profile Data
 
-**Endpoint:** `/api/user/`  
+**Endpoint:** `/user/`
 **Method:** GET  
 **Authentication:** Authenticated
 
@@ -106,7 +106,7 @@
 
 ## Update Settings
 
-**Endpoint:** `/api/user/`  
+**Endpoint:** `/user/`
 **Method:** PUT  
 **Authentication:** Authenticated  
 **Request Body:** (dynamic)
@@ -127,7 +127,7 @@
 
 ## Change Password
 
-**Endpoint:** `/api/change-password/`  
+**Endpoint:** `/change-password/`
 **Method:** POST  
 **Authentication:** Authenticated  
 **Request Body:**
