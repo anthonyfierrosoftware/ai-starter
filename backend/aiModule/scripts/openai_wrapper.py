@@ -20,12 +20,12 @@ class OpenAIWrapper(AbstractWrapper):
         self.client = OpenAI(api_key=self.api_key)
         self.conversation_history = None
 
-        self.chat_model = chat_model if chat_model else "gpt-3.5-turbo"
+        self.chat_model = chat_model if chat_model else "gpt-4o-mini"
         try:
             self.models = self.client.models.list().data
         except:
             # default models we support
-            self.models = ["gpt-4-turbo", "gpt-3.5-turbo"]
+            self.models = ["gpt-3.5-turbo", "gpt-4-turbo","gpt-4o","gpt-4o-mini"]
 
     def set_conversation_history(self, ch=None):
         try:

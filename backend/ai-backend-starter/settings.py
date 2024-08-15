@@ -70,6 +70,8 @@ INSTALLED_APPS = [
     "users.apps.UsersConfig",
     "aiModule.apps.AIModuleConfig",
     "corsheaders",
+    
+    "debug_toolbar"
 ]
 
 MIDDLEWARE = [
@@ -82,6 +84,8 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = "ai-backend-starter.urls"
@@ -105,12 +109,16 @@ TEMPLATES = [
 WSGI_APPLICATION = "ai-backend-starter.wsgi.application"
 
 
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 
 SQLLITE = os.getenv("SQLLITE", "False") == "True"
-print(os.getenv("SQLLITE", "False"))
+
 if SQLLITE is True:
     if os.getenv("DATABASE_URL", None) is not None:
         raise Exception(

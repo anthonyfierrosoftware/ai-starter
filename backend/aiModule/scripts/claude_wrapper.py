@@ -12,13 +12,9 @@ class ClaudeWrapper(AbstractWrapper):
 
         self.max_tokens = 4096
         self.msg_limit = 20
-        self.chat_model = chat_model if chat_model else "claude-3-opus-20240229"
+        self.chat_model = chat_model if chat_model else "claude-3-haiku-20240307"
 
-        self.models = [
-            "claude-3-opus-20240229",
-            "claude-3-sonnet-20240229",
-            "claude-3-haiku-20240307",
-        ]
+        self.models = ["claude-3-opus-20240229","claude-3-5-sonnet-20240620", "claude-3-sonnet-20240229","claude-3-haiku-20240307"]
 
         self.system_instructions = (
             system_instructions
@@ -156,8 +152,22 @@ class ClaudeWrapper(AbstractWrapper):
             # append the message the conversation history
             self.conversation_history.append({"role": "user", "content": message})
 
+            messages = self.conversation_history[-self.msg_limit :]
+            # to deal with system message errors, the first msessage must be from the user
+            try:
+                test=True
+                while(test):
+                    if messages[0]["role"] == "assistant":
+                        messages.pop(0)
+                    else:
+                        test = False
+            except Exception as e:
+                print(
+                    f"Error updating messages objecty: {e}"
+                )
+                
             response, success = self.text_chat(
-                messages=self.conversation_history[-self.msg_limit :],
+                messages=messages,
                 model_id=model_id,
                 temp=temp,
                 top_p=top_p,

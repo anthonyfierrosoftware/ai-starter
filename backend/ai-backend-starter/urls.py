@@ -16,6 +16,7 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
+import os
 
 
 urlpatterns = [
@@ -24,3 +25,8 @@ urlpatterns = [
     path("", include("users.urls")),
     path("", include("aiModule.urls")),
 ]
+
+DEBUG = os.getenv("DEBUG", "False") == "True"
+
+if DEBUG:
+    urlpatterns += [path("__debug__/",include("debug_toolbar.urls"))]

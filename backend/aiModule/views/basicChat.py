@@ -19,13 +19,16 @@ from aiModule.serializers.config_serializers import ConfigSerializer
 
 from aiModule.models.llmConfig import LLM, MODELS
 
+from django.contrib.auth.models import User
+
+# import time
 
 import json
 
 
 class ChatComplete(APIView):
-    authentication_classes = [ExpiringTokenAuthentication]
-    permission_classes = [IsAuthenticated]
+    # authentication_classes = [ExpiringTokenAuthentication]
+    # permission_classes = [IsAuthenticated]
 
     def post(self, request):
         """
@@ -53,7 +56,8 @@ class ChatComplete(APIView):
         try:
 
             try:
-                user = request.user
+                # user = request.user **TODO update
+                user = User.objects.get(email="jordan.meyler+test@test.com")
                 data = json.loads(request.body)
                 # remove empty fields from configuration**
 
@@ -89,7 +93,7 @@ class ChatComplete(APIView):
             try:
                 # get or create conversation
                 if "conversation" in data and int(data["conversation"]):
-                    conversation = apps.get_model("aiModule.Conversation").objects.get(
+                    conversation = apps.get_model("aiModule.Conversation").objects.select_related("llm_config").get(
                         pk=int(data["conversation"])
                     )
 
@@ -260,7 +264,8 @@ class ChatComplete(APIView):
                             chat_model=conversation.llm_config.chat_model,
                             system_instructions=conversation.llm_config.system_instructions,
                         )
-
+                # print("llm go")
+                # print(time.gmtime())
                 # test to see if credentials and keys are valid
                 if llm.authorize():
                     # set conversation history if it exists
@@ -280,6 +285,9 @@ class ChatComplete(APIView):
                             data=str(temp),
                             custom_message="Error retrieving chat, please refer to logs.",
                         )
+                    
+                    # print("message sent")
+                    # print(time.gmtime())
                     # update and save converstaion conversation.chat_history=json.dumps(temp["chat_history"])
                     ch = temp["chat_history"]
                     if not ch[0]["role"] == "system":
@@ -314,7 +322,6 @@ class ChatComplete(APIView):
                                 conversation.hugging_other_tokens += int(temp["tokens"])
 
                     conversation.save()
-
                     # create message
                     msg = apps.get_model("aiModule.Message").objects.create(
                         prompt=prompt,

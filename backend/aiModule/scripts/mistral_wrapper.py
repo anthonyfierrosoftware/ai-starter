@@ -14,12 +14,12 @@ class MistralWrapper(AbstractWrapper):
 
         self.max_tokens = 4096
         self.msg_limit = 20
-        self.chat_model = chat_model if chat_model else "mistral-large-latest"
+        self.chat_model = chat_model if chat_model else "open-mistral-nemo"
 
         try:
             self.models = self.client.list_models().data
         except:
-            self.models = ["gpt-4-turbo", "gpt-3.5-turbo"]
+            self.models = ["mistral-large-latest","open-mistral-nemo"]
 
         self.system_instructions = (
             system_instructions
