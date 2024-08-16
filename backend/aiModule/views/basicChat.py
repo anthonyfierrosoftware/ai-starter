@@ -27,8 +27,8 @@ import json
 
 
 class ChatComplete(APIView):
-    # authentication_classes = [ExpiringTokenAuthentication]
-    # permission_classes = [IsAuthenticated]
+    authentication_classes = [ExpiringTokenAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def post(self, request):
         """
@@ -56,8 +56,8 @@ class ChatComplete(APIView):
         try:
 
             try:
-                # user = request.user **TODO update
-                user = User.objects.get(email="jordan.meyler+test@test.com")
+                user = request.user
+                # user = User.objects.get(email="jordan.meyler+test@test.com")
                 data = json.loads(request.body)
                 # remove empty fields from configuration**
 
