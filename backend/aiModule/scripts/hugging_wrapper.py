@@ -13,7 +13,7 @@ class HuggingWrapper(AbstractWrapper):
     def __init__(self, api_key=None, chat_model=None, system_instructions=None):
 
         self.api_key = api_key if api_key else os.getenv("HUGGINGFACE_API_KEY", False)
-        self.chat_model = chat_model if chat_model else "meta-llama/Llama-2-70b-chat-hf"
+        self.chat_model = chat_model if chat_model else "meta-llama/Llama-2-7b-chat-hf"
 
         self.client = HuggingFaceEndpoint(
             repo_id=self.chat_model, huggingfacehub_api_token=self.api_key
@@ -21,7 +21,7 @@ class HuggingWrapper(AbstractWrapper):
 
         self.conversation_history = None
         self.max_tokens = 4096
-        self.models = ["meta-llama/Llama-2-70b-chat-hf"]
+        self.models = ["meta-llama/Llama-2-70b-chat-hf","meta-llama/Llama-2-7b-chat-hf"]
         self.msg_limit = 7
 
         self.system_instructions = (
