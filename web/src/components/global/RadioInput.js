@@ -29,8 +29,9 @@ const RadioCheckbox = ({
         ...style,
       }}
     >
-      {options.map((option) => (
+      {options.map((option, i) => (
         <FlexColumn
+          key={i}
           style={{
             // backgroundColor: "red",
             backgroundColor:

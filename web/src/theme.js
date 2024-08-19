@@ -15,6 +15,8 @@ export const defaultTheme = {
   optionUnselectedBackground: "#FFFFFF",
   iconColor: "#F3F3F3",
   error: "#ff0000",
+  disabledInputTextColor: "#545454",
+  inputTextColor: "#000000",
 };
 
 export const darkTheme = {
@@ -34,6 +36,8 @@ export const darkTheme = {
   optionUnselectedBackground: "#FFFFFF",
   iconColor: "#333333",
   error: "#ff0000",
+  disabledInputTextColor: "#BBBBBB",
+  inputTextColor: "#000000",
 };
 
 export const blueTheme = {

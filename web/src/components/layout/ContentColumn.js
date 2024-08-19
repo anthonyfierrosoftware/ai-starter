@@ -5,7 +5,11 @@ import { FlexColumn } from "./Flex";
 
 const ContentColumn = ({ children, heading, style = {}, ...props }) => {
   return (
-    <FlexColumn className="content-column" gap={24} style={{ ...style }}>
+    <FlexColumn
+      className="content-column"
+      gap={24}
+      style={{ padding: 24, ...style }}
+    >
       {heading && <Heading>{heading}</Heading>}
       {children}
     </FlexColumn>

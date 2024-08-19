@@ -6,7 +6,6 @@ const TextArea = ({
   value = "",
   onChange,
   label = "Text Label",
-  secretField = false,
   error = false,
   errorTitleOverride = false,
   isFullWidth = false,
@@ -54,7 +53,6 @@ const TextArea = ({
           padding: "4px 8px",
           height: isFullWidth ? 30 : 60,
         }}
-        type={secretField && "password"}
       />
       {errorMessage && (
         <div

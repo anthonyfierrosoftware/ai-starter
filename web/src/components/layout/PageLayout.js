@@ -13,26 +13,37 @@ const PageLayout = ({
 }) => {
   const { theme } = useThemeStore();
   return (
-    <div
+    <FlexColumn
       style={{
-        width: "100vw",
         height: "100vh",
+        width: "100vw",
+        overflowY: "hidden",
         backgroundColor: theme.backgroundColor,
       }}
+      gap={0}
     >
-      <FlexColumn style={{ height: "100%" }} gap={0}>
-        {displayNav && <Navbar />}
-        {isCentered ? (
-          <ContentContainer isCentered={isCentered}>
-            <FlexColumn style={{ paddingLeft: 16, paddingTop: 16 }}>
-              {children}
-            </FlexColumn>
-          </ContentContainer>
-        ) : (
-          children
-        )}
-      </FlexColumn>
-    </div>
+      {displayNav && <Navbar />}
+      {isCentered ? (
+        <ContentContainer
+          isCentered={isCentered}
+          style={{ backgroundColor: theme.backgroundColor }}
+        >
+          <FlexColumn
+            style={{
+              paddingLeft: 16,
+              paddingTop: 16,
+              backgroundColor: theme.backgroundColor,
+            }}
+          >
+            {children}
+          </FlexColumn>
+        </ContentContainer>
+      ) : (
+        <FlexColumn style={{ backgroundColor: theme.backgroundColor }}>
+          {children}
+        </FlexColumn>
+      )}
+    </FlexColumn>
   );
 };
 

@@ -25,7 +25,7 @@ const Home = () => {
             padding: "40px 16px",
             gap: "24px",
             overflowY: "scroll",
-            maxHeight: "calc(100vh - 48px)",
+            maxHeight: "calc(100vh - 128px)",
           }}
         >
           <ConversationsPanel
@@ -41,7 +41,7 @@ const Home = () => {
           style={{
             backgroundColor: theme.backgroundColor,
             overflowY: "scroll",
-            maxHeight: "calc(100vh - 40px)",
+            maxHeight: "calc(100vh - 88px)",
             width: "100%",
             paddingBottom: 20,
           }}

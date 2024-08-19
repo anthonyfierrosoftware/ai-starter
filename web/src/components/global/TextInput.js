@@ -61,8 +61,9 @@ const TextInput = ({
           borderRadius: "4px",
           border: `1px solid ${borderColor()}`,
           padding: "4px 8px",
+          color: disabled ? theme.disabledInputTextColor : theme.inputTextColor,
         }}
-        type={secretField && "password"}
+        type={secretField ? "password" : "text"}
       />
       {errorMessage && (
         <div style={{ width: "100%" }}>

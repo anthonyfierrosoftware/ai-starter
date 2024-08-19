@@ -11,8 +11,15 @@ const ContentCard = ({
 }) => {
   return (
     <FlexColumn
-      className="content-card"
-      style={{ alignItems: isCentered && "center" }}
+      style={{
+        alignItems: isCentered && "center",
+        padding: "32px 24px",
+        borderRadius: "16px",
+        minHeight: "400px",
+        width: "320px",
+        boxShadow: "2px 2px 8px 2px rgba(0, 0, 0, 0.12)",
+        marginTop: "18vh",
+      }}
       gap={16}
     >
       {heading && (
