@@ -167,9 +167,14 @@ class MistralWrapper(AbstractWrapper):
 
             # append the message the conversation history
             self.conversation_history.append({"role": "user", "content": message})
+            
+            # check for system instruction rebind into place
+            ch = self.conversation_history[-self.msg_limit :]
+            if not ch[0]["role"] == "system":
+                ch.insert(0, {"role": "system", "content": self.system_instructions})
 
             response, success = self.text_chat(
-                messages=self.conversation_history[-self.msg_limit :],
+                messages=ch,
                 model_id=model_id,
                 temp=temp,
                 top_p=top_p,

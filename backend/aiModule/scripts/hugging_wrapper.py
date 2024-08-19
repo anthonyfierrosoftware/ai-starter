@@ -181,7 +181,7 @@ class HuggingWrapper(AbstractWrapper):
                     {"role": "system", "content": self.system_instructions}
                 ]
             self.conversation_history.append(
-                {"role": "user", "content": f"Assistant:{message}.\n"}
+                {"role": "user", "content": f"User:{message}.\nAssitant:"}
             )
 
             temp_arr = []
@@ -207,12 +207,16 @@ class HuggingWrapper(AbstractWrapper):
             if not success:
                 return (response, False)
 
+            reply = response["text"]
+
+            # remove "assistant" and "user" from prompt
+            self.conversation_history[-1]["content"] = self.conversation_history[-1]["content"].replace("User:","").split("\nAssitant:")[0]\
+            
             # append response onto the conversation history
             self.conversation_history.append(
-                {"role": "assistant", "content": response["text"]}
+                {"role": "assistant", "content": reply}
             )
 
-            reply = response["text"]
 
             # get tokens
             temp_arr.append(AIMessage(content=reply))
