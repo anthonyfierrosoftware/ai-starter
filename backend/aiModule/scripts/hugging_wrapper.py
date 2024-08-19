@@ -181,7 +181,7 @@ class HuggingWrapper(AbstractWrapper):
                     {"role": "system", "content": self.system_instructions}
                 ]
             self.conversation_history.append(
-                {"role": "user", "content": f"{message}.\n"}
+                {"role": "user", "content": f"Assistant:{message}.\n"}
             )
 
             temp_arr = []
