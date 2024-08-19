@@ -57,7 +57,6 @@ class ChatComplete(APIView):
 
             try:
                 user = request.user
-                # user = User.objects.get(email="jordan.meyler+test@test.com")
                 data = json.loads(request.body)
                 # remove empty fields from configuration**
 
@@ -264,8 +263,6 @@ class ChatComplete(APIView):
                             chat_model=conversation.llm_config.chat_model,
                             system_instructions=conversation.llm_config.system_instructions,
                         )
-                # print("llm go")
-                # print(time.gmtime())
                 # test to see if credentials and keys are valid
                 if llm.authorize():
                     # set conversation history if it exists

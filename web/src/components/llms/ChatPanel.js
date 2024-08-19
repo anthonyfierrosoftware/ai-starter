@@ -44,53 +44,41 @@ const ChatPanel = ({ chatToLoad, conversationMode }) => {
 
   const [buttonIsLoading, setButtonIsLoading] = useState(false);
 
-  const getChatByModelId = (id) => {
-    if (id === "GPT3.5") return gpt35Chat;
-    else if (id === "GPT4.0") return gpt4Chat;
-    else if (id === "Claude") return claudeChat;
-    else if (id === "Llama") return llamaChat;
-    else if (id === "Mistral") return mistralChat;
-  };
-
-  const getChatLoadStateByModelId = (id) => {
-    if (id === "GPT3.5") return gpt35ChatLoading;
-    else if (id === "GPT4.0") return gpt4ChatLoading;
-    else if (id === "Claude") return claudeChatLoading;
-    else if (id === "Llama") return llamaChatLoading;
-    else if (id === "Mistral") return mistralChatLoading;
-  };
-
-  const getChatIdByModelId = (id) => {
-    if (id === "GPT3.5" || id === "gpt-3.5-turbo") return gpt35ChatId;
-    else if (id === "GPT4.0" || id === "gpt-4-turbo") return gpt4ChatId;
-    else if (id === "Claude" || id === "claude-3-opus-20240229")
-      return claudeChatId;
-    else if (id === "Llama" || id === "xxx") return llamaChatId;
-    else if (id === "Mistral" || id === "mistral-large-latest")
-      return mistralChatId;
-  };
-
   const setChatByModelId = (id, newChat) => {
     const newData = [...newChat];
-    if (id === "GPT3.5" || id === "gpt-3.5-turbo") setGpt35Chat([...newData]);
-    else if (id === "GPT4.0" || id === "gpt-4-turbo") setGpt4Chat([...newData]);
-    else if (id === "Claude" || id === "claude-3-opus-20240229")
+    if (id === "GPT3.5" || id === models[0].config.chat_model)
+      setGpt35Chat([...newData]);
+    else if (id === "GPT4.0" || id === models[1].config.chat_model)
+      setGpt4Chat([...newData]);
+    else if (id === "Claude" || id === models[2].config.chat_model)
       setClaudeChat([...newData]);
-    else if (id === "Llama" || id === "xxx") setLlamaChat([...newData]);
-    else if (id === "Mistral" || id === "mistral-large-latest")
+    else if (id === "Llama" || id === models[3].config.chat_model)
+      setLlamaChat([...newData]);
+    else if (id === "Mistral" || id === models[4].config.chat_model)
       setMistralChat([...newData]);
   };
 
   const setChatIdByModelId = (modelId, chatId) => {
-    if (modelId === "GPT3.5" || modelId === "gpt-3.5-turbo")
+    if (modelId === "GPT3.5" || modelId === models[0].config.chat_model) {
       setGpt35ChatId(chatId);
-    else if (modelId === "GPT4.0" || modelId === "gpt-4-turbo")
+    } else if (
+      modelId === "GPT4.0" ||
+      modelId === models[1].config.chat_model
+    ) {
       setGpt4ChatId(chatId);
-    else if (modelId === "Claude" || modelId === "claude-3-opus-20240229")
+    } else if (
+      modelId === "Claude" ||
+      modelId === models[2].config.chat_model
+    ) {
       setClaudeChatId(chatId);
-    else if (modelId === "Llama" || modelId === "xxx") setLlamaChatId(chatId);
-    else if (modelId === "Mistral" || modelId === "mistral-large-latest")
+    } else if (modelId === "Llama" || modelId === models[3].config.chat_model) {
+      setLlamaChatId(chatId);
+    } else if (
+      modelId === "Mistral" ||
+      modelId === models[4].config.chat_model
+    ) {
       setMistralChatId(chatId);
+    }
   };
 
   useEffect(() => {
@@ -131,7 +119,6 @@ const ChatPanel = ({ chatToLoad, conversationMode }) => {
         },
       },
       (res) => {
-        // console.log("sendmsg success", res);
         onSuccess(res);
       },
       (err) => {
@@ -206,8 +193,11 @@ const ChatPanel = ({ chatToLoad, conversationMode }) => {
       "Llama",
       messageValue,
       (res) => {
-        setChatByModelId("Llama", [...res?.data.data.conversation.chatHistory]);
+        setChatByModelId("Llama", [
+          ...res?.data?.data?.conversation?.chat_history,
+        ]);
         if (conversationMode === "On") {
+          console.log("convo mode on! llama", res?.data.data);
           setLlamaChatId(res?.data.data.conversation.pk);
         }
         setLlamaChatLoading(false);
@@ -315,7 +305,8 @@ const ChatPanel = ({ chatToLoad, conversationMode }) => {
         (err) => {
           setLlamaChatError(err?.data?.errors);
           setLlamaChatLoading(false);
-        }
+        },
+        conversationMode === "On" ? llamaChatId : false
       );
     } else if (modelId === "Mistal") {
       setMistralChatLoading(true);
@@ -356,21 +347,56 @@ const ChatPanel = ({ chatToLoad, conversationMode }) => {
       </FlexColumn>
 
       <FlexRow style={{ flexWrap: "wrap" }}>
-        {models.map((chat, i) => (
-          <Chat
-            chat={chat}
-            conversationMode={conversationMode === "On"}
-            conversation={getChatByModelId(chat.name)}
-            sendMultipleInput={sendMultipleInput}
-            isLoading={getChatLoadStateByModelId(chat.name)}
-            conversationId={
-              conversationMode === "On" ? getChatIdByModelId(chat.name) : false
-            }
-            key={i}
-            isMultiPrompt={isMultiPrompt}
-            sendPrompt={sendPrompt}
-          />
-        ))}
+        <Chat
+          chat={models[0]}
+          conversationMode={conversationMode === "On"}
+          conversation={gpt35Chat}
+          sendMultipleInput={sendMultipleInput}
+          isLoading={gpt35ChatLoading}
+          conversationId={gpt35ChatId}
+          isMultiPrompt={isMultiPrompt}
+          sendPrompt={sendPrompt}
+        />
+        <Chat
+          chat={models[1]}
+          conversationMode={conversationMode === "On"}
+          conversation={gpt4Chat}
+          sendMultipleInput={sendMultipleInput}
+          isLoading={gpt4ChatLoading}
+          conversationId={gpt4ChatId}
+          isMultiPrompt={isMultiPrompt}
+          sendPrompt={sendPrompt}
+        />
+        <Chat
+          chat={models[2]}
+          conversationMode={conversationMode === "On"}
+          conversation={claudeChat}
+          sendMultipleInput={sendMultipleInput}
+          isLoading={claudeChatLoading}
+          conversationId={claudeChatId}
+          isMultiPrompt={isMultiPrompt}
+          sendPrompt={sendPrompt}
+        />
+        <Chat
+          chat={models[3]}
+          conversationMode={conversationMode === "On"}
+          conversation={llamaChat}
+          sendMultipleInput={sendMultipleInput}
+          isLoading={llamaChatLoading}
+          conversationId={llamaChatId}
+          isMultiPrompt={isMultiPrompt}
+          sendPrompt={sendPrompt}
+        />
+        <Chat
+          chat={models[4]}
+          conversationMode={conversationMode === "On"}
+          conversation={mistralChat}
+          sendMultipleInput={sendMultipleInput}
+          isLoading={mistralChatLoading}
+          conversationId={mistralChatId}
+          isMultiPrompt={isMultiPrompt}
+          sendPrompt={sendPrompt}
+        />
       </FlexRow>
 
       <div
@@ -461,7 +487,7 @@ const ChatMessages = ({ conversation }) => {
   return (
     <FlexColumn
       style={{
-        height: "80px",
+        height: "300px",
         overflowY: "auto",
         // border: "1px solid #B6B6B6",
         padding: "4px",
@@ -477,10 +503,15 @@ const ChatMessages = ({ conversation }) => {
 };
 
 const ChatMessage = ({ message }) => {
-  const { theme } = useThemeStore()
+  const { theme } = useThemeStore();
   return (
     <div>
-      <BodyText style={{ fontWeight: message.role !== "user" && 800, color: theme.secondaryTextColor }}>
+      <BodyText
+        style={{
+          fontWeight: message.role !== "user" && 800,
+          color: theme.secondaryTextColor,
+        }}
+      >
         {message.content}
       </BodyText>
     </div>

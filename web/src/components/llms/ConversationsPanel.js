@@ -6,10 +6,13 @@ import { useAuthStore, useThemeStore } from "../../state/stores";
 import RadioCheckbox from "../global/RadioInput";
 import { formatDate } from "../../utils/formatDate";
 
-const ConversationsPanel = ({ onConversationSelected }) => {
+const ConversationsPanel = ({
+  onConversationSelected,
+  setConversationMode,
+  conversationMode,
+}) => {
   const [fetchedConversations, setFetchedConversations] = useState([]);
 
-  const [conversationMode, setconversationMode] = useState("Off");
   const authState = useAuthStore((state) => state.auth);
   const apiHeaders = { Authorization: `Token ${authState.token}` };
 
@@ -41,7 +44,7 @@ const ConversationsPanel = ({ onConversationSelected }) => {
       </BodyText>
       <RadioCheckbox
         options={["Off", "On"]}
-        onChange={(data) => setconversationMode(data)}
+        onChange={(data) => setConversationMode(data)}
         defaultValue={"Off"}
         isCondensed={true}
       />
@@ -76,7 +79,6 @@ const ConversationCard = ({
 }) => {
   const [hovered, setHovered] = useState(false);
   const { theme } = useThemeStore();
-
   return (
     <FlexColumn
       style={{
@@ -84,7 +86,7 @@ const ConversationCard = ({
           ? theme.secondaryActionHoverColor
           : theme.secondaryActionColor,
         borderRadius: 4,
-        padding: "4px 0",
+        padding: 4,
         cursor: "pointer",
         flex: 1,
         minWidth: 200,
@@ -99,7 +101,10 @@ const ConversationCard = ({
       }}
     >
       <BodyText style={{ fontSize: 14, color: theme.secondaryTextColor }}>
-        <b>{model}</b> {name}
+        <b>{conversationData.llm_config.chat_model}</b>
+      </BodyText>
+      <BodyText style={{ fontSize: 14, color: theme.secondaryTextColor }}>
+        {name}
       </BodyText>
       <FlexColumn gap={2}>
         <BodyText style={{ fontSize: 11, color: theme.secondaryTextColor }}>
@@ -107,6 +112,15 @@ const ConversationCard = ({
         </BodyText>
         <BodyText style={{ fontSize: 11, color: theme.secondaryTextColor }}>
           Last updated {formatDate(dateUpdated)}
+        </BodyText>
+        <BodyText style={{ fontSize: 11, color: theme.secondaryTextColor }}>
+          Token Spend:{" "}
+          {conversationData.claude_tokens ||
+            conversationData.gpt3_tokens ||
+            conversationData.gpt4_tokens ||
+            conversationData.llama2_tokens ||
+            conversationData.mistral_tokens ||
+            conversationData.hugging_other_tokens}
         </BodyText>
       </FlexColumn>
       {/* <FlexRow style={{ justifyContent: "space-between" }}> */}
