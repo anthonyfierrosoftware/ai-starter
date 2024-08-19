@@ -19,7 +19,6 @@ const ConversationsPanel = ({
   useEffect(() => {
     fetchConversations(
       (res) => {
-        // console.log("convo fetch success", res);
         const newData = [...res.data.data];
         setFetchedConversations([...newData]);
       },

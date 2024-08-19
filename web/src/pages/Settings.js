@@ -16,11 +16,10 @@ const Settings = () => {
   useEffect(() => {
     fetchProfileData(
       (res) => {
-        console.log("res", res);
         setFetchedProfile(res?.data?.data?.userData);
       },
       (err) => {
-        console.log("err", err);
+        console.log("profile data fetch error", err);
       },
       apiHeaders
     );

@@ -26,12 +26,11 @@ const ChangePassword = ({ onSuccess = () => {} }) => {
         password2: confirmPassword,
       },
       (res) => {
-        console.log("change pass res", res);
         onSuccess();
         setIsLoading(false);
       },
       (err) => {
-        console.log("change pass err", err);
+        console.log("change password error", err);
         setErrorState(err?.response?.data?.data?.errors);
         setIsLoading(false);
       },

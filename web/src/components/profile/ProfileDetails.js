@@ -28,11 +28,10 @@ const ProfileDetails = ({ userData }) => {
       { first_name: firstName, last_name: lastName },
       (res) => {
         setIsLoading(false);
-        console.log("res", res);
       },
       (err) => {
         setIsLoading(false);
-        console.log("err");
+        console.log("update profile error");
       },
       apiHeaders
     );

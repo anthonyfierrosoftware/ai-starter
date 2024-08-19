@@ -18,10 +18,10 @@ const apiPost = async (
       }
     );
 
-    console.log("axios res is", res);
+    // console.log("axios response", res);
     onSuccess(res);
   } catch (err) {
-    console.log("err", err);
+    console.log("axios error", err);
     onError(err);
   }
 };
@@ -39,10 +39,10 @@ const apiGet = async (
       },
     });
 
-    console.log("axios res is", res);
+    // console.log("axios response", res);
     onSuccess(res);
   } catch (err) {
-    console.log("err", err);
+    console.log("axios error", err);
     onError(err);
   }
 };
@@ -65,10 +65,10 @@ const apiPut = async (
       }
     );
 
-    console.log("axios res is", res);
+    // console.log("axios response", res);
     onSuccess(res);
   } catch (err) {
-    console.log("err", err);
+    console.log("axios error", err);
     onError(err);
   }
 };

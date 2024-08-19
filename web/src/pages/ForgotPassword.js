@@ -19,12 +19,11 @@ const ForgotPassword = () => {
     resetPassword(
       email,
       (res) => {
-        console.log("res", res);
         setIsLoading(false);
         setIsReset(true);
       },
       (err) => {
-        console.log("err", err);
+        console.log("reset password error", err);
         setIsLoading(false);
         setErrorState([...err?.response?.data?.data?.errors]);
       }

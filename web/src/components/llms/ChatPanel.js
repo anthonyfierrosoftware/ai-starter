@@ -82,12 +82,6 @@ const ChatPanel = ({ chatToLoad, conversationMode }) => {
   };
 
   useEffect(() => {
-    // console.log(
-    //   "chat to load useeffect",
-    //   chatToLoad,
-    //   chatToLoad.llm_config?.chat_model
-    //   chatToLoad.pk
-    // );
     if (chatToLoad) {
       setChatByModelId(
         chatToLoad.llm_config?.chat_model,
@@ -197,7 +191,6 @@ const ChatPanel = ({ chatToLoad, conversationMode }) => {
           ...res?.data?.data?.conversation?.chat_history,
         ]);
         if (conversationMode === "On") {
-          console.log("convo mode on! llama", res?.data.data);
           setLlamaChatId(res?.data.data.conversation.pk);
         }
         setLlamaChatLoading(false);
@@ -308,7 +301,7 @@ const ChatPanel = ({ chatToLoad, conversationMode }) => {
         },
         conversationMode === "On" ? llamaChatId : false
       );
-    } else if (modelId === "Mistal") {
+    } else if (modelId === "Mistral") {
       setMistralChatLoading(true);
       sendPrompt(
         "Mistral",
