@@ -19,23 +19,32 @@ const Home = () => {
         {/* This is the sidebar */}
         <FlexColumn
           style={{
-            width: "248px",
-            height: "calc(100vh - 48px)",
+            // width: "248px",
+            height: "100%",
             backgroundColor: theme.secondaryBackground,
             padding: "40px 16px",
             gap: "24px",
-            overflowY: "auto",
+            overflowY: "scroll",
+            maxHeight: "calc(100vh - 48px)",
           }}
         >
           <ConversationsPanel
             onConversationSelected={(conversation) =>
               setChatToLoad(conversation)
             }
+            setConversationMode={setConversationMode}
+            conversationMode={conversationMode}
           />
         </FlexColumn>
         <ContentColumn
           heading={"Chat Panel"}
-          style={{ backgroundColor: theme.backgroundColor }}
+          style={{
+            backgroundColor: theme.backgroundColor,
+            overflowY: "scroll",
+            maxHeight: "calc(100vh - 40px)",
+            width: "100%",
+            paddingBottom: 20,
+          }}
         >
           <ChatPanel
             chatToLoad={chatToLoad}
